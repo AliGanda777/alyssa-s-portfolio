@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gojo Satoru — Netflix Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+  <style>
+    :root {
+      --red: #e50914;
+      --dark: #141414;
+      --darker: #0a0a0a;
+      --card-bg: #181818;
+      --stroke: #2d2d2d;
+      --text-muted: #999;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body {
+      background: var(--dark);
+      color: #fff;
+      font-family: "Inter", "Helvetica Neue", sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video, iframe { max-width: 100%; height: auto; }
+    .billboard-bg iframe { max-width: none; height: 100vh; }
+
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 4%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+    }
+    .top-back {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color 200ms ease;
+    }
+    .top-back:hover { color: #fff; }
+    .top-nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .top-nav-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: color 200ms ease;
+    }
+    .top-nav-links a:hover { color: #fff; }
+    .top-socials {
+      display: flex;
+      gap: 16px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .top-socials a {
+      color: rgba(255,255,255,0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: color 300ms ease, border-color 300ms ease, background 300ms ease, transform 300ms ease;
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: socialAppear 0.6s ease forwards;
+    }
+    .top-socials a:nth-child(1) { animation-delay: 0.8s; }
+    .top-socials a:nth-child(2) { animation-delay: 1.1s; }
+    .top-socials a:nth-child(3) { animation-delay: 1.4s; }
+    .top-socials a:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+    .top-socials svg { width: 16px; height: 16px; }
+    @keyframes socialAppear {
+      0%   { opacity: 0; transform: translateY(-10px) scale(0.8); }
+      60%  { opacity: 1; transform: translateY(2px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .nf-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 0 4%;
+      height: 68px;
+      background: transparent;
+      transition: background 400ms ease;
+    }
+    .nf-nav.scrolled {
+      background: rgba(20,20,20,0.97);
+    }
+    .nf-logo {
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nf-logo svg { height: 28px; width: auto; }
+    .nf-nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .nf-nav-links a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 200ms ease;
+    }
+    .nf-nav-links a:hover { color: #b3b3b3; }
+    .nf-nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nf-nav-right a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 3px;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+    .nf-nav-right a:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
+
+    .billboard {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .billboard-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    .billboard-bg iframe {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 177.77vh; height: 100vh;
+      min-width: 100vw; min-height: 56.25vw;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      border: none;
+      max-width: none;
+    }
+    .billboard-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(0deg, var(--dark) 0%, rgba(20,20,20,0.4) 40%, transparent 70%),
+        linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(20,20,20,0.4) 40%, transparent 70%);
+    }
+    .billboard-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 0 80px 4%;
+      max-width: 600px;
+    }
+    .billboard-title {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      letter-spacing: 4px;
+      line-height: 0.95;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+    .billboard-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.5);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: 1px;
+      margin-bottom: 0;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+
+    .gallery-section {
+      position: relative;
+      height: 100vh;
+      min-height: 500px;
+      padding: 300px 0 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 14px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(123,45,255,0.15), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 30%, rgba(30,144,255,0.1), transparent 60%),
+        linear-gradient(135deg, #08001a 0%, #0d0028 25%, #140033 50%, #0a001f 75%, #050010 100%);
+    }
+    .gallery-row {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+    }
+    .gallery-row.move-left {
+      animation: scrollLeft 30s linear infinite;
+    }
+    .gallery-row.move-right {
+      animation: scrollRight 30s linear infinite;
+    }
+    @keyframes scrollLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes scrollRight {
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .gallery-box {
+      width: 280px;
+      height: 175px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-row:hover { animation-play-state: paused; }
+
+    .gallery-info-box {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+      max-width: 300px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .gallery-info-box h3 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 36px;
+      letter-spacing: 5px;
+      color: #fff;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .gallery-info-box p {
+      font-size: 10px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+    }
+
+    @media (max-width: 480px) {
+      .gallery-section { min-height: 400px; }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar { padding: 12px 4%; flex-wrap: wrap; gap: 10px; }
+      .top-back { font-size: 11px; letter-spacing: 1.5px; min-height: 40px; display: inline-flex; align-items: center; }
+      .top-nav-links { gap: 14px; }
+      .top-nav-links a { font-size: 11px; letter-spacing: 0.5px; }
+      .top-socials { gap: 10px; position: static; transform: none; }
+      .top-socials a { width: 40px; height: 40px; }
+      .billboard { min-height: 500px; }
+      .billboard-content { padding: 0 0 60px 5%; max-width: 100%; }
+      .billboard-title { font-size: clamp(2.5rem, 12vw, 4.5rem); letter-spacing: 2px; }
+      .billboard-desc { font-size: 11px; letter-spacing: 0.5px; }
+      .gallery-section { padding: 200px 0 0; gap: 10px; }
+      .gallery-row { gap: 10px; }
+      .gallery-box { width: 200px; height: 125px; }
+      .gallery-info-box { top: 16px; left: 16px; right: 16px; max-width: calc(100% - 32px); padding: 14px; }
+      .gallery-info-box h3 { font-size: 28px; letter-spacing: 3px; margin-bottom: 8px; }
+      .gallery-info-box p { font-size: 10px; line-height: 1.6; }
+      .nf-footer { padding: 30px 4%; text-align: center; }
+    }
+
+    @media (max-width: 520px) {
+      .top-bar { padding: 10px 4%; }
+      .top-nav-links { gap: 10px; }
+      .top-nav-links a { font-size: 10px; }
+      .billboard { min-height: 450px; height: auto; padding-top: 120px; }
+      .billboard-title { font-size: clamp(2.2rem, 13vw, 3.6rem); letter-spacing: 1.5px; }
+      .billboard-content { padding: 0 0 40px 5%; }
+      .gallery-section { padding: 160px 0 0; min-height: 380px; }
+      .gallery-box { width: 170px; height: 106px; }
+      .gallery-info-box { padding: 12px; top: 12px; left: 12px; right: 12px; }
+      .gallery-info-box h3 { font-size: 24px; letter-spacing: 2px; }
+      .gallery-info-box p { font-size: 9px; }
+    }
+
+    @media (max-width: 380px) {
+      .top-nav-links { gap: 8px; }
+      .top-nav-links a { font-size: 9px; letter-spacing: 0.5px; }
+      .top-socials a { width: 36px; height: 36px; }
+      .billboard { min-height: 400px; }
+      .billboard-title { font-size: clamp(1.9rem, 13vw, 3rem); letter-spacing: 1px; }
+      .billboard-desc { font-size: 10px; }
+      .gallery-box { width: 140px; height: 88px; }
+      .gallery-info-box h3 { font-size: 20px; letter-spacing: 1.5px; }
+      .gallery-info-box p { font-size: 9px; line-height: 1.5; }
+      .nf-footer-copy { font-size: 10px; }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .billboard { min-height: 360px; height: auto; padding-top: 80px; }
+      .billboard-content { padding: 0 0 30px 4%; }
+      .billboard-title { font-size: clamp(2rem, 7vw, 3.5rem); letter-spacing: 2px; }
+      .billboard-desc { font-size: 10px; }
+      .gallery-section { padding: 100px 0 0; min-height: 320px; height: auto; }
+      .gallery-box { width: 180px; height: 110px; }
+      .gallery-info-box { padding: 10px; top: 10px; left: 10px; max-width: 240px; }
+      .gallery-info-box h3 { font-size: 22px; margin-bottom: 6px; }
+      .gallery-info-box p { font-size: 9px; line-height: 1.5; }
+      .top-bar { padding: 8px 4%; }
+    }
+
+    .nf-footer {
+      padding: 40px 4%;
+      text-align: right;
+    }
+    .nf-footer-copy {
+      font-size: 11px;
+      color: #737373;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-bar">
+    <a href="index.html" class="top-back">← Portfolio</a>
+    <div class="top-nav-links">
+      <a href="porsche-design.html">Porsche</a>
+      <a href="email-design.html">Email</a>
+      <a href="gojo-edit.html">Gojo Edit</a>
+    </div>
+    <div class="top-socials">
+      <a href="https://www.linkedin.com/in/alyssa-cayabyab-5094003a9/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.28 2.28 0 1 1 0 4.56 2.28 2.28 0 0 1 0-4.56Zm.02 5.95H2V21h3V9.45Zm7 0h-3v11.55h3V14.5c0-2.72 3.5-2.94 3.5 0V21h3V13.2c0-5.34-5.73-5.14-6.5-2.52V9.45Z"/></svg>
+      </a>
+      <a href="https://github.com/" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.86 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.11-1.44-1.11-1.44-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.9 1.55 2.36 1.1 2.94.84.09-.65.35-1.1.64-1.35-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.04-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85.004 1.71.11 2.51.32 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.65.7 1.04 1.59 1.04 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .26.18.58.69.48A10.007 10.007 0 0 0 22 12c0-5.52-4.48-10-10-10Z"/></svg>
+      </a>
+      <a href="https://mail.google.com/mail/u/1/#inbox?compose=new" target="_blank" rel="noreferrer noopener" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6.4C3 5.08 4.08 4 5.4 4h13.2C19.92 4 21 5.08 21 6.4v11.2c0 1.32-1.08 2.4-2.4 2.4H5.4A2.4 2.4 0 0 1 3 17.6V6.4Zm1.8.3 7.2 5.1 7.2-5.1V6.4l-7.2 5.1L4.8 6.4v.3Z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <section class="billboard">
+    <div class="billboard-bg">
+      <iframe
+        src="https://www.youtube.com/embed/IOmub3uAJHg?autoplay=1&mute=1&loop=1&playlist=IOmub3uAJHg&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&playsinline=1&fs=0"
+        title="Gojo Satoru"
+        allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+    <div class="billboard-vignette"></div>
+    <div class="billboard-content">
+      <h1 class="billboard-title">GOJO SATORU</h1>
+      <p class="billboard-desc">"Throughout Heaven and Earth, I alone am the Honored One."</p>
+    </div>
+  </section>
+
+  <div class="gallery-section" id="top10">
+    <div class="gallery-info-box">
+      <h3>GOJO</h3>
+      <p>Gojo Satoru is known as the strongest jujutsu sorcerer, a figure who towers above all others in his world.<br><br>His declaration, "Throughout heaven and earth, I alone am the honored one," reflects both his unmatched confidence and the reality of his power.<br><br>With the rare combination of the Six Eyes and the Limitless technique, he bends space itself, making him untouchable and nearly invincible.</p>
+    </div>
+
+    <div class="gallery-row move-right">
+      <div class="gallery-box"><img src="https://images.wallpapersden.com/image/download/satoru-gojo-cool-jujutsu-kaisen_bGtlamyUmZqaraWkpJRobWllrWdma2U.jpg" alt="Gojo cool" /></div>
+      <div class="gallery-box"><img src="https://i.pinimg.com/736x/2d/f4/0a/2df40a6aac44a771fca5602db3bc22b5.jpg" alt="Gojo art" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-black-3840x2160-14684.png" alt="Gojo dark" /></div>
+      <div class="gallery-box"><img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2024/09/gojo-smile.png?w=1600&h=1200&fit=crop" alt="Gojo smile" /></div>
+      <div class="gallery-box"><img src="https://images.timesnownews.com/photo/msid-153527353/153527353.jpg" alt="Gojo eyes" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-jjk-2560x1440-19527.png" alt="Gojo JJK" /></div>
+      <div class="gallery-box"><img src="https://i.pinimg.com/736x/b5/62/83/b56283f6ab7088ea3cad0e55cad33d16.jpg" alt="Gojo pose" /></div>
+      <div class="gallery-box"><img src="https://images.alphacoders.com/128/thumb-1920-1283140.png" alt="Gojo power" /></div>
+      <div class="gallery-box"><img src="https://i.ytimg.com/vi/yox2Yz4Ni2o/maxresdefault.jpg" alt="Gojo scene" /></div>
+      <div class="gallery-box"><img src="https://images.wallpapersden.com/image/download/satoru-gojo-cool-jujutsu-kaisen_bGtlamyUmZqaraWkpJRobWllrWdma2U.jpg" alt="Gojo cool" /></div>
+      <div class="gallery-box"><img src="https://i.pinimg.com/736x/2d/f4/0a/2df40a6aac44a771fca5602db3bc22b5.jpg" alt="Gojo art" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-black-3840x2160-14684.png" alt="Gojo dark" /></div>
+      <div class="gallery-box"><img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2024/09/gojo-smile.png?w=1600&h=1200&fit=crop" alt="Gojo smile" /></div>
+      <div class="gallery-box"><img src="https://images.timesnownews.com/photo/msid-153527353/153527353.jpg" alt="Gojo eyes" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-jjk-2560x1440-19527.png" alt="Gojo JJK" /></div>
+      <div class="gallery-box"><img src="https://i.pinimg.com/736x/b5/62/83/b56283f6ab7088ea3cad0e55cad33d16.jpg" alt="Gojo pose" /></div>
+      <div class="gallery-box"><img src="https://images.alphacoders.com/128/thumb-1920-1283140.png" alt="Gojo power" /></div>
+      <div class="gallery-box"><img src="https://i.ytimg.com/vi/yox2Yz4Ni2o/maxresdefault.jpg" alt="Gojo scene" /></div>
+    </div>
+
+    <div class="gallery-row move-left">
+      <div class="gallery-box"><img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2024/07/satoru-gojo-standing.jpg?w=1200&h=675&fit=crop" alt="Gojo standing" /></div>
+      <div class="gallery-box"><img src="https://images2.alphacoders.com/114/thumb-1920-1143709.jpg" alt="Gojo blindfold" /></div>
+      <div class="gallery-box"><img src="https://wallpapers.com/images/hd/jujutsu-kaisen-gojo-domain-expansion-4jbr68esfk7f1cb8.webp" alt="Gojo domain" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-blue-3840x2160-16951.jpg" alt="Gojo six eyes" /></div>
+      <div class="gallery-box"><img src="https://images.wallpapersden.com/image/download/satoru-gojo-cool-jujutsu-kaisen_bGtlamyUmZqaraWkpJRobWllrWdma2U.jpg" alt="Gojo cool 2" /></div>
+      <div class="gallery-box"><img src="https://i.pinimg.com/736x/2d/f4/0a/2df40a6aac44a771fca5602db3bc22b5.jpg" alt="Gojo art 2" /></div>
+      <div class="gallery-box"><img src="https://images.timesnownews.com/photo/msid-153527353/153527353.jpg" alt="Gojo eyes 2" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-black-3840x2160-14684.png" alt="Gojo dark 2" /></div>
+      <div class="gallery-box"><img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2024/09/gojo-smile.png?w=1600&h=1200&fit=crop" alt="Gojo smile 2" /></div>
+      <div class="gallery-box"><img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2024/07/satoru-gojo-standing.jpg?w=1200&h=675&fit=crop" alt="Gojo standing" /></div>
+      <div class="gallery-box"><img src="https://images2.alphacoders.com/114/thumb-1920-1143709.jpg" alt="Gojo blindfold" /></div>
+      <div class="gallery-box"><img src="https://wallpapers.com/images/hd/jujutsu-kaisen-gojo-domain-expansion-4jbr68esfk7f1cb8.webp" alt="Gojo domain" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-blue-3840x2160-16951.jpg" alt="Gojo six eyes" /></div>
+      <div class="gallery-box"><img src="https://images.wallpapersden.com/image/download/satoru-gojo-cool-jujutsu-kaisen_bGtlamyUmZqaraWkpJRobWllrWdma2U.jpg" alt="Gojo cool 2" /></div>
+      <div class="gallery-box"><img src="https://i.pinimg.com/736x/2d/f4/0a/2df40a6aac44a771fca5602db3bc22b5.jpg" alt="Gojo art 2" /></div>
+      <div class="gallery-box"><img src="https://images.timesnownews.com/photo/msid-153527353/153527353.jpg" alt="Gojo eyes 2" /></div>
+      <div class="gallery-box"><img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-black-3840x2160-14684.png" alt="Gojo dark 2" /></div>
+      <div class="gallery-box"><img src="https://static0.srcdn.com/wordpress/wp-content/uploads/2024/09/gojo-smile.png?w=1600&h=1200&fit=crop" alt="Gojo smile 2" /></div>
+    </div>
+  </div>
+
+  <footer class="nf-footer">
+    <div class="nf-footer-copy">
+      Design concept by Alyssa Nicole Cayabyab.<br>
+      Tribute to Jujutsu Kaisen by Gege Akutami, animated by MAPPA.<br>
+      Not affiliated with any studio or creator. All characters belong to their respective owners.
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nf-nav');
+    window.addEventListener('scroll', () => {
+      if (nav) {
+        nav.classList.toggle('scrolled', window.scrollY > 10);
+      }
+    });
+  </script>
+</body>
+</html>

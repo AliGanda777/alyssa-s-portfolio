@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CarePath | Medical UI/UX Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f3faff;
+      --surface: #ffffff;
+      --ink: #143a4a;
+      --ink-soft: #587482;
+      --line: #cfe4ee;
+      --brand: #19b7d8;
+      --brand-deep: #0f6f8a;
+      --accent: #ff8a5b;
+      --mint: #e8f7fd;
+      --success: #2a9b6f;
+      --shadow: 0 16px 34px rgba(12, 86, 110, 0.14);
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 10%, rgba(25, 183, 216, 0.2), transparent 34%),
+        radial-gradient(circle at 90% 88%, rgba(255, 138, 91, 0.2), transparent 30%),
+        var(--bg);
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    img, video, iframe {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container { width: min(100% - 30px, var(--max)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(243, 250, 255, 0.84);
+      border-bottom: 1px solid rgba(207, 228, 238, 0.9);
+    }
+
+    .topbar-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--ink);
+      font-family: "Archivo", sans-serif;
+      font-weight: 700;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(140deg, var(--brand), var(--brand-deep));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.82rem;
+      box-shadow: 0 8px 16px rgba(15, 111, 138, 0.34);
+    }
+
+    .back {
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .hero { padding: 56px 0 26px; }
+
+    .hero-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(25, 183, 216, 0.15);
+      color: var(--brand-deep);
+      border-radius: 999px;
+      padding: 7px 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: "Archivo", sans-serif;
+      font-size: clamp(1.9rem, 5vw, 3.6rem);
+      line-height: 0.96;
+      max-width: 14ch;
+      margin-bottom: 10px;
+    }
+
+    .lead {
+      max-width: 58ch;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+    }
+
+    .pill {
+      border: 1px solid #b6dceb;
+      background: #fff;
+      color: var(--ink-soft);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .search-shell {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      border-radius: 20px;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mode-toggle {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 5px;
+      width: min(320px, 100%);
+    }
+
+    .mode-toggle button {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .mode-toggle button.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .search-input {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 0.93rem;
+      width: 100%;
+      outline: none;
+      color: var(--ink);
+      background: #fafeff;
+    }
+
+    .search-input:focus {
+      border-color: #8ecfe0;
+      box-shadow: 0 0 0 3px rgba(17, 169, 199, 0.16);
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 11px 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      box-shadow: 0 9px 18px rgba(11, 120, 144, 0.28);
+    }
+
+    .layout {
+      padding: 20px 0 58px;
+    }
+
+    .layout-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .panel h2 {
+      font-family: "Archivo", sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .panel-sub {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    .specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .spec-btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f7fcff;
+      color: var(--ink-soft);
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .spec-btn.active {
+      border-color: #95d4e3;
+      color: var(--brand-deep);
+      background: #ecfaff;
+    }
+
+    .doctor-list {
+      display: grid;
+      gap: 10px;
+      max-height: 460px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .doctor-card {
+      border: 1px solid #d7e7ed;
+      border-radius: 12px;
+      padding: 11px;
+      background: #fff;
+      display: grid;
+      gap: 8px;
+    }
+
+    .doctor-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .doctor-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .doctor-meta {
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #2e7158;
+      background: #eaf8f1;
+      border: 1px solid #b8e5cc;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .doctor-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .doctor-actions small {
+      color: var(--ink-soft);
+      font-size: 0.78rem;
+    }
+
+    .book {
+      border: 0;
+      border-radius: 9px;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .wireframe {
+      border: 2px solid #9ed0dd;
+      border-radius: 22px;
+      background: #f8fcff;
+      padding: 12px;
+      min-height: 530px;
+      display: grid;
+      grid-template-rows: auto auto auto 1fr auto;
+      gap: 10px;
+    }
+
+    .notch {
+      width: 38%;
+      height: 7px;
+      border-radius: 999px;
+      background: #b8d9e3;
+      margin: 0 auto;
+    }
+
+    .wf-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .wf-stepper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .step-btn {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      color: var(--ink-soft);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 7px 4px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .step-btn.active {
+      color: var(--brand-deep);
+      background: #ebf9fd;
+      border-color: #8ccde0;
+    }
+
+    .wf-canvas {
+      border: 1px dashed #9dcedd;
+      border-radius: 13px;
+      background: #ffffff;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .wf-block,
+    .wf-line,
+    .wf-chip,
+    .wf-pill {
+      background: #dcf0f7;
+      border-radius: 9px;
+    }
+
+    .wf-line { height: 9px; width: 74%; }
+    .wf-line.short { width: 46%; }
+    .wf-block { height: 68px; }
+    .wf-chip { height: 30px; border-radius: 999px; }
+    .wf-pill { height: 36px; border-radius: 10px; }
+
+    .wf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .wf-note {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      min-height: 38px;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .legend .pill-item {
+      border: 1px solid var(--line);
+      background: #f9fdff;
+      border-radius: 10px;
+      padding: 9px;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 22px 0 34px;
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-head { flex-direction: column; align-items: start; }
+      .layout-wrap { grid-template-columns: 1fr; }
+      .wireframe { min-height: 460px; }
+    }
+
+    @media (max-width: 768px) {
+      .container { width: min(100% - 24px, var(--max)); }
+      .hero { padding: 40px 0 20px; }
+      .layout { padding: 16px 0 44px; }
+      .panel { padding: 14px; border-radius: 16px; }
+      .panel h2 { font-size: 1.1rem; }
+      .search-shell { padding: 12px; border-radius: 16px; }
+      .mode-toggle { width: 100%; }
+      .mode-toggle button { padding: 11px 8px; min-height: 40px; }
+      .btn { padding: 12px 14px; min-height: 44px; }
+      .spec-btn { padding: 10px 12px; min-height: 40px; }
+      .step-btn { padding: 10px 4px; min-height: 40px; }
+      .book { padding: 10px 14px; min-height: 40px; }
+      .search-input { padding: 13px; min-height: 44px; }
+      .doctor-list { max-height: none; }
+      .wireframe { min-height: 420px; }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner { min-height: 64px; gap: 8px; }
+      .brand { font-size: 0.92rem; }
+      .search-row { grid-template-columns: 1fr; }
+      .wf-stepper { grid-template-columns: 1fr 1fr; }
+      .legend { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 20px, var(--max)); }
+      .hero { padding: 28px 0 16px; }
+      .layout { padding: 12px 0 36px; }
+      .hero-head { gap: 12px; margin-bottom: 14px; }
+      .panel { padding: 12px; border-radius: 14px; gap: 10px; }
+      .panel h2 { font-size: 1.02rem; }
+      .panel-sub { font-size: 0.85rem; }
+      .search-shell { padding: 10px; border-radius: 14px; gap: 8px; }
+      .eyebrow { font-size: 0.68rem; padding: 6px 10px; }
+      .lead { font-size: 0.92rem; }
+      .pill { font-size: 0.76rem; padding: 8px 10px; white-space: normal; }
+      .brand { font-size: 0.88rem; gap: 8px; }
+      .badge { width: 30px; height: 30px; font-size: 0.76rem; border-radius: 9px; }
+      .back { font-size: 0.78rem; }
+      .specialties { gap: 6px; }
+      .spec-btn { font-size: 0.78rem; padding: 9px 10px; }
+      .doctor-card { padding: 10px; }
+      .doctor-top { flex-wrap: wrap; gap: 8px; }
+      .doctor-name { font-size: 0.92rem; }
+      .doctor-meta { font-size: 0.78rem; }
+      .availability { font-size: 0.72rem; padding: 4px 7px; }
+      .wireframe { padding: 10px; min-height: 380px; gap: 8px; border-radius: 18px; }
+      .wf-title { font-size: 0.88rem; }
+      .step-btn { font-size: 0.7rem; padding: 9px 3px; }
+      .wf-block { height: 56px; }
+      .wf-note { font-size: 0.82rem; }
+      .legend .pill-item { font-size: 0.76rem; padding: 8px; }
+      .footer { padding: 18px 0 28px; font-size: 0.78rem; }
+    }
+
+    @media (max-width: 380px) {
+      .container { width: min(100% - 16px, var(--max)); }
+      .topbar-inner { min-height: 56px; gap: 6px; }
+      .brand { font-size: 0.82rem; }
+      .badge { width: 28px; height: 28px; font-size: 0.72rem; }
+      .back { font-size: 0.74rem; }
+      .hero { padding: 22px 0 12px; }
+      .eyebrow { font-size: 0.64rem; letter-spacing: 0.06em; }
+      .lead { font-size: 0.88rem; }
+      .panel { padding: 10px; }
+      .panel h2 { font-size: 0.98rem; }
+      .wf-stepper { grid-template-columns: 1fr; }
+      .step-btn { font-size: 0.74rem; padding: 10px 6px; }
+      .wireframe { min-height: 340px; }
+      .mode-toggle button { font-size: 0.78rem; }
+      .btn { font-size: 0.84rem; padding: 12px; }
+      .search-input { font-size: 0.88rem; }
+      .doctor-actions { flex-wrap: wrap; }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero { padding: 20px 0 12px; }
+      .layout { padding: 10px 0 24px; }
+      .topbar-inner { min-height: 52px; }
+      h1 { font-size: clamp(1.4rem, 3.5vw, 2.2rem); line-height: 1.05; }
+      .lead { font-size: 0.86rem; }
+      .hero-head { margin-bottom: 10px; }
+      .layout-wrap { grid-template-columns: 1.1fr 0.9fr; }
+      .wireframe { min-height: 300px; }
+      .doctor-list { max-height: 320px; }
+      .footer { padding: 14px 0 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="figma-wireframe.html">
+        <span class="badge">CP</span>
+        CarePath Medical UX
+      </a>
+      <a class="back" href="index.html">Back to Portfolio</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-head">
+          <div>
+            <span class="eyebrow">View Project -> UI/UX | Mobile App Wireframe</span>
+            <h1>Find the right doctor, fast and stress-free.</h1>
+            <p class="lead">Reference-inspired by Philippine telehealth experiences, but fully restructured into an original CarePath flow: search-first discovery, filtered doctor cards, and mobile wireframe state transitions.</p>
+          </div>
+          <span class="pill">Color Direction: Medical Aqua + Warm Orange</span>
+        </div>
+
+        <div class="search-shell">
+          <div class="mode-toggle" role="tablist" aria-label="Consult mode">
+            <button type="button" class="mode-btn active" data-mode="all">All Consults</button>
+            <button type="button" class="mode-btn" data-mode="online">Online Now</button>
+          </div>
+          <div class="search-row">
+            <input id="search-input" class="search-input" type="text" placeholder="Search specialty, condition, hospital, or doctor" />
+            <button id="search-btn" class="btn btn-primary" type="button">Find Doctor</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="container layout-wrap">
+        <section class="panel">
+          <h2>Top Specialties</h2>
+          <p class="panel-sub">Tap a specialty to filter results. This interaction simulates real patient browsing behavior.</p>
+
+          <div class="specialties" id="specialties"></div>
+
+          <h2 style="margin-top: 6px;">Available Doctors</h2>
+          <div id="doctor-list" class="doctor-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="wireframe">
+            <div class="notch"></div>
+            <p class="wf-title" id="wf-title">Search & Discovery</p>
+
+            <div class="wf-stepper" id="wf-stepper"></div>
+
+            <div class="wf-canvas" id="wf-canvas"></div>
+
+            <p class="wf-note" id="wf-note"></p>
+          </div>
+
+          <div class="legend">
+            <div class="pill-item">Interactive: mode toggle + specialty filters + keyword search</div>
+            <div class="pill-item">Responsive: 2-column desktop, 1-column mobile experience</div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    CarePath medical UI/UX concept. Original format, nowserving-inspired direction, and brand-aligned palette.
+  </footer>
+
+  <script>
+    const specialties = [
+      "All",
+      "Primary Care",
+      "Pediatrics",
+      "Cardiology",
+      "Dermatology",
+      "Mental Health",
+      "OB-GYN"
+    ];
+
+    const doctors = [
+      { name: "Dr. Andrea Salazar", specialty: "Primary Care", hospital: "Makati Care Center", wait: "15 mins", online: true, rating: 4.9, reviews: 287, experience: "12 yrs", languages: "English, Filipino" },
+      { name: "Dr. Carlo Ramos", specialty: "Cardiology", hospital: "Heartline Medical", wait: "40 mins", online: false, rating: 4.8, reviews: 156, experience: "18 yrs", languages: "English" },
+      { name: "Dr. Paula Lim", specialty: "Pediatrics", hospital: "North Kids Clinic", wait: "20 mins", online: true, rating: 5.0, reviews: 423, experience: "14 yrs", languages: "English, Filipino, Mandarin" },
+      { name: "Dr. Nina Co", specialty: "Dermatology", hospital: "Skinwell Manila", wait: "25 mins", online: true, rating: 4.7, reviews: 198, experience: "9 yrs", languages: "English, Filipino" },
+      { name: "Dr. Miguel Cruz", specialty: "Mental Health", hospital: "MindCare Hub", wait: "35 mins", online: true, rating: 4.9, reviews: 312, experience: "15 yrs", languages: "English, Filipino, Spanish" },
+      { name: "Dr. Sofia Dela Vega", specialty: "OB-GYN", hospital: "Women First Hospital", wait: "30 mins", online: false, rating: 4.8, reviews: 267, experience: "16 yrs", languages: "English, Filipino" }
+    ];
+
+    const wireframeSteps = [
+      {
+        name: "Search",
+        note: "Patients start with condition/specialty search and availability cues.",
+        pattern: "line,line-short,chip,wf-row,block,pill"
+      },
+      {
+        name: "Results",
+        note: "Doctor cards prioritize specialty, location, and earliest consultation slot.",
+        pattern: "block,wf-row,line,chip,block,pill"
+      },
+      {
+        name: "Profile",
+        note: "Doctor profile emphasizes credentials, languages, and consultation options.",
+        pattern: "block,line,chip,chip,wf-row,pill"
+      },
+      {
+        name: "Booking",
+        note: "Booking flow keeps payment and schedule confirmation in one clear step.",
+        pattern: "line,block,wf-row,chip,pill,pill"
+      }
+    ];
+
+    const specialtiesEl = document.getElementById("specialties");
+    const doctorListEl = document.getElementById("doctor-list");
+    const modeButtons = document.querySelectorAll(".mode-btn");
+    const searchInput = document.getElementById("search-input");
+    const searchBtn = document.getElementById("search-btn");
+
+    const wfStepper = document.getElementById("wf-stepper");
+    const wfCanvas = document.getElementById("wf-canvas");
+    const wfTitle = document.getElementById("wf-title");
+    const wfNote = document.getElementById("wf-note");
+
+    let activeSpecialty = "All";
+    let activeMode = "all";
+    let query = "";
+    let activeStep = 0;
+
+    function buildSpecialties() {
+      specialtiesEl.innerHTML = "";
+      specialties.forEach((spec) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "spec-btn" + (spec === activeSpecialty ? " active" : "");
+        btn.textContent = spec;
+        btn.addEventListener("click", () => {
+          activeSpecialty = spec;
+          renderDoctors();
+          buildSpecialties();
+        });
+        specialtiesEl.appendChild(btn);
+      });
+    }
+
+    function renderDoctors() {
+      const q = query.toLowerCase();
+      const filtered = doctors.filter((doctor) => {
+        const specialtyOk = activeSpecialty === "All" || doctor.specialty === activeSpecialty;
+        const modeOk = activeMode === "all" || doctor.online;
+        const queryOk =
+          doctor.name.toLowerCase().includes(q) ||
+          doctor.specialty.toLowerCase().includes(q) ||
+          doctor.hospital.toLowerCase().includes(q);
+        return specialtyOk && modeOk && queryOk;
+      });
+
+      doctorListEl.innerHTML = "";
+
+      if (!filtered.length) {
+        doctorListEl.innerHTML = '<p class="panel-sub">No doctors match your current filters. Try another specialty or keyword.</p>';
+        return;
+      }
+
+      filtered.forEach((doctor) => {
+        const card = document.createElement("article");
+        card.className = "doctor-card";
+        card.innerHTML = `
+          <div class="doctor-top">
+            <div>
+              <p class="doctor-name">${doctor.name}</p>
+              <p class="doctor-meta">${doctor.specialty} · ${doctor.hospital}</p>
+              <p class="doctor-meta" style="font-size: 0.76rem; margin-top: 4px;">⭐ ${doctor.rating} (${doctor.reviews} reviews) · ${doctor.experience}</p>
+            </div>
+            <span class="availability">${doctor.online ? "📱 Online" : "🏥 Clinic"}</span>
+          </div>
+          <div class="doctor-actions">
+            <small>Next: ${doctor.wait}</small>
+            <button type="button" class="book" onclick="alert('Booking slot for ${doctor.name}')">Book</button>
+          </div>
+        `;
+        doctorListEl.appendChild(card);
+      });
+    }
+
+    function buildStepper() {
+      wfStepper.innerHTML = "";
+      wireframeSteps.forEach((step, index) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "step-btn" + (index === activeStep ? " active" : "");
+        btn.textContent = step.name;
+        btn.addEventListener("click", () => {
+          activeStep = index;
+          renderWireframe();
+          buildStepper();
+        });
+        wfStepper.appendChild(btn);
+      });
+    }
+
+    function renderWireframe() {
+      const step = wireframeSteps[activeStep];
+      wfTitle.textContent = step.name + " Screen";
+      wfNote.textContent = step.note;
+      wfCanvas.innerHTML = "";
+
+      step.pattern.split(",").forEach((part) => {
+        if (part === "line") {
+          const el = document.createElement("div");
+          el.className = "wf-line";
+          wfCanvas.appendChild(el);
+        } else if (part === "line-short") {
+          const el = document.createElement("div");
+          el.className = "wf-line short";
+          wfCanvas.appendChild(el);
+        } else if (part === "block") {
+          const el = document.createElement("div");
+          el.className = "wf-block";
+          wfCanvas.appendChild(el);
+        } else if (part === "chip") {
+          const el = document.createElement("div");
+          el.className = "wf-chip";
+          wfCanvas.appendChild(el);
+        } else if (part === "pill") {
+          const el = document.createElement("div");
+          el.className = "wf-pill";
+          wfCanvas.appendChild(el);
+        } else if (part === "wf-row") {
+          const row = document.createElement("div");
+          row.className = "wf-row";
+          row.innerHTML = '<div class="wf-block"></div><div class="wf-block"></div>';
+          wfCanvas.appendChild(row);
+        }
+      });
+    }
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeMode = button.dataset.mode;
+        modeButtons.forEach((b) => b.classList.toggle("active", b === button));
+        renderDoctors();
+      });
+    });
+
+    function applySearch() {
+      query = searchInput.value.trim();
+      renderDoctors();
+    }
+
+    searchBtn.addEventListener("click", applySearch);
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        applySearch();
+      }
+    });
+
+    buildSpecialties();
+    renderDoctors();
+    buildStepper();
+    renderWireframe();
+  </script>
+</body>
+</html>

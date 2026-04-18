@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Northstar Supply | E-Commerce Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f3ed;
+      --surface: #ffffff;
+      --ink: #1f1d1a;
+      --ink-soft: #68635b;
+      --line: #ddd6ca;
+      --brand: #1e8a6f;
+      --brand-deep: #145a48;
+      --accent: #f28a49;
+      --max: 1160px;
+      --shadow: 0 18px 36px rgba(56, 45, 28, 0.14);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { max-width: 100%; overflow-x: hidden; }
+
+    img, video, iframe { max-width: 100%; height: auto; }
+
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 4% 8%, rgba(30, 138, 111, 0.18), transparent 32%),
+        radial-gradient(circle at 96% 82%, rgba(242, 138, 73, 0.18), transparent 28%),
+        var(--bg);
+      line-height: 1.5;
+    }
+
+    .container { width: min(100% - 30px, var(--max)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid rgba(221, 214, 202, 0.8);
+      background: rgba(246, 243, 237, 0.86);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: var(--ink);
+      font-family: "Syne", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 1rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .cart-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #e5f3ef;
+      color: var(--brand-deep);
+      font-weight: 700;
+      font-size: 0.82rem;
+      border: 1px solid #b6ddd2;
+    }
+
+    .hero { padding: 64px 0 36px; }
+
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      background: rgba(30, 138, 111, 0.12);
+      color: var(--brand-deep);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: "Syne", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.9rem);
+      line-height: 0.95;
+      margin-bottom: 12px;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      color: var(--ink-soft);
+      max-width: 52ch;
+      margin-bottom: 18px;
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 150ms ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      box-shadow: 0 10px 22px rgba(20, 90, 72, 0.28);
+    }
+
+    .btn-secondary {
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .trust {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+      gap: 8px;
+      max-width: 520px;
+    }
+
+    .trust div {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 10px;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(145deg, #fff 0%, #f6fbfa 100%);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .hero-card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      font-size: 0.93rem;
+      margin-bottom: 12px;
+      color: var(--ink-soft);
+    }
+
+    .price {
+      font-size: 2rem;
+      font-family: "Syne", sans-serif;
+      margin-bottom: 10px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .metric strong { display: block; font-size: 1.15rem; margin-bottom: 2px; }
+    .metric span { color: var(--ink-soft); font-size: 0.8rem; }
+
+    .products { padding: 44px 0 56px; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h3 {
+      font-family: "Syne", sans-serif;
+      font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+    }
+
+    .section-head p { color: var(--ink-soft); max-width: 54ch; }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .btn { transition: all 150ms ease; }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(56, 45, 28, 0.18); }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 10px 22px rgba(69, 54, 30, 0.09);
+      padding: 14px;
+      transition: all 180ms ease;
+    }
+
+    .card:hover {
+      border-color: var(--brand);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(30, 138, 111, 0.18);
+    }
+    }
+
+    .thumb {
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      background:
+        linear-gradient(135deg, rgba(30, 138, 111, 0.18), rgba(242, 138, 73, 0.18)),
+        repeating-linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.72) 0,
+          rgba(255, 255, 255, 0.72) 8px,
+          rgba(255, 255, 255, 0.45) 8px,
+          rgba(255, 255, 255, 0.45) 16px
+        );
+      border: 1px solid #d6ddce;
+      display: grid;
+      place-items: center;
+      color: #42544e;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .card h4 { margin-bottom: 7px; }
+    .card p { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 10px; }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .price-tag {
+      font-family: "Syne", sans-serif;
+      font-size: 1.2rem;
+    }
+
+    .testimonials { padding: 48px 0; }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .testimonial-card {
+      border: 1px solid #e8e0d3;
+      border-radius: 14px;
+      padding: 18px;
+      background: #fafbf9;
+    }
+
+    .testimonial-card .stars {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .testimonial-card .quote {
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .testimonial-card .author {
+      font-weight: 700;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 20px 0 32px;
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-wrap { grid-template-columns: 1fr; }
+      .metric-row { grid-template-columns: 1fr 1fr; }
+      .product-grid { grid-template-columns: 1fr 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 44px 0 28px; }
+      .hero-wrap { gap: 18px; }
+      .hero-card { padding: 16px; }
+      .hero-card h2 { font-size: 1.15rem; }
+      .price { font-size: 1.7rem; }
+      .nav { gap: 10px; }
+      .nav a { font-size: 0.85rem; }
+      .products { padding: 36px 0 44px; }
+      .testimonials { padding: 36px 0; }
+      .metric-row { gap: 8px; }
+      .metric { padding: 10px; }
+      .metric strong { font-size: 1.05rem; }
+      .btn { min-height: 40px; padding: 10px 16px; }
+      .cart-badge { min-width: 32px; height: 32px; }
+    }
+
+    @media (max-width: 640px) {
+      .nav a { display: none; }
+      .nav a[href="index.html"] { display: inline-flex; font-size: 0.8rem; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; }
+      .trust { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: start; }
+    }
+
+    @media (max-width: 520px) {
+      .topbar-inner { min-height: 60px; gap: 8px; }
+      .brand { font-size: 0.95rem; }
+      .hero { padding: 32px 0 22px; }
+      h1 { font-size: clamp(1.7rem, 7vw, 2.4rem); max-width: none; }
+      .hero p { font-size: 0.95rem; }
+      .cta { gap: 8px; }
+      .cta .btn { width: 100%; }
+      .hero-card { padding: 14px; border-radius: 16px; }
+      .price { font-size: 1.5rem; }
+      .metric-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .section-head h3 { font-size: clamp(1.35rem, 5.5vw, 1.8rem); }
+      .card { padding: 12px; }
+      .card-bottom { flex-wrap: wrap; }
+      .testimonial-card { padding: 14px; }
+      .testimonials h3.section-head { font-size: 1.5rem !important; }
+      .footer { padding: 18px 12px 24px; }
+    }
+
+    @media (max-width: 380px) {
+      .container { width: min(100% - 20px, var(--max)); }
+      .brand { font-size: 0.88rem; }
+      .topbar-inner { min-height: 54px; }
+      h1 { font-size: 1.55rem; line-height: 1.05; }
+      .hero p { font-size: 0.9rem; }
+      .eyebrow { font-size: 0.68rem; padding: 6px 9px; }
+      .btn { font-size: 0.85rem; padding: 10px 14px; }
+      .metric-row { grid-template-columns: 1fr; }
+      .price { font-size: 1.35rem; }
+      .hero-card h2 { font-size: 1.05rem; }
+      .price-tag { font-size: 1.05rem; }
+      .nav a[href="index.html"] { font-size: 0.72rem; padding: 5px 8px; }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero { padding: 24px 0 18px; }
+      .hero-wrap { grid-template-columns: 1fr 1fr; gap: 16px; }
+      h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+      .hero-card { padding: 14px; }
+      .price { font-size: 1.4rem; }
+      .metric-row { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .metric { padding: 8px; }
+      .products { padding: 26px 0 32px; }
+      .testimonials { padding: 26px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="ecommerce-landing.html">Northstar Supply</a>
+      <nav class="nav">
+        <a href="#shop">Shop</a>
+        <a href="#kits">Bundles</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="index.html">Portfolio</a>
+        <span class="cart-badge" id="cart-count">0</span>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="shop">
+      <div class="container hero-wrap">
+        <div>
+          <span class="eyebrow">Web Design | E-Commerce Landing Page</span>
+          <h1>Premium outdoor essentials built for daily adventure.</h1>
+          <p>
+            Conversion-focused landing page for a direct-to-consumer outdoor brand. Clear value proposition, strategic CTAs, social proof blocks, and streamlined product entry points.
+          </p>
+          <div class="cta">
+            <a class="btn btn-primary" href="#kits">Shop Best Sellers</a>
+            <a class="btn btn-secondary" href="#products">Compare Products</a>
+          </div>
+          <div class="trust">
+            <div>Free shipping over $120</div>
+            <div>30-day field test guarantee</div>
+            <div>4.9 star verified reviews</div>
+          </div>
+        </div>
+
+        <aside class="hero-card" id="kits">
+          <h2>Weekend Trek Starter Kit</h2>
+          <p>All-in-one setup with insulated flask, modular daypack, and compact emergency essentials.</p>
+          <div class="price">$149</div>
+          <button class="btn btn-primary add-cart" type="button">Add Kit to Cart</button>
+        </aside>
+      </div>
+
+      <div class="container metric-row">
+        <div class="metric"><strong>2.4x</strong><span>Higher conversion with bundle CTA</span></div>
+        <div class="metric"><strong>48h</strong><span>Average delivery window</span></div>
+        <div class="metric"><strong>91%</strong><span>Repeat purchase intent</span></div>
+        <div class="metric"><strong>38%</strong><span>Checkout completion increase</span></div>
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <div class="container">
+        <div class="section-head">
+          <h3>Best-selling essentials</h3>
+          <p>Product cards are optimized for quick scan: concise value copy, clear price anchor, and immediate add-to-cart action.</p>
+        </div>
+
+        <div class="product-grid">
+          <article class="card">
+            <div class="thumb">Summit Pack 24L</div>
+            <h4>Summit Daypack 24L</h4>
+            <p>Weatherproof shell, ergonomic frame, and dual quick-access pockets for day routes.</p>
+            <div class="card-bottom">
+              <span class="price-tag">$89</span>
+              <button class="btn btn-secondary add-cart" type="button">Add</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb">Thermal Flask</div>
+            <h4>Thermal Steel Flask</h4>
+            <p>Double-wall insulation keeps drinks hot or cold for up to 18 hours in the field.</p>
+            <div class="card-bottom">
+              <span class="price-tag">$34</span>
+              <button class="btn btn-secondary add-cart" type="button">Add</button>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb">Trail Safety Kit</div>
+            <h4>Compact Safety Kit</h4>
+            <p>Lightweight emergency tools with reflective case and modular attachment loop.</p>
+            <div class="card-bottom">
+              <span class="price-tag">$46</span>
+              <button class="btn btn-secondary add-cart" type="button">Add</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container">
+        <h3 class="section-head" style="margin-bottom: 24px; font-size: 2rem;">Why adventurers choose Northstar</h3>
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <p class="quote">"The Summit Pack changed everything about my weekend trips. Built to last and actually designed for what you need."</p>
+            <p class="author">— Maya Torres, Trail Runner</p>
+          </article>
+          <article class="testimonial-card">
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <p class="quote">"Fastest shipping I've ever experienced. Got my gear in 2 days and the quality is honestly beyond what I paid for."</p>
+            <p class="author">— James Chen, Outdoor Photographer</p>
+          </article>
+          <article class="testimonial-card">
+            <p class="stars">⭐⭐⭐⭐⭐</p>
+            <p class="quote">"The 30-day field test guarantee means zero risk. I've tried everything and haven't needed to return anything."</p>
+            <p class="author">— Sarah Okafor, Adventure Guide</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="testimonials">
+    Northstar Supply concept landing page. Built to showcase conversion-driven web design structure.
+  </footer>
+
+  <script>
+    const counter = document.getElementById("cart-count");
+    const buttons = document.querySelectorAll(".add-cart");
+    let count = 0;
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        count += 1;
+        counter.textContent = String(count);
+        button.textContent = "Added";
+        setTimeout(() => {
+          button.textContent = button.classList.contains("btn-primary") ? "Add Kit to Cart" : "Add";
+        }, 650);
+      });
+    });
+  </script>
+</body>
+</html>

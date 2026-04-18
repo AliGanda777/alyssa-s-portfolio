@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Launch Newsletter - VOID Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0A0A0A;
+      --dark: #111111;
+      --card: #161616;
+      --border: #222222;
+      --border-light: #2a2a2a;
+      --text: #E8E8E8;
+      --text-dim: #888888;
+      --text-muted: #555555;
+      --accent: #C8FF00;
+      --accent-dim: #a3cc00;
+      --white: #FFFFFF;
+      --gradient-accent: linear-gradient(135deg, #C8FF00 0%, #7BFF00 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #050505;
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    img, video, iframe { max-width: 100%; height: auto; display: block; }
+
+    /* ---- PRESENTATION WRAPPER (page chrome) ---- */
+    .page-wrapper {
+      position: relative;
+      padding: 0 0 80px;
+    }
+
+    /* Ambient glow */
+    .ambient-glow {
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(200, 255, 0, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating grid dots */
+    .grid-dots {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(200, 255, 0, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 20%, transparent 70%);
+    }
+
+    /* Page header */
+    .page-header {
+      position: relative;
+      z-index: 10;
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 40px 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-header h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .page-header .back-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      transition: color 200ms, border-color 200ms;
+    }
+    .page-header .back-link:hover { color: var(--white); border-color: var(--text-dim); }
+
+    .device-tag {
+      max-width: 660px;
+      margin: 0 auto 12px;
+      padding: 0 20px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ---- EMAIL CONTAINER ---- */
+    .email-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(200, 255, 0, 0.03);
+    }
+
+    /* ---- PREHEADER ---- */
+    .preheader {
+      padding: 10px 24px;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ---- NAV BAR ---- */
+    .email-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--dark);
+    }
+    .email-nav .logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+    .email-nav .logo span { color: var(--accent); }
+    .email-nav .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .email-nav .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 200ms;
+    }
+    .email-nav .nav-links a:hover { color: var(--accent); }
+
+    /* ---- HERO ---- */
+    .email-hero {
+      position: relative;
+      padding: 64px 36px 48px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 500px 300px at 50% 120%, rgba(200, 255, 0, 0.08), transparent),
+        var(--dark);
+      overflow: hidden;
+    }
+    .email-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(200, 255, 0, 0.08);
+      border: 1px solid rgba(200, 255, 0, 0.2);
+      border-radius: 999px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .hero-title .accent { color: var(--accent); }
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+
+    /* Product image area */
+    .hero-product {
+      position: relative;
+      width: 80%;
+      max-width: 360px;
+      margin: 0 auto 32px;
+      aspect-ratio: 1/1;
+      background: radial-gradient(circle at center, var(--card) 0%, var(--dark) 70%);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-product::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0%, rgba(200,255,0,0.15) 25%, transparent 50%, rgba(200,255,0,0.1) 75%, transparent 100%);
+      z-index: 0;
+      animation: rotateGlow 8s linear infinite;
+    }
+    @keyframes rotateGlow {
+      to { transform: rotate(360deg); }
+    }
+    .hero-product .product-visual {
+      position: relative;
+      z-index: 1;
+      width: 65%;
+    }
+    /* SVG headphone illustration */
+    .headphone-svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--accent);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      transition: transform 200ms, box-shadow 200ms;
+      box-shadow: 0 0 30px rgba(200, 255, 0, 0.2);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(200, 255, 0, 0.35);
+    }
+    .hero-note {
+      margin-top: 14px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* ---- STATS BAR ---- */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--black);
+    }
+    .stat-item {
+      padding: 22px 16px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-value {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-value .unit {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .stat-label {
+      margin-top: 4px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ---- FEATURE BLOCKS ---- */
+    .features-section {
+      padding: 48px 28px;
+      background: var(--dark);
+    }
+    .section-label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 32px;
+      line-height: 1.1;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      transition: border-color 300ms, transform 300ms;
+    }
+    .feature-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+    }
+    .feature-card.full-width {
+      grid-column: 1 / -1;
+    }
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(200, 255, 0, 0.06);
+      border: 1px solid rgba(200, 255, 0, 0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent);
+    }
+    .feature-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .feature-card p {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ---- COMPARISON ---- */
+    .comparison-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--black);
+    }
+    .comparison-header {
+      padding: 40px 28px 0;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .comp-col {
+      padding: 28px 24px 32px;
+    }
+    .comp-col:first-child {
+      border-right: 1px solid var(--border);
+    }
+    .comp-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .comp-badge.old {
+      background: rgba(255, 80, 80, 0.1);
+      color: #FF5050;
+      border: 1px solid rgba(255, 80, 80, 0.2);
+    }
+    .comp-badge.new {
+      background: rgba(200, 255, 0, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(200, 255, 0, 0.2);
+    }
+    .comp-list {
+      list-style: none;
+    }
+    .comp-list li {
+      font-size: 12.5px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .comp-list li:last-child { border-bottom: none; }
+    .comp-list.old li { color: var(--text-muted); }
+    .comp-list.new li { color: var(--text); }
+    .comp-x {
+      width: 14px;
+      height: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ---- TESTIMONIAL ---- */
+    .testimonial-section {
+      padding: 48px 36px;
+      background: var(--dark);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .testimonial-quote {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      max-width: 480px;
+      margin: 0 auto 20px;
+    }
+    .testimonial-author {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .testimonial-stars {
+      margin-bottom: 20px;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: var(--accent);
+    }
+
+    /* ---- PRICING CTA ---- */
+    .pricing-section {
+      padding: 48px 28px;
+      text-align: center;
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(200, 255, 0, 0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .pricing-card {
+      position: relative;
+      max-width: 360px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 36px 28px;
+      overflow: hidden;
+    }
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
+    }
+    .pricing-name {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .pricing-amount {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-amount .currency {
+      font-size: 24px;
+      font-weight: 600;
+      vertical-align: super;
+      color: var(--text-dim);
+    }
+    .pricing-period {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .pricing-features li {
+      font-size: 13px;
+      color: var(--text-dim);
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .check-icon {
+      width: 16px;
+      height: 16px;
+      background: rgba(200, 255, 0, 0.1);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .check-icon svg {
+      width: 9px;
+      height: 9px;
+      color: var(--accent);
+    }
+    .pricing-cta {
+      display: block;
+      width: 100%;
+      padding: 16px 0;
+      background: var(--accent);
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 999px;
+      text-align: center;
+      transition: transform 200ms, box-shadow 200ms;
+      box-shadow: 0 0 30px rgba(200, 255, 0, 0.15);
+    }
+    .pricing-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(200, 255, 0, 0.3);
+    }
+    .pricing-note {
+      margin-top: 12px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* ---- FOOTER ---- */
+    .email-footer {
+      padding: 32px 28px;
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-logo {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .footer-socials a {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--text-dim);
+      transition: color 200ms, border-color 200ms;
+    }
+    .footer-socials a:hover { color: var(--accent); border-color: var(--accent); }
+    .footer-socials svg { width: 14px; height: 14px; }
+    .footer-links {
+      margin-bottom: 16px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 11px;
+      margin: 0 8px;
+      transition: color 200ms;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-legal {
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      opacity: 0.7;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .page-wrapper { padding: 0 0 56px; }
+      .ambient-glow { width: 500px; height: 500px; }
+      .page-header { padding: 32px 18px 22px; }
+      .page-header h1 { font-size: 15px; }
+      .page-header .back-link {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        padding: 8px 12px;
+      }
+      .device-tag { padding: 0 18px; }
+      .email-container { border-radius: 12px; }
+      .email-hero { padding: 52px 28px 40px; }
+      .email-hero::before { width: 200px; }
+      .hero-title { font-size: 42px; }
+      .pricing-section::before { width: 280px; height: 140px; }
+    }
+
+    @media (max-width: 520px) {
+      .page-wrapper { padding: 0 0 40px; }
+      .ambient-glow { width: 360px; height: 360px; top: -140px; }
+      .page-header { padding: 24px 16px 20px; }
+      .page-header h1 { font-size: 14px; }
+      .page-header .back-link {
+        font-size: 9px;
+        letter-spacing: 1px;
+        padding: 8px 10px;
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+      }
+      .device-tag { padding: 0 16px; }
+      .email-container { border-radius: 10px; }
+
+      .preheader { padding: 10px 16px; font-size: 9px; letter-spacing: 1.5px; }
+
+      .email-nav { padding: 14px 18px; }
+      .email-nav .logo { font-size: 17px; }
+      .email-nav .nav-links { gap: 12px; }
+      .email-nav .nav-links a {
+        font-size: 10px;
+        padding: 8px 2px;
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+      }
+
+      .email-hero { padding: 44px 22px 36px; }
+      .email-hero::before { width: 180px; }
+      .hero-title { font-size: 36px; }
+      .hero-subtitle { font-size: 14px; margin-bottom: 28px; }
+      .hero-product { width: 70%; margin-bottom: 26px; }
+      .hero-badge { font-size: 9px; padding: 6px 12px; margin-bottom: 22px; }
+      .hero-cta {
+        padding: 14px 32px;
+        font-size: 12px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item { padding: 18px 12px; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(1),
+      .stat-item:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .stat-value { font-size: 22px; }
+
+      .features-section { padding: 36px 20px; }
+      .section-title { font-size: 24px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature-card { padding: 20px 18px; }
+      .feature-card.full-width > div {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 14px !important;
+      }
+
+      .comparison-grid { grid-template-columns: 1fr; }
+      .comp-col { padding: 24px 20px 26px; }
+      .comp-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .comparison-header { padding: 32px 20px 0; }
+
+      .testimonial-section { padding: 36px 22px; }
+      .testimonial-quote { font-size: 18px; }
+
+      .pricing-section { padding: 36px 20px; }
+      .pricing-section::before { width: 220px; height: 110px; }
+      .pricing-card { padding: 30px 22px; }
+      .pricing-amount { font-size: 42px; }
+      .pricing-cta {
+        padding: 14px 0;
+        font-size: 12px;
+        min-height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .email-footer { padding: 28px 20px; }
+      .footer-socials a { width: 40px; height: 40px; }
+      .footer-links a {
+        display: inline-block;
+        padding: 6px 4px;
+        min-height: 32px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .page-header {
+        padding: 20px 12px 16px;
+        gap: 10px;
+      }
+      .page-header h1 { font-size: 13px; }
+      .page-header .back-link {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+        padding: 7px 9px;
+      }
+      .device-tag { padding: 0 12px; font-size: 9px; letter-spacing: 2px; }
+
+      .email-nav { padding: 12px 14px; }
+      .email-nav .logo { font-size: 16px; }
+      .email-nav .nav-links { gap: 10px; }
+      .email-nav .nav-links a { font-size: 9px; letter-spacing: 0.5px; }
+
+      .email-hero { padding: 36px 16px 30px; }
+      .hero-title { font-size: 30px; }
+      .hero-subtitle { font-size: 13px; }
+      .hero-product { width: 78%; }
+      .hero-cta { padding: 13px 26px; font-size: 11px; }
+
+      .stat-value { font-size: 20px; }
+      .stat-value .unit { font-size: 12px; }
+      .stat-label { font-size: 8px; letter-spacing: 1.5px; }
+
+      .features-section { padding: 32px 16px; }
+      .section-title { font-size: 22px; }
+      .feature-card { padding: 18px 16px; }
+      .feature-card h4 { font-size: 14px; }
+      .feature-card p { font-size: 12px; }
+
+      .comparison-header { padding: 28px 16px 0; }
+      .comp-col { padding: 20px 16px 22px; }
+      .comp-list li { font-size: 12px; }
+
+      .testimonial-section { padding: 32px 18px; }
+      .testimonial-quote { font-size: 16px; }
+
+      .pricing-section { padding: 32px 16px; }
+      .pricing-card { padding: 26px 18px; }
+      .pricing-amount { font-size: 36px; }
+      .pricing-amount .currency { font-size: 20px; }
+      .pricing-features li { font-size: 12px; }
+
+      .email-footer { padding: 24px 16px; }
+      .footer-legal { font-size: 9px; }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .page-wrapper { padding: 0 0 32px; }
+      .ambient-glow { width: 400px; height: 400px; top: -180px; }
+      .page-header { padding: 16px 20px 12px; }
+      .email-hero { padding: 32px 28px 28px; }
+      .hero-title { font-size: 32px; }
+      .hero-subtitle { margin-bottom: 22px; }
+      .hero-product {
+        width: 45%;
+        max-width: 220px;
+        margin-bottom: 22px;
+      }
+      .features-section { padding: 32px 24px; }
+      .section-title { font-size: 24px; margin-bottom: 24px; }
+      .testimonial-section { padding: 32px 28px; }
+      .testimonial-quote { font-size: 18px; }
+      .pricing-section { padding: 32px 24px; }
+      .pricing-amount { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <div class="ambient-glow"></div>
+    <div class="grid-dots"></div>
+
+    <!-- Page chrome -->
+    <div class="page-header">
+      <h1>Product Launch Newsletter</h1>
+      <a class="back-link" href="index.html">&#8592; Portfolio</a>
+    </div>
+    <div class="device-tag">HTML Email Template</div>
+
+    <!-- ======== EMAIL START ======== -->
+    <div class="email-container" role="article" aria-label="VOID Pro product launch email">
+
+      <!-- Preheader -->
+      <div class="preheader">Sound redefined. Silence perfected. Arriving June 2026.</div>
+
+      <!-- Nav -->
+      <div class="email-nav">
+        <div class="logo">VOID<span>.</span></div>
+        <div class="nav-links">
+          <a href="#">Shop</a>
+          <a href="#">Sound</a>
+          <a href="#">Story</a>
+        </div>
+      </div>
+
+      <!-- Hero -->
+      <div class="email-hero">
+        <div class="hero-badge">Now Available for Pre-Order</div>
+        <h1 class="hero-title">
+          Meet the<br/><span class="accent">VOID Pro.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Noise-canceling headphones engineered for absolute silence and uncompromised clarity. Hear only what matters.
+        </p>
+
+        <!-- Product visual -->
+        <div class="hero-product">
+          <div class="product-visual">
+            <svg class="headphone-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Headband -->
+              <path d="M40 110 C40 50, 160 50, 160 110" stroke="#C8FF00" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M44 110 C44 54, 156 54, 156 110" stroke="#333" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <!-- Left ear cup -->
+              <rect x="24" y="100" width="36" height="52" rx="8" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+              <rect x="28" y="106" width="28" height="40" rx="6" fill="#111"/>
+              <rect x="32" y="112" width="20" height="28" rx="4" fill="#0a0a0a"/>
+              <circle cx="42" cy="126" r="6" fill="none" stroke="#C8FF00" stroke-width="1" opacity="0.4"/>
+              <circle cx="42" cy="126" r="2" fill="#C8FF00" opacity="0.6"/>
+              <!-- Right ear cup -->
+              <rect x="140" y="100" width="36" height="52" rx="8" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+              <rect x="144" y="106" width="28" height="40" rx="6" fill="#111"/>
+              <rect x="148" y="112" width="20" height="28" rx="4" fill="#0a0a0a"/>
+              <circle cx="158" cy="126" r="6" fill="none" stroke="#C8FF00" stroke-width="1" opacity="0.4"/>
+              <circle cx="158" cy="126" r="2" fill="#C8FF00" opacity="0.6"/>
+              <!-- Cushion detail -->
+              <ellipse cx="42" cy="126" rx="14" ry="20" fill="none" stroke="#222" stroke-width="1"/>
+              <ellipse cx="158" cy="126" rx="14" ry="20" fill="none" stroke="#222" stroke-width="1"/>
+              <!-- Brand mark -->
+              <text x="100" y="176" text-anchor="middle" fill="#333" font-family="Inter" font-size="8" font-weight="700" letter-spacing="4">VOID PRO</text>
+            </svg>
+          </div>
+        </div>
+
+        <a href="#" class="hero-cta">Pre-Order Now</a>
+        <div class="hero-note">Ships June 2026. Free worldwide delivery.</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-value">48<span class="unit">hr</span></div>
+          <div class="stat-label">Battery Life</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">-55<span class="unit">dB</span></div>
+          <div class="stat-label">ANC Depth</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">22<span class="unit">g</span></div>
+          <div class="stat-label">Ear Cup Weight</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">3<span class="unit">ms</span></div>
+          <div class="stat-label">Latency</div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="features-section">
+        <div class="section-label">Engineered Differently</div>
+        <h2 class="section-title">Every detail,<br/>obsessively refined.</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+            <h4>Adaptive ANC</h4>
+            <p>Six microphones map your environment 500 times per second. The silence adapts to you.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <h4>48-Hour Battery</h4>
+            <p>Two full days of listening. 10 minutes of charge gives you 5 hours. Never interrupted.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <h4>Spatial Audio</h4>
+            <p>Head-tracked 360 sound puts you inside the music. Cinema-grade immersion, anywhere.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <h4>Machined Aluminum</h4>
+            <p>CNC-milled from a single block. No creaks, no flex. Built to outlast everything.</p>
+          </div>
+
+          <div class="feature-card full-width">
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div class="feature-icon" style="flex-shrink: 0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <h4>40mm Beryllium Drivers</h4>
+                <p>Custom-tuned with a frequency response of 4Hz to 44kHz. Every note, from sub-bass rumble to crystalline highs, rendered with zero distortion.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison -->
+      <div class="comparison-section">
+        <div class="comparison-header">
+          <div class="section-label">Why Switch</div>
+          <h2 class="section-title">Your old headphones<br/>vs. VOID Pro.</h2>
+        </div>
+        <div class="comparison-grid">
+          <div class="comp-col">
+            <div class="comp-badge old">Before</div>
+            <ul class="comp-list old">
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10" stroke="#FF5050" stroke-width="1.5"/><line x1="10" y1="2" x2="2" y2="10" stroke="#FF5050" stroke-width="1.5"/></svg></span>
+                ANC leaks ambient noise
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10" stroke="#FF5050" stroke-width="1.5"/><line x1="10" y1="2" x2="2" y2="10" stroke="#FF5050" stroke-width="1.5"/></svg></span>
+                Dead by end of workday
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10" stroke="#FF5050" stroke-width="1.5"/><line x1="10" y1="2" x2="2" y2="10" stroke="#FF5050" stroke-width="1.5"/></svg></span>
+                Plastic creaks after 6 months
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10" stroke="#FF5050" stroke-width="1.5"/><line x1="10" y1="2" x2="2" y2="10" stroke="#FF5050" stroke-width="1.5"/></svg></span>
+                Noticeable audio delay
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="2" y1="2" x2="10" y2="10" stroke="#FF5050" stroke-width="1.5"/><line x1="10" y1="2" x2="2" y2="10" stroke="#FF5050" stroke-width="1.5"/></svg></span>
+                Generic flat sound profile
+              </li>
+            </ul>
+          </div>
+          <div class="comp-col">
+            <div class="comp-badge new">VOID Pro</div>
+            <ul class="comp-list new">
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#C8FF00" stroke-width="1.5" fill="none"/></svg></span>
+                -55dB adaptive silence
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#C8FF00" stroke-width="1.5" fill="none"/></svg></span>
+                48 hours, 2 full days
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#C8FF00" stroke-width="1.5" fill="none"/></svg></span>
+                Machined aluminum frame
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#C8FF00" stroke-width="1.5" fill="none"/></svg></span>
+                3ms ultra-low latency
+              </li>
+              <li>
+                <span class="comp-x"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#C8FF00" stroke-width="1.5" fill="none"/></svg></span>
+                Spatial audio + custom EQ
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="testimonial-section">
+        <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <div class="testimonial-quote">
+          "I put on the VOID Pro in a crowded airport and the world just... disappeared. I heard things in songs I've listened to a thousand times."
+        </div>
+        <div class="testimonial-author">Alex Moreau / Sound Engineer, Berlin</div>
+      </div>
+
+      <!-- Pricing CTA -->
+      <div class="pricing-section">
+        <div class="section-label">Pre-Order Now</div>
+        <h2 class="section-title" style="margin-bottom: 28px;">One headphone.<br/>No compromises.</h2>
+
+        <div class="pricing-card">
+          <div class="pricing-name">VOID Pro</div>
+          <div class="pricing-amount"><span class="currency">$</span>349</div>
+          <div class="pricing-period">Free shipping. 30-day returns.</div>
+
+          <ul class="pricing-features">
+            <li>
+              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              VOID Pro headphones
+            </li>
+            <li>
+              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              Hardshell travel case
+            </li>
+            <li>
+              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              USB-C & 3.5mm cables
+            </li>
+            <li>
+              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              Airplane adapter included
+            </li>
+            <li>
+              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              3-year warranty
+            </li>
+            <li>
+              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="currentColor" stroke-width="1.5"/></svg></span>
+              Lifetime software updates
+            </li>
+          </ul>
+
+          <a href="#" class="pricing-cta">Pre-Order - $349</a>
+          <div class="pricing-note">Ships June 2026. No charge until dispatch.</div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="email-footer">
+        <div class="footer-logo">VOID<span>.</span></div>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Twitter / X">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23 9.71a8.5 8.5 0 0 0-.91-4.13 2.92 2.92 0 0 0-1.72-1A78.4 78.4 0 0 0 12 4.27a78.5 78.5 0 0 0-8.37.32 2.92 2.92 0 0 0-1.72 1A8.5 8.5 0 0 0 1 9.71a57 57 0 0 0-.31 4.29 57 57 0 0 0 .31 4.29A8.5 8.5 0 0 0 1.91 22.42a2.92 2.92 0 0 0 1.72 1A78.4 78.4 0 0 0 12 23.73a78.4 78.4 0 0 0 8.37-.32 2.92 2.92 0 0 0 1.72-1 8.5 8.5 0 0 0 .91-4.13 57 57 0 0 0 .31-4.29 57 57 0 0 0-.31-4.28zM9.74 16.27V7.73l6.53 4.27-6.53 4.27z"/>
+            </svg>
+          </a>
+        </div>
+        <div class="footer-links">
+          <a href="#">View in browser</a> &middot;
+          <a href="#">Preferences</a> &middot;
+          <a href="#">Unsubscribe</a>
+        </div>
+        <div class="footer-legal">
+          VOID Audio Inc. 440 N Wolfe Rd, Sunnyvale, CA 94085<br/>
+          You received this because you signed up at void.audio<br/>
+          &copy; 2026 VOID Audio. All rights reserved.
+        </div>
+      </div>
+
+    </div>
+    <!-- ======== EMAIL END ======== -->
+
+  </div>
+
+</body>
+</html>

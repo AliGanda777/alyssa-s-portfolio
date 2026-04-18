@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIOR BEAUTY - Brand Identity System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap">
+  <style>
+    :root { --black:#1a1710; --white:#fff; --off-white:#faf8f4; --gold:#c9a96e; --gold-light:#e8d5b0; --gold-pale:#f5ead6; --cream:#f2ece0; --grey-100:#efe9dd; --grey-200:#ddd6c8; --grey-400:#a09882; --grey-600:#6b6352; --charcoal:#2a2518; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; max-width:100%; overflow-x:hidden; }
+    body { font-family:"Inter",sans-serif; background:var(--white); color:var(--black); -webkit-font-smoothing:antialiased; overflow-x:hidden; max-width:100%; }
+    img, video, iframe { max-width:100%; height:auto; }
+    ::selection { background:var(--black); color:var(--white); }
+
+    /* ─── NAV ──────────────────────────────────────── */
+    .nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 5%; height:60px; background:transparent; transition:all 400ms ease; }
+    .nav.scrolled { background:rgba(255,255,255,0.96); backdrop-filter:blur(16px); border-bottom:1px solid var(--grey-100); }
+    .nav-logo img { height:18px; width:auto; transition:filter 400ms; }
+    .nav.light .nav-logo img { filter:brightness(0) invert(1); }
+    .nav-links { display:flex; gap:32px; }
+    .nav-links a { color:var(--grey-400); text-decoration:none; font-size:10px; letter-spacing:2.5px; text-transform:uppercase; font-weight:500; transition:color 300ms; }
+    .nav-links a:hover { color:var(--black); }
+    .nav.light .nav-links a { color:rgba(255,255,255,0.5); }
+    .nav.light .nav-links a:hover { color:var(--gold-light); }
+    .nav.scrolled .nav-links a { color:var(--grey-400); }
+    .nav.scrolled .nav-links a:hover { color:var(--black); }
+    .nav.scrolled .nav-logo img { filter:none; }
+
+    /* ─── HERO ──────────────────────────────────────── */
+    .hero { position:relative; height:100vh; min-height:600px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#0a0805; color:var(--white); }
+
+    /* Animated gold gradient base */
+    .hero-bg {
+      position:absolute; inset:0; z-index:0;
+      background:
+        radial-gradient(ellipse 900px 500px at 20% 30%, rgba(201,169,110,0.28), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 80% 70%, rgba(232,213,176,0.18), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 50% 100%, rgba(201,169,110,0.22), transparent 70%),
+        linear-gradient(135deg, #1a1107 0%, #0a0805 50%, #150f08 100%);
+      animation: gradientShift 18s ease-in-out infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 0%, 100% 100%, 50% 100%, 0 0; filter: hue-rotate(0deg) brightness(1); }
+      50% { background-position: 20% 10%, 80% 90%, 40% 90%, 0 0; filter: hue-rotate(-8deg) brightness(1.1); }
+    }
+
+    /* Light rays */
+    .hero-rays {
+      position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:
+        conic-gradient(from 200deg at 50% 120%,
+          transparent 0deg,
+          rgba(232,213,176,0.12) 20deg,
+          transparent 40deg,
+          rgba(201,169,110,0.08) 80deg,
+          transparent 120deg,
+          rgba(232,213,176,0.10) 180deg,
+          transparent 220deg,
+          rgba(201,169,110,0.06) 260deg,
+          transparent 300deg,
+          rgba(232,213,176,0.09) 340deg,
+          transparent 360deg);
+      mix-blend-mode: screen;
+      animation: raySpin 40s linear infinite;
+      opacity:0.7;
+    }
+    @keyframes raySpin { to { transform: rotate(360deg); } }
+
+    /* Film grain */
+    .hero-grain {
+      position:absolute; inset:0; z-index:2; pointer-events:none;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        radial-gradient(rgba(0,0,0,0.12) 1px, transparent 1px);
+      background-size: 3px 3px, 5px 5px;
+      background-position: 0 0, 1px 2px;
+      opacity:0.35;
+      mix-blend-mode: overlay;
+      animation: grainShift 3s steps(4) infinite;
+    }
+    @keyframes grainShift {
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(-2px, 1px); }
+      50%  { transform: translate(1px, -2px); }
+      75%  { transform: translate(-1px, 2px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* Floating gold particles */
+    .hero-particles { position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+    .particle {
+      position:absolute;
+      width:3px; height:3px;
+      background:var(--gold-light);
+      border-radius:50%;
+      box-shadow: 0 0 8px rgba(232,213,176,0.8), 0 0 16px rgba(201,169,110,0.4);
+      animation: floatUp linear infinite;
+      opacity:0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) translateX(0) scale(0.6); opacity: 0; }
+      10%  { opacity: 0.9; }
+      50%  { transform: translateY(50vh) translateX(20px) scale(1); }
+      90%  { opacity: 0.8; }
+      100% { transform: translateY(-10vh) translateX(-10px) scale(0.4); opacity: 0; }
+    }
+
+    /* Vignette and dim for readability */
+    .hero-dim { position:absolute; inset:0; z-index:2; background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.65) 100%); }
+    .hero-content { position:relative; z-index:2; text-align:center; }
+    .hero-logo { height:40px; width:auto; filter:brightness(0) invert(1); margin-bottom:20px; opacity:0; animation:heroFade 1.2s ease forwards 0.3s; }
+    .hero-title { font-family:"Playfair Display",serif; font-size:clamp(1rem,2vw,1.4rem); font-weight:400; letter-spacing:12px; text-transform:uppercase; color:var(--gold-light); margin-bottom:40px; opacity:0; animation:heroFade 1.2s ease forwards 0.6s; }
+    .hero-line { width:40px; height:1px; background:var(--gold); margin:0 auto 40px; opacity:0; animation:heroFade 1s ease forwards 0.9s; }
+    .hero-cats { display:flex; gap:40px; justify-content:center; opacity:0; animation:heroFade 1s ease forwards 1.2s; }
+    .hero-cat { color:rgba(255,255,255,0.4); text-decoration:none; font-size:10px; letter-spacing:3px; text-transform:uppercase; font-weight:500; padding-bottom:6px; border-bottom:1px solid transparent; transition:all 300ms; }
+    .hero-cat:hover { color:var(--gold-light); border-bottom-color:var(--gold); }
+    .scroll-indicator { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); z-index:2; display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--gold); font-size:9px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; opacity:0; animation:heroFade 0.8s ease forwards 1.6s; }
+    .scroll-indicator .line { width:1px; height:30px; background:var(--gold); opacity:0.4; animation:scrollLine 2s ease-in-out infinite; }
+    @keyframes heroFade { to { opacity:1; } }
+    @keyframes scrollLine { 0%,100%{height:30px;opacity:0.3} 50%{height:50px;opacity:0.6} }
+
+    /* ─── SECTION ──────────────────────────────────── */
+    .section { padding:100px 8%; max-width:1200px; margin:0 auto; }
+    .section-label { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); text-align:center; margin-bottom:12px; font-weight:500; }
+    .section-heading { font-family:"Playfair Display",serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:400; text-align:center; letter-spacing:4px; text-transform:uppercase; margin-bottom:12px; }
+    .section-desc { text-align:center; font-size:13px; color:var(--grey-400); max-width:500px; margin:0 auto 60px; line-height:1.8; font-weight:300; }
+    .line-divider { width:40px; height:1px; background:var(--gold); margin:0 auto 60px; }
+
+    /* ─── REVEAL ────────────────────────────────────── */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay:var(--d,0ms); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── PRODUCTS ──────────────────────────────────── */
+    .products-strip { background:var(--off-white); }
+    .products-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--grey-200); }
+    .product-card { background:var(--off-white); padding:48px 24px; text-align:center; transition:background 400ms ease; cursor:pointer; }
+    .product-card:hover { background:var(--white); box-shadow:0 8px 30px rgba(201,169,110,0.1); }
+    .product-img-wrap { width:80px; height:80px; margin:0 auto 20px; }
+    .product-img-wrap img { width:100%; height:100%; object-fit:contain; transition:transform 500ms cubic-bezier(0.22,1,0.36,1); }
+    .product-card:hover .product-img-wrap img { transform:scale(1.1) translateY(-4px); }
+    .product-name { font-family:"Playfair Display",serif; font-size:16px; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+    .product-desc { font-size:11px; color:var(--grey-400); line-height:1.6; max-width:200px; margin:0 auto; }
+
+    /* ─── SHADE SELECTOR ───────────────────────────── */
+    .shade-section { background:var(--charcoal); color:var(--white); padding:80px 8%; text-align:center; }
+    .shade-section .section-label { color:var(--gold); }
+    .shade-section .section-heading { color:var(--white); font-family:"Playfair Display",serif; }
+    .shade-section .line-divider { background:var(--gold); opacity:0.4; }
+    .shades { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
+    .shade { width:32px; height:32px; border-radius:50%; cursor:pointer; transition:transform 300ms,box-shadow 300ms; border:2px solid transparent; }
+    .shade:hover { transform:scale(1.25); }
+    .shade.active { border-color:var(--gold); transform:scale(1.2); box-shadow:0 0 20px rgba(201,169,110,0.3); }
+    #shade-name { font-family:"Playfair Display",serif; font-size:16px; letter-spacing:3px; color:var(--gold-light); margin-top:12px; font-style:italic; }
+
+    /* ─── PALETTE ──────────────────────────────────── */
+    .palette-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:0; }
+    .swatch { text-align:center; cursor:pointer; transition:transform 300ms; }
+    .swatch:hover { transform:translateY(-4px); }
+    .swatch-color { width:100%; aspect-ratio:1; margin-bottom:14px; }
+    .swatch-name { font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:2px; }
+    .swatch-hex { font-size:10px; color:var(--grey-400); letter-spacing:1px; }
+
+    /* ─── TYPOGRAPHY ───────────────────────────────── */
+    .typo-strip { background:var(--charcoal); color:var(--white); padding:100px 8%; }
+    .typo-strip .section-label { color:var(--gold); }
+    .typo-strip .section-heading { color:var(--white); font-family:"Playfair Display",serif; }
+    .typo-strip .line-divider { background:var(--gold); opacity:0.4; }
+    .typo-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:900px; margin:0 auto; }
+    .typo-col-title { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:28px; font-weight:500; }
+    .typo-item { padding:20px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .typo-item:last-child { border-bottom:none; }
+    .typo-sample { display:block; margin-bottom:6px; color:var(--white); }
+    .typo-meta { font-size:9px; color:rgba(255,255,255,0.2); letter-spacing:1px; }
+
+    /* ─── LOGO ──────────────────────────────────────── */
+    .logo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .logo-box { aspect-ratio:1.6; border-radius:4px; display:flex; align-items:center; justify-content:center; transition:transform 400ms ease; }
+    .logo-box:hover { transform:scale(1.02); }
+    .logo-box img { height:24px; width:auto; }
+    .logo-box.dark { background:var(--black); }
+    .logo-box.dark img { filter:brightness(0) invert(1); }
+    .logo-box.light { background:var(--white); border:1px solid var(--grey-100); }
+    .logo-box.grey { background:var(--grey-100); }
+    .logo-label { text-align:center; font-size:9px; color:var(--grey-400); margin-top:10px; letter-spacing:2px; text-transform:uppercase; }
+
+    /* ─── COMPONENTS ───────────────────────────────── */
+    .comp-strip { background:var(--off-white); }
+    .comp-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--grey-200); }
+    .comp-card { background:var(--off-white); padding:40px 32px; }
+    .comp-title { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:24px; font-weight:600; }
+    .btn-row { display:flex; gap:12px; flex-wrap:wrap; }
+    .dbtn { padding:14px 32px; font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; cursor:pointer; font-family:inherit; transition:all 300ms; border:none; }
+    .dbtn.primary { background:var(--charcoal); color:var(--gold-light); }
+    .dbtn.primary:hover { background:var(--black); }
+    .dbtn.outline { background:transparent; color:var(--charcoal); border:1px solid var(--gold); }
+    .dbtn.outline:hover { background:var(--charcoal); color:var(--gold-light); }
+    .dbtn.white { background:var(--gold); color:var(--white); border:none; }
+    .dbtn.white:hover { background:var(--gold-light); color:var(--charcoal); }
+    .demo-card { border:1px solid var(--grey-200); overflow:hidden; transition:transform 300ms; cursor:pointer; }
+    .demo-card:hover { transform:translateY(-4px); }
+    .demo-card-img { height:120px; background:linear-gradient(135deg,var(--charcoal),var(--black)); display:flex; align-items:center; justify-content:center; }
+    .demo-card-img img { height:80px; object-fit:contain; }
+    .demo-card-body { padding:20px; background:var(--white); }
+    .demo-card-body h5 { font-family:"Playfair Display",serif; font-size:15px; font-weight:600; letter-spacing:1px; margin-bottom:4px; }
+    .demo-card-body p { font-size:10px; color:var(--grey-400); letter-spacing:0.5px; }
+    .demo-input { width:100%; padding:14px 0; border:none; border-bottom:1px solid var(--grey-200); font-size:12px; font-family:inherit; background:transparent; outline:none; transition:border-color 300ms; letter-spacing:1px; }
+    .demo-input:focus { border-bottom-color:var(--gold); }
+    .demo-input-label { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--grey-400); margin-bottom:4px; display:block; font-weight:500; }
+    .demo-nav { display:flex; gap:28px; padding:16px 0; border-bottom:1px solid var(--grey-200); }
+    .demo-nav a { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--grey-400); text-decoration:none; font-weight:500; transition:color 200ms; }
+    .demo-nav a.active { color:var(--charcoal); border-bottom:1px solid var(--gold); padding-bottom:14px; }
+
+    /* ─── PHOTOGRAPHY ──────────────────────────────── */
+    .photo-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; }
+    .photo-box { aspect-ratio:1; display:flex; align-items:flex-end; justify-content:flex-start; padding:20px; font-size:9px; letter-spacing:3px; text-transform:uppercase; transition:transform 400ms; cursor:pointer; }
+    .photo-box:hover { transform:scale(1.02); }
+    .photo-box:nth-child(1) { background:var(--charcoal); color:var(--gold-light); }
+    .photo-box:nth-child(2) { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--white); }
+    .photo-box:nth-child(3) { background:var(--cream); color:var(--gold); }
+
+    /* ─── FOOTER ────────────────────────────────────── */
+    .footer { padding:60px 8%; text-align:center; border-top:1px solid var(--gold-pale); }
+    .footer-logo { height:16px; width:auto; margin-bottom:20px; opacity:0.3; }
+    .footer-links { display:flex; justify-content:center; gap:32px; margin-bottom:20px; }
+    .footer-links a { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--grey-400); text-decoration:none; transition:color 200ms; }
+    .footer-links a:hover { color:var(--gold); }
+    .footer-copy { font-size:9px; color:var(--grey-400); line-height:2; letter-spacing:1px; }
+
+    /* ─── RESPONSIVE ───────────────────────────────── */
+    @media(max-width:900px) {
+      .products-grid { grid-template-columns:repeat(2,1fr); }
+      .typo-grid { grid-template-columns:1fr; gap:40px; }
+      .comp-grid { grid-template-columns:1fr; }
+      .logo-grid { grid-template-columns:1fr; }
+      .palette-grid { grid-template-columns:repeat(3,1fr); }
+      .hero-cats { gap:20px; }
+    }
+    @media(max-width:768px) {
+      .section { padding:70px 6%; }
+      .shade-section { padding:70px 6%; }
+      .typo-strip { padding:70px 6%; }
+      .nav-links { gap:20px; }
+      .nav-links a { font-size:9px; letter-spacing:2px; }
+      .product-card { padding:36px 18px; }
+      .comp-card { padding:32px 24px; }
+      .shade { width:36px; height:36px; }
+      .hero-cats { flex-wrap:wrap; gap:18px; row-gap:12px; }
+      .hero-cat { padding:6px 4px; }
+      .dbtn { padding:12px 24px; min-height:40px; }
+      .demo-nav { flex-wrap:wrap; gap:16px; }
+      .demo-nav a { padding:6px 2px; }
+      .footer { padding:48px 6%; }
+      .footer-links a { padding:6px 2px; display:inline-block; }
+      .typo-sample[style*="font-size:40px"] { font-size:32px !important; }
+    }
+    @media(max-width:520px) {
+      .nav { padding:0 4%; height:52px; }
+      .nav-logo img { height:14px; }
+      .nav-links { gap:14px; }
+      .nav-links a { font-size:8px; letter-spacing:1.5px; padding:6px 0; display:inline-block; }
+      .section { padding:56px 5%; }
+      .shade-section { padding:56px 5%; }
+      .typo-strip { padding:56px 5%; }
+      .products-grid { grid-template-columns:1fr; }
+      .palette-grid { grid-template-columns:repeat(2,1fr); }
+      .photo-grid { grid-template-columns:1fr; }
+      .hero-cats { flex-direction:column; gap:10px; }
+      .hero-cat { padding:8px 4px; font-size:10px; }
+      .hero { min-height:480px; }
+      .hero-logo { height:32px; margin-bottom:16px; }
+      .hero-title { letter-spacing:8px; margin-bottom:28px; }
+      .footer-links { flex-wrap:wrap; gap:12px 20px; }
+      .section-desc { font-size:12px; margin-bottom:44px; }
+      .line-divider { margin:0 auto 40px; }
+      .products-grid, .comp-grid { margin:0 auto !important; }
+      .product-card { padding:32px 20px; }
+      .product-name { font-size:14px; }
+      .comp-card { padding:28px 20px; }
+      .btn-row { gap:10px; }
+      .dbtn { padding:12px 20px; font-size:9px; letter-spacing:2px; min-height:42px; }
+      .shade { width:34px; height:34px; }
+      .shades { gap:6px; }
+      .swatch-color { margin-bottom:10px; }
+      .typo-item { padding:16px 0; }
+      .typo-sample[style*="font-size:40px"] { font-size:28px !important; letter-spacing:2px !important; }
+      .typo-sample[style*="font-size:24px"] { font-size:20px !important; }
+      .typo-sample[style*="font-size:18px"] { font-size:16px !important; }
+      .logo-box img { height:20px; }
+      .photo-box { aspect-ratio:1.6; }
+      .demo-card-img { height:100px; }
+      .demo-card-img img { height:64px; }
+      .footer { padding:40px 5%; }
+      .hero-bg { background-size:cover; }
+      [style*="padding:60px 8% 0"] { padding:50px 5% 0 !important; }
+    }
+    @media(max-width:380px) {
+      .nav { padding:0 3%; height:48px; }
+      .nav-logo img { height:12px; }
+      .nav-links { gap:10px; }
+      .nav-links a { font-size:7.5px; letter-spacing:1px; }
+      .section { padding:44px 4%; }
+      .shade-section { padding:44px 4%; }
+      .typo-strip { padding:44px 4%; }
+      .hero-logo { height:28px; }
+      .hero-title { letter-spacing:6px; font-size:0.9rem; }
+      .section-desc { font-size:11px; }
+      .product-card { padding:28px 16px; }
+      .product-name { font-size:13px; letter-spacing:1.5px; }
+      .product-desc { font-size:10px; }
+      .comp-card { padding:24px 16px; }
+      .dbtn { padding:11px 16px; font-size:8.5px; letter-spacing:1.5px; }
+      .btn-row { gap:8px; }
+      .shade { width:30px; height:30px; }
+      .shades { gap:5px; }
+      .swatch-name { font-size:9px; letter-spacing:1.5px; }
+      .swatch-hex { font-size:9px; }
+      .palette-grid { gap:4px; }
+      .footer { padding:36px 4%; }
+      .footer-links { gap:10px 14px; }
+      .footer-links a { font-size:8px; letter-spacing:1.5px; }
+      .footer-copy { font-size:8.5px; }
+      .typo-sample[style*="font-size:40px"] { font-size:24px !important; }
+      .demo-nav { gap:12px; }
+      .demo-nav a { font-size:9px; letter-spacing:1.5px; }
+      [style*="padding:60px 8% 0"] { padding:40px 4% 0 !important; }
+    }
+    @media (max-height:500px) and (orientation:landscape) {
+      .hero { height:auto; min-height:100vh; padding:70px 6% 40px; }
+      .hero-logo { height:26px; margin-bottom:10px; }
+      .hero-title { font-size:0.85rem; margin-bottom:16px; letter-spacing:6px; }
+      .hero-line { margin:0 auto 16px; }
+      .hero-cats { flex-direction:row; flex-wrap:wrap; gap:14px; justify-content:center; }
+      .scroll-indicator { display:none; }
+      .section { padding:40px 5%; }
+      .shade-section, .typo-strip { padding:40px 5%; }
+      .section-desc { margin-bottom:32px; }
+      .line-divider { margin:0 auto 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav light" id="nav">
+    <a href="index.html" class="nav-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior" /></a>
+    <div class="nav-links">
+      <a href="index.html">Portfolio</a>
+      <a href="#products">Beauty</a>
+      <a href="#palette">Identity</a>
+      <a href="#components">System</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-rays"></div>
+    <div class="hero-particles" aria-hidden="true">
+      <span class="particle" style="left:5%;  animation-duration:14s; animation-delay:0s;   width:2px; height:2px;"></span>
+      <span class="particle" style="left:12%; animation-duration:18s; animation-delay:3s;   width:3px; height:3px;"></span>
+      <span class="particle" style="left:22%; animation-duration:22s; animation-delay:6s;   width:2px; height:2px;"></span>
+      <span class="particle" style="left:30%; animation-duration:16s; animation-delay:1s;"></span>
+      <span class="particle" style="left:38%; animation-duration:20s; animation-delay:4s;   width:4px; height:4px;"></span>
+      <span class="particle" style="left:46%; animation-duration:15s; animation-delay:8s;   width:2px; height:2px;"></span>
+      <span class="particle" style="left:54%; animation-duration:24s; animation-delay:2s;"></span>
+      <span class="particle" style="left:62%; animation-duration:17s; animation-delay:5s;   width:3px; height:3px;"></span>
+      <span class="particle" style="left:70%; animation-duration:21s; animation-delay:7s;   width:2px; height:2px;"></span>
+      <span class="particle" style="left:78%; animation-duration:19s; animation-delay:9s;   width:4px; height:4px;"></span>
+      <span class="particle" style="left:86%; animation-duration:23s; animation-delay:2.5s;"></span>
+      <span class="particle" style="left:94%; animation-duration:13s; animation-delay:5.5s; width:2px; height:2px;"></span>
+      <span class="particle" style="left:18%; animation-duration:25s; animation-delay:10s;"></span>
+      <span class="particle" style="left:58%; animation-duration:12s; animation-delay:0.5s; width:3px; height:3px;"></span>
+      <span class="particle" style="left:82%; animation-duration:16s; animation-delay:4.5s; width:2px; height:2px;"></span>
+    </div>
+    <div class="hero-dim"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <img class="hero-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior" />
+      <h1 class="hero-title">Beauty</h1>
+      <div class="hero-line"></div>
+      <div class="hero-cats">
+        <a href="#products" class="hero-cat">Makeup</a>
+        <a href="#shade" class="hero-cat">Rouge Dior</a>
+        <a href="#palette" class="hero-cat">Identity</a>
+        <a href="#components" class="hero-cat">Design System</a>
+      </div>
+    </div>
+    <a href="#about" class="scroll-indicator"><div class="line"></div>Scroll</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-label reveal">Maison Christian Dior</div>
+    <h2 class="section-heading reveal">The Art of Beauty</h2>
+    <div class="line-divider"></div>
+    <div class="section-desc reveal" style="max-width:600px">Since 1947, the House of Dior has defined elegance through bold creativity and uncompromising craftsmanship. This brand identity system captures the visual language of Dior Beauty: refined typography, a restrained palette, and the sophistication that transforms every product into a work of art.</div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="comp-strip" id="products">
+    <div style="padding:60px 8% 0;max-width:1200px;margin:0 auto;">
+      <div class="section-label reveal">Collections</div>
+      <h2 class="section-heading reveal">Beauty Categories</h2>
+      <div class="line-divider"></div>
+    </div>
+    <div class="products-grid" style="max-width:1200px;margin:0 auto;">
+      <div class="product-card reveal" style="--d:0ms"><div class="product-img-wrap"><img src="https://media.ulta.com/i/ulta/2619652" alt="Rouge Dior" /></div><div class="product-name">Rouge Dior</div><div class="product-desc">Couture color in velvet, satin, and matte. 40 iconic shades.</div></div>
+      <div class="product-card reveal" style="--d:100ms"><div class="product-img-wrap"><img src="https://media.ulta.com/i/ulta/2605056" alt="Dior Forever" /></div><div class="product-name">Dior Forever</div><div class="product-desc">Transfer-proof liquid lipstick. 16-hour wear, weightless comfort.</div></div>
+      <div class="product-card reveal" style="--d:200ms"><div class="product-img-wrap"><img src="https://media.ulta.com/i/ulta/2636407" alt="J'adore" /></div><div class="product-name">J'adore</div><div class="product-desc">A floral arrangement of ylang-ylang, Damascus rose, and jasmine.</div></div>
+      <div class="product-card reveal" style="--d:300ms"><div class="product-img-wrap"><img src="https://media.ulta.com/i/ulta/2551648" alt="Prestige" /></div><div class="product-name">Prestige</div><div class="product-desc">Advanced skincare powered by micro-nutrition and rose science.</div></div>
+    </div>
+  </section>
+
+  <!-- SHADE SELECTOR -->
+  <section class="shade-section" id="shade">
+    <div class="section-label">Rouge Dior</div>
+    <h2 class="section-heading" style="color:#fff">Select Your Shade</h2>
+    <div class="line-divider" style="background:rgba(255,255,255,0.15)"></div>
+    <div class="shades">
+      <div class="shade active" style="background:#CD1944" data-name="999 Rouge Dior"></div>
+      <div class="shade" style="background:#8B1030" data-name="862 Winter"></div>
+      <div class="shade" style="background:#C44569" data-name="520 Feel Good"></div>
+      <div class="shade" style="background:#E8747C" data-name="365 New World"></div>
+      <div class="shade" style="background:#FFB6C1" data-name="277 Osee"></div>
+      <div class="shade" style="background:#A0522D" data-name="434 Promenade"></div>
+      <div class="shade" style="background:#8B4513" data-name="300 Nude Style"></div>
+      <div class="shade" style="background:#D2691E" data-name="539 Terra Bella"></div>
+      <div class="shade" style="background:#B22222" data-name="743 Rouge Zinnia"></div>
+      <div class="shade" style="background:#DC143C" data-name="844 Trafalgar"></div>
+      <div class="shade" style="background:#4A0000" data-name="886 Enigmatic"></div>
+      <div class="shade" style="background:#1a0000" data-name="982 Noir Poison"></div>
+    </div>
+    <div id="shade-name">999 Rouge Dior</div>
+  </section>
+
+  <!-- PALETTE -->
+  <section class="section" id="palette">
+    <div class="section-label reveal">Visual Identity</div>
+    <h2 class="section-heading reveal">Color Palette</h2>
+    <div class="line-divider"></div>
+    <div class="palette-grid">
+      <div class="swatch reveal" style="--d:0ms"><div class="swatch-color" style="background:#c9a96e"></div><div class="swatch-name">Or Dior</div><div class="swatch-hex">#C9A96E</div></div>
+      <div class="swatch reveal" style="--d:60ms"><div class="swatch-color" style="background:#e8d5b0"></div><div class="swatch-name">Champagne</div><div class="swatch-hex">#E8D5B0</div></div>
+      <div class="swatch reveal" style="--d:120ms"><div class="swatch-color" style="background:#f5ead6"></div><div class="swatch-name">Sable</div><div class="swatch-hex">#F5EAD6</div></div>
+      <div class="swatch reveal" style="--d:180ms"><div class="swatch-color" style="background:#2a2518"></div><div class="swatch-name">Nuit</div><div class="swatch-hex">#2A2518</div></div>
+      <div class="swatch reveal" style="--d:240ms"><div class="swatch-color" style="background:#faf8f4"></div><div class="swatch-name">Ivoire</div><div class="swatch-hex">#FAF8F4</div></div>
+      <div class="swatch reveal" style="--d:300ms"><div class="swatch-color" style="background:#fff;border:1px solid #efe9dd"></div><div class="swatch-name">Blanc</div><div class="swatch-hex">#FFFFFF</div></div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="typo-strip">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="section-label">Typography</div>
+      <h2 class="section-heading" style="color:#fff">Type System</h2>
+      <div class="line-divider" style="background:rgba(255,255,255,0.15)"></div>
+      <div class="typo-grid">
+        <div>
+          <div class="typo-col-title">Display</div>
+          <div class="typo-item"><span class="typo-sample" style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;letter-spacing:4px">Dior Beauty</span><span class="typo-meta">Cormorant Garamond / 40px / Light</span></div>
+          <div class="typo-item"><span class="typo-sample" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;letter-spacing:3px;text-transform:uppercase">Rouge Dior</span><span class="typo-meta">Heading / 24px / Medium / Uppercase</span></div>
+          <div class="typo-item"><span class="typo-sample" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:300">L'art de la couleur</span><span class="typo-meta">Accent / 18px / Light Italic</span></div>
+        </div>
+        <div>
+          <div class="typo-col-title">Interface</div>
+          <div class="typo-item"><span class="typo-sample" style="font-size:14px;font-weight:400">Inter is used for body copy, product descriptions, and all interface elements requiring clarity and precision.</span><span class="typo-meta">Body / 14px / Regular / Inter</span></div>
+          <div class="typo-item"><span class="typo-sample" style="font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase">Add to bag</span><span class="typo-meta">Button / 10px / SemiBold / Uppercase / 3px tracking</span></div>
+          <div class="typo-item"><span class="typo-sample" style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:2px;text-transform:uppercase">Available in 40 shades</span><span class="typo-meta">Caption / 9px / Uppercase / 2px tracking</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO -->
+  <section class="section">
+    <div class="section-label reveal">Brand Mark</div>
+    <h2 class="section-heading reveal">Logo Usage</h2>
+    <div class="line-divider"></div>
+    <div class="logo-grid">
+      <div class="reveal" style="--d:0ms"><div class="logo-box dark"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior" /></div><div class="logo-label">On Dark</div></div>
+      <div class="reveal" style="--d:100ms"><div class="logo-box light"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior" /></div><div class="logo-label">On Light</div></div>
+      <div class="reveal" style="--d:200ms"><div class="logo-box grey"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior" /></div><div class="logo-label">On Neutral</div></div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="comp-strip" id="components">
+    <div style="padding:60px 8% 0;max-width:1200px;margin:0 auto;">
+      <div class="section-label reveal">Design System</div>
+      <h2 class="section-heading reveal">Components</h2>
+      <div class="line-divider"></div>
+    </div>
+    <div class="comp-grid" style="max-width:1200px;margin:0 auto;">
+      <div class="comp-card">
+        <div class="comp-title">Buttons</div>
+        <div class="btn-row">
+          <button class="dbtn primary">Add to Bag</button>
+          <button class="dbtn outline">Discover</button>
+          <button class="dbtn white">Learn More</button>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Product Card</div>
+        <div class="demo-card">
+          <div class="demo-card-img"><img src="https://media.ulta.com/i/ulta/2619652" alt="Rouge Dior" /></div>
+          <div class="demo-card-body"><h5>Rouge Dior 999</h5><p>Couture color, velvet finish</p></div>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Navigation</div>
+        <div class="demo-nav"><a href="#" class="active">Makeup</a><a href="#">Skincare</a><a href="#">Fragrance</a><a href="#">Gifts</a></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Form</div>
+        <label class="demo-input-label">Email</label>
+        <input class="demo-input" type="email" placeholder="your@email.com" />
+        <div style="margin-top:16px"><button class="dbtn primary" style="width:100%">Subscribe</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTOGRAPHY -->
+  <section class="section">
+    <div class="section-label reveal">Art Direction</div>
+    <h2 class="section-heading reveal">Photography</h2>
+    <div class="line-divider"></div>
+    <div class="photo-grid">
+      <div class="photo-box reveal" style="--d:0ms">Dramatic</div>
+      <div class="photo-box reveal" style="--d:100ms">Editorial</div>
+      <div class="photo-box reveal" style="--d:200ms">Minimal</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <img class="footer-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Dior_Logo.svg/1280px-Dior_Logo.svg.png" alt="Dior" />
+    <div class="footer-links">
+      <a href="index.html">Portfolio</a>
+      <a href="#products">Beauty</a>
+      <a href="#palette">Identity</a>
+      <a href="#components">System</a>
+    </div>
+    <div class="footer-copy">
+      Design concept by Alyssa Nicole Cayabyab. Brand identity showcase inspired by Dior Beauty.<br>
+      Not affiliated with Christian Dior SE or LVMH. All trademarks belong to their respective owners.
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll + color change
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY > 50;
+      nav.classList.toggle('scrolled', scrolled);
+      nav.classList.toggle('light', !scrolled);
+    });
+    // Reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+    }, {threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    // Shades
+    document.querySelectorAll('.shade').forEach(s => {
+      s.addEventListener('click', () => {
+        document.querySelectorAll('.shade').forEach(x => x.classList.remove('active'));
+        s.classList.add('active');
+        document.getElementById('shade-name').textContent = s.dataset.name;
+      });
+    });
+  </script>
+</body>
+</html>

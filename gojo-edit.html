@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gojo Satoru — HTML Email Concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      --blue: #4a8eff;
+      --blue-deep: #2563eb;
+      --dark-bg: #0a0a14;
+      --email-bg: #0c0c18;
+      --email-card: #111122;
+      --email-stroke: rgba(74,142,255,0.12);
+      --muted: #6b7280;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; max-width: 100%; overflow-x: hidden; }
+    body {
+      min-height: 100vh;
+      font-family: "Inter", -apple-system, sans-serif;
+      background: var(--dark-bg);
+      color: #e5e5e5;
+      padding: 0 0 80px;
+      max-width: 100%;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video, iframe { max-width: 100%; height: auto; }
+
+    /* ─── NAV ──────────────────────────────────────── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 4%;
+      background: linear-gradient(180deg, rgba(10,10,20,0.9) 0%, transparent 100%);
+      transition: background 300ms ease;
+    }
+    .site-nav.scrolled {
+      background: rgba(10,10,20,0.95);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: color 200ms ease;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* ─── VIDEO HERO ───────────────────────────────── */
+    .video-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 500px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images2.alphacoders.com/114/thumb-1920-1143709.jpg') center/cover no-repeat;
+      filter: brightness(0.25) saturate(1.2);
+      transform: scale(1.05);
+      animation: heroZoom 25s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      0% { transform: scale(1.05); }
+      100% { transform: scale(1.12); }
+    }
+    .video-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10,10,20,0.5) 0%, rgba(10,10,20,0.2) 40%, rgba(10,10,20,0.8) 100%);
+    }
+    .video-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 32px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+    .hero-title {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      letter-spacing: 4px;
+      line-height: 0.95;
+      color: #fff;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.5s;
+    }
+    .hero-sub {
+      font-size: 13px;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 1px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+    }
+    .scroll-down svg { width: 16px; height: 16px; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ─── PAGE HEAD ────────────────────────────────── */
+    .page-head {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-head h1 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── EMAIL CONTAINER ──────────────────────────── */
+    .email {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--email-bg);
+      color: #e5e5e5;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 1px rgba(74,142,255,0.15);
+      border: 1px solid var(--email-stroke);
+    }
+
+    /* Email header */
+    .email-header {
+      text-align: center;
+      padding: 40px 28px 32px;
+      background: linear-gradient(180deg, rgba(74,142,255,0.08) 0%, transparent 100%);
+      border-bottom: 1px solid var(--email-stroke);
+    }
+    .email-header .brand {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 22px;
+      letter-spacing: 6px;
+      color: var(--blue);
+    }
+    .email-header .tagline {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Email hero image */
+    .email-hero {
+      position: relative;
+      overflow: hidden;
+    }
+    .email-hero img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+    .email-hero-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(0deg, var(--email-bg) 0%, transparent 100%);
+    }
+    .email-hero-text {
+      position: absolute;
+      bottom: 24px;
+      left: 28px;
+      z-index: 2;
+    }
+    .email-hero-text h2 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 32px;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+    .email-hero-text p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    /* Email body */
+    .email-body {
+      padding: 28px 28px 20px;
+    }
+    .email-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .email-body p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+    }
+    .email-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: background 200ms ease;
+    }
+    .email-btn:hover { background: var(--blue-deep); }
+
+    /* Email divider */
+    .email-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 28px;
+      color: var(--muted);
+    }
+    .email-divider::before,
+    .email-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--email-stroke);
+    }
+    .email-divider span { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
+
+    /* Email cards grid */
+    .email-cards {
+      padding: 20px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .email-card {
+      background: var(--email-card);
+      border: 1px solid var(--email-stroke);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .email-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      display: block;
+    }
+    .email-card-body {
+      padding: 14px;
+    }
+    .email-card-body h4 {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .email-card-body p {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Email quote */
+    .email-quote {
+      padding: 32px 28px;
+      text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(74,142,255,0.04));
+    }
+    .email-quote blockquote {
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.6);
+      max-width: 440px;
+      margin: 0 auto 8px;
+    }
+    .email-quote cite {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Email stats row */
+    .email-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--email-stroke);
+    }
+    .email-stat {
+      text-align: center;
+      padding: 20px 8px;
+      border-right: 1px solid var(--email-stroke);
+    }
+    .email-stat:last-child { border-right: none; }
+    .email-stat-val {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 18px;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .email-stat-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Email footer */
+    .email-footer {
+      padding: 20px 28px;
+      background: rgba(74,142,255,0.03);
+      border-top: 1px solid var(--email-stroke);
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .email-footer a { color: var(--blue); text-decoration: none; }
+    .email-footer .socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .email-footer .socials a {
+      width: 28px; height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(74,142,255,0.08);
+      border-radius: 50%;
+      color: var(--blue);
+      transition: background 200ms ease;
+    }
+    .email-footer .socials a:hover { background: rgba(74,142,255,0.2); }
+    .email-footer .socials svg { width: 12px; height: 12px; }
+
+    /* ─── PAGE FOOTER ──────────────────────────────── */
+    .page-footer {
+      max-width: 700px;
+      margin: 40px auto 0;
+      padding: 0 20px;
+      text-align: right;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.8;
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────── */
+    @media (max-width: 768px) {
+      .site-nav { padding: 14px 16px; }
+      .nav-logo { font-size: 11px; letter-spacing: 2px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 11px; padding: 6px 2px; display: inline-flex; align-items: center; min-height: 40px; }
+      .video-hero { min-height: 440px; }
+      .video-hero-content { padding: 0 20px; }
+      .hero-title { letter-spacing: 3px; }
+      .page-head { padding: 30px 16px 20px; }
+      .email { border-radius: 10px; margin: 0 12px; max-width: calc(100% - 24px); }
+      .email-header { padding: 32px 20px 24px; }
+      .email-hero img { height: 240px; }
+      .email-hero-text { left: 20px; bottom: 20px; right: 20px; }
+      .email-body { padding: 24px 20px 18px; }
+      .email-divider { padding: 8px 20px; }
+      .email-cards { padding: 18px 20px; }
+      .email-quote { padding: 28px 20px; }
+      .email-footer { padding: 20px; }
+      .email-btn { padding: 14px 26px; min-height: 44px; }
+      .email-footer .socials a { width: 40px; height: 40px; }
+    }
+    @media (max-width: 520px) {
+      body { padding: 0 0 60px; }
+      .site-nav { padding: 12px 14px; }
+      .nav-logo { font-size: 10px; letter-spacing: 1.5px; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 10px; letter-spacing: 0.5px; }
+      .video-hero { min-height: 420px; }
+      .video-hero-content { padding: 0 16px; }
+      .hero-eyebrow { font-size: 10px; letter-spacing: 4px; }
+      .hero-title { font-size: clamp(2.2rem, 10vw, 4rem); letter-spacing: 2px; }
+      .hero-sub { font-size: 12px; }
+      .scroll-down { bottom: 22px; font-size: 9px; letter-spacing: 2px; }
+      .page-head { padding: 30px 14px 16px; }
+      .page-head h1 { font-size: 15px; }
+      .email { border-radius: 10px; margin: 0 8px; max-width: calc(100% - 16px); }
+      .email-header { padding: 28px 18px 22px; }
+      .email-header .brand { font-size: 20px; letter-spacing: 4px; }
+      .email-hero img { height: 200px; }
+      .email-hero-text { left: 16px; bottom: 16px; right: 16px; }
+      .email-hero-text h2 { font-size: 24px; letter-spacing: 2px; }
+      .email-hero-text p { font-size: 11px; }
+      .email-body { padding: 22px 18px 16px; }
+      .email-body h3 { font-size: 15px; }
+      .email-body p { font-size: 13px; line-height: 1.7; }
+      .email-cards { grid-template-columns: 1fr; gap: 10px; padding: 16px 18px; }
+      .email-card img { height: 140px; }
+      .email-divider { padding: 8px 18px; }
+      .email-quote { padding: 24px 18px; }
+      .email-quote blockquote { font-size: 14px; }
+      .email-stats { grid-template-columns: repeat(2, 1fr); }
+      .email-stat { border-bottom: 1px solid var(--email-stroke); padding: 16px 6px; }
+      .email-stat:nth-child(2) { border-right: none; }
+      .email-stat:nth-child(3), .email-stat:nth-child(4) { border-bottom: none; }
+      .email-stat-val { font-size: 16px; }
+      .email-footer { padding: 18px 16px; font-size: 10px; }
+      .email-footer .socials a { width: 40px; height: 40px; }
+      .page-footer { padding: 0 16px; text-align: center; }
+    }
+    @media (max-width: 380px) {
+      .site-nav { padding: 10px 12px; }
+      .nav-logo { font-size: 9px; letter-spacing: 1px; }
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 9px; }
+      .hero-title { letter-spacing: 1.5px; }
+      .hero-sub { font-size: 11px; letter-spacing: 0.5px; }
+      .page-head h1 { font-size: 13px; }
+      .email { margin: 0 6px; max-width: calc(100% - 12px); }
+      .email-header { padding: 24px 14px 20px; }
+      .email-header .brand { font-size: 18px; letter-spacing: 3px; }
+      .email-hero img { height: 180px; }
+      .email-hero-text h2 { font-size: 20px; letter-spacing: 1.5px; }
+      .email-body { padding: 20px 14px 14px; }
+      .email-body h3 { font-size: 14px; }
+      .email-body p { font-size: 12px; }
+      .email-btn { padding: 12px 22px; font-size: 11px; letter-spacing: 1.5px; }
+      .email-cards { padding: 14px; }
+      .email-card img { height: 120px; }
+      .email-divider { padding: 8px 14px; }
+      .email-divider span { font-size: 9px; letter-spacing: 2px; }
+      .email-quote { padding: 22px 14px; }
+      .email-quote blockquote { font-size: 13px; }
+      .email-stat-val { font-size: 14px; }
+      .email-stat-label { font-size: 8px; }
+      .email-footer { padding: 16px 12px; }
+    }
+    @media (max-height: 500px) and (orientation: landscape) {
+      .video-hero { height: auto; min-height: 100vh; padding: 70px 0 60px; }
+      .hero-title { font-size: clamp(2rem, 7vw, 3.5rem); margin-bottom: 8px; }
+      .hero-eyebrow { margin-bottom: 8px; font-size: 10px; letter-spacing: 4px; }
+      .hero-sub { font-size: 11px; }
+      .scroll-down { bottom: 14px; font-size: 9px; }
+      .scroll-down svg { width: 14px; height: 14px; }
+      .site-nav { padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav" id="site-nav">
+    <a href="index.html" class="nav-logo">Alyssa's Portfolio</a>
+    <div class="nav-links">
+      <a href="https://www.linkedin.com/in/alyssa-cayabyab-5094003a9/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+      <a href="https://github.com/" target="_blank" rel="noreferrer noopener">GitHub</a>
+      <a href="https://mail.google.com/mail/u/1/#inbox?compose=new" target="_blank" rel="noreferrer noopener">Email</a>
+    </div>
+  </nav>
+
+  <!-- VIDEO HERO -->
+  <section class="video-hero">
+    <div class="video-hero-bg"></div>
+    <div class="video-hero-overlay"></div>
+    <div class="video-hero-content">
+      <div class="hero-eyebrow">HTML Email Concept</div>
+      <h1 class="hero-title">GOJO SATORU</h1>
+      <p class="hero-sub">"Throughout Heaven and Earth, I alone am the Honored One."</p>
+    </div>
+    <a href="#email-preview" class="scroll-down">
+      <span>View Email</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- PAGE HEAD -->
+  <div id="email-preview" class="page-head">
+    <h1>Gojo Satoru · HTML Email Concept</h1>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="email">
+
+    <div class="email-header">
+      <div class="brand">JUJUTSU HIGH</div>
+      <div class="tagline">Dispatches from Tokyo Metropolitan</div>
+    </div>
+
+    <div class="email-hero">
+      <img src="https://images.wallpapersden.com/image/download/satoru-gojo-cool-jujutsu-kaisen_bGtlamyUmZqaraWkpJRobWllrWdma2U.jpg" alt="Gojo Satoru" />
+      <div class="email-hero-overlay"></div>
+      <div class="email-hero-text">
+        <h2>THE STRONGEST</h2>
+        <p>Satoru Gojo, Special Grade Sorcerer</p>
+      </div>
+    </div>
+
+    <div class="email-body">
+      <h3>The One Who Stands Above All</h3>
+      <p>Born as the first sorcerer in 400 years to inherit both the Six Eyes and the Limitless technique, Satoru Gojo disrupted the balance of the jujutsu world simply by existing. As a teacher at Tokyo Jujutsu High, he mentors the next generation while reshaping the corrupt jujutsu society from within.</p>
+      <div id="read-more-content" style="display:none;">
+        <p>Gojo's birth alone shifted the balance of power in the jujutsu world. His presence weakened cursed spirits and forced even the most ancient entities to reconsider their strategies. The combination of the Six Eyes and the Limitless, two abilities that had not coexisted in a single sorcerer for four centuries, made him a living anomaly.</p>
+        <p>Beyond his overwhelming strength, Gojo is a reformist. He recognized early on that the jujutsu world's rigid hierarchy and outdated traditions held back talented sorcerers while protecting those in power. By becoming a teacher at Tokyo Jujutsu High, he chose to invest in the next generation, nurturing students like Yuji Itadori, Megumi Fushiguro, and Nobara Kugisaki into capable sorcerers who could one day stand on their own.</p>
+        <p>His philosophy is simple: true strength is not about standing alone at the top, but about raising others to stand beside you. Every lesson, every fight, and every sacrifice Gojo makes is in service of a future where the jujutsu world is defined by merit, not by bloodline or politics.</p>
+      </div>
+      <a class="email-btn" id="read-more-btn" href="javascript:void(0)" onclick="var content=document.getElementById('read-more-content');var btn=this;if(content.style.display==='none'){content.style.display='block';btn.textContent='Show Less'}else{content.style.display='none';btn.textContent='Read More'}">Read More</a>
+    </div>
+
+    <div class="email-divider"><span>Techniques</span></div>
+
+    <div class="email-cards">
+      <div class="email-card">
+        <img src="https://4kwallpapers.com/images/wallpapers/satoru-gojo-black-3840x2160-14684.png" alt="Six Eyes" />
+        <div class="email-card-body">
+          <h4>Six Eyes</h4>
+          <p>Grants unparalleled perception of cursed energy at an atomic level.</p>
+        </div>
+      </div>
+      <div class="email-card">
+        <img src="https://i.pinimg.com/736x/b5/62/83/b56283f6ab7088ea3cad0e55cad33d16.jpg" alt="Infinity" />
+        <div class="email-card-body">
+          <h4>Infinity</h4>
+          <p>An invisible barrier that slows anything approaching to a complete halt.</p>
+        </div>
+      </div>
+      <div class="email-card">
+        <img src="https://images.alphacoders.com/128/thumb-1920-1283140.png" alt="Hollow Purple" />
+        <div class="email-card-body">
+          <h4>Hollow Purple</h4>
+          <p>Combines Blue and Red into an imaginary mass that erases all in its path.</p>
+        </div>
+      </div>
+      <div class="email-card">
+        <img src="https://i.ytimg.com/vi/yox2Yz4Ni2o/maxresdefault.jpg" alt="Unlimited Void" />
+        <div class="email-card-body">
+          <h4>Unlimited Void</h4>
+          <p>Domain Expansion that floods targets with infinite information.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-quote">
+      <blockquote>"Throughout Heaven and Earth, I alone am the Honored One."</blockquote>
+      <cite>Satoru Gojo</cite>
+    </div>
+
+    <div class="email-stats">
+      <div class="email-stat">
+        <div class="email-stat-val">Special Grade</div>
+        <div class="email-stat-label">Rank</div>
+      </div>
+      <div class="email-stat">
+        <div class="email-stat-val">28</div>
+        <div class="email-stat-label">Age</div>
+      </div>
+      <div class="email-stat">
+        <div class="email-stat-val">190 cm</div>
+        <div class="email-stat-label">Height</div>
+      </div>
+      <div class="email-stat">
+        <div class="email-stat-val">Dec 7</div>
+        <div class="email-stat-label">Birthday</div>
+      </div>
+    </div>
+
+    <div class="email-footer">
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/alyssa-cayabyab-5094003a9/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.28 2.28 0 1 1 0 4.56 2.28 2.28 0 0 1 0-4.56Zm.02 5.95H2V21h3V9.45Zm7 0h-3v11.55h3V14.5c0-2.72 3.5-2.94 3.5 0V21h3V13.2c0-5.34-5.73-5.14-6.5-2.52V9.45Z"/></svg>
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.86 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.11-1.44-1.11-1.44-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.9 1.55 2.36 1.1 2.94.84.09-.65.35-1.1.64-1.35-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.04-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85.004 1.71.11 2.51.32 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.65.7 1.04 1.59 1.04 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .26.18.58.69.48A10.007 10.007 0 0 0 22 12c0-5.52-4.48-10-10-10Z"/></svg>
+        </a>
+        <a href="https://mail.google.com/mail/u/1/#inbox?compose=new" target="_blank" rel="noreferrer noopener" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6.4C3 5.08 4.08 4 5.4 4h13.2C19.92 4 21 5.08 21 6.4v11.2c0 1.32-1.08 2.4-2.4 2.4H5.4A2.4 2.4 0 0 1 3 17.6V6.4Zm1.8.3 7.2 5.1 7.2-5.1V6.4l-7.2 5.1L4.8 6.4v.3Z"/></svg>
+        </a>
+      </div>
+      <div>
+        <a href="#">View in browser</a> ·
+        <a href="#">Update preferences</a> ·
+        <a href="#">Unsubscribe</a>
+      </div>
+      <div style="margin-top:8px; opacity:0.7;">
+        Designed by Alyssa Nicole Cayabyab. Tribute to Jujutsu Kaisen.<br>
+        Not affiliated with MAPPA or Gege Akutami. All characters belong to their respective owners.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    Design concept by Alyssa Nicole Cayabyab.
+  </div>
+
+  <script>
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Porsche 911 — The Benchmark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500;600;700;800;900&family=Montserrat:wght@700;800;900&display=swap">
+  <link rel="stylesheet" href="porsche-design.css">
+</head>
+<body>
+
+  <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+  <nav class="nav">
+    <div class="nav-left">
+      <button class="menu-toggle" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square">
+          <line x1="3" y1="7" x2="21" y2="7"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="17" x2="21" y2="17"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+    </div>
+
+    <div class="brand">
+      <div class="brand-text">PORSCHE</div>
+    </div>
+
+    <div class="nav-right">
+      <a class="icon-btn" href="https://mail.google.com/mail/u/1/#inbox?compose=new" target="_blank" rel="noreferrer noopener" aria-label="Contact via Gmail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="m3 7 9 6 9-6"/>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
+  <aside class="menu-drawer" id="menu-drawer" role="dialog" aria-label="Site menu" aria-hidden="true">
+    <div class="menu-drawer-header">
+      <div class="menu-drawer-title">Menu</div>
+      <button class="menu-close" id="menu-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="menu-list">
+      <li><a href="#hero" data-menu-link>Home</a></li>
+      <li><a href="#configurator" data-menu-link>Explore Models</a></li>
+      <li><a href="#variants" data-menu-link>The Lineup</a></li>
+      <li><a href="#heritage" data-menu-link>Heritage</a></li>
+      <li><a href="#cta" data-menu-link>Find Your 911</a></li>
+    </ul>
+    <div class="menu-footer">
+      <a href="index.html">← Back to Portfolio</a>
+    </div>
+  </aside>
+
+  <section class="video-hero" id="hero">
+    <div class="video-bg">
+      <iframe
+        src="https://www.youtube.com/embed/OGEEQ9VEEmc?autoplay=1&mute=1&loop=1&playlist=OGEEQ9VEEmc&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&playsinline=1&fs=0"
+        title="Porsche 911 film"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+    <div class="video-overlay"></div>
+    <div class="video-content">
+      <div class="hero-kicker">911 GT2 RS</div>
+      <h1>The Most Powerful<br><b>Porsche</b> for the Road</h1>
+    </div>
+    <a href="#configurator" class="scroll-cue" aria-label="Scroll to configurator">
+      <span>Explore</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="6 13 12 19 18 13"/>
+      </svg>
+    </a>
+  </section>
+
+  <section class="configurator" id="configurator">
+    <div class="hero-watermark" aria-hidden="true">911</div>
+    <div class="config-head">
+      <h2 class="config-title">Model Variants</h2>
+    </div>
+
+    <div class="car-stage">
+      <button class="car-nav car-nav-prev" aria-label="Previous car">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <div class="car-wrap" id="car-wrap">
+        <img id="car-img" class="car-img"
+             src="https://images.porsche.com/f/285489813253582/5000x1485/41d4f9f265/model-992442-2026-side-shot_3612ff93b5064b8d826a0f545c88b5d6.png/m/660x196/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"
+             alt="Porsche 911 — Guards Red"
+             referrerpolicy="no-referrer" />
+      </div>
+      <button class="car-nav car-nav-next" aria-label="Next car">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+
+    <h3 class="current-model" id="current-model">911 Carrera 4 GTS</h3>
+
+    <div class="color-picker">
+      <div class="color-label"><b id="color-name">Guards Red</b></div>
+      <div class="color-row">
+        <div class="color-dot active" style="background:#d5001c"
+             data-color="#d5001c" data-name="Guards Red" data-model="911 Carrera 4 GTS"
+             data-drive="All-Wheel Drive" data-trans="Automatic"
+             data-accel="3.0 s" data-accel-label="Acceleration 0 – 100 km/h with Sport Chrono Package"
+             data-power="398 kW / 541 PS"
+             data-top="312 km/h"
+             data-img="https://images.porsche.com/f/285489813253582/5000x1485/41d4f9f265/model-992442-2026-side-shot_3612ff93b5064b8d826a0f545c88b5d6.png/m/660x196/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"
+             data-front="https://a.storyblok.com/f/322327/1720x1210/83eba26cac/911-carrera-4-gts-front.png/m/1720x1210/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"></div>
+        <div class="color-dot" style="background:#1a1a1a"
+             data-color="#1a1a1a" data-name="Jet Black Metallic" data-model="911 Carrera GTS"
+             data-drive="Rear-Wheel Drive" data-trans="Automatic"
+             data-accel="3.0 s" data-accel-label="Acceleration 0 – 100 km/h with Sport Chrono Package"
+             data-power="398 kW / 541 PS"
+             data-top="312 km/h"
+             data-img="https://images.porsche.com/f/285489813253582/5000x1485/90f88cee4b/model-992142-2026-side-shot_d8d81e49547244dca64ab6a8ed549be8.png/m/660x196/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"
+             data-front="https://a.storyblok.com/f/322327/1720x1210/260571d076/cz25w12ix0011-911-carrera-gts-front.png/m/1720x1210/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"></div>
+        <div class="color-dot" style="background:#0e3d6b"
+             data-color="#0e3d6b" data-name="Gentian Blue Metallic" data-model="911 Carrera"
+             data-drive="Rear-Wheel Drive" data-trans="Automatic"
+             data-accel="4.1 s" data-accel-label="Acceleration 0 – 100 km/h"
+             data-power="290 kW / 394 PS" data-power-label="Power (kW) / Power (PS)"
+             data-top="294 km/h"
+             data-img="https://images.porsche.com/f/285489813253582/5000x1485/41d2be3f2b/model-9921b2-2026-side-shot_06e74d820bdb4ff0a9521482138c2d3c.png/m/660x196/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"
+             data-front="https://a.storyblok.com/f/322327/1720x1210/c6b3d109aa/cz25w01ix0011911-carrera-front.png/m/1720x1210/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"></div>
+        <div class="color-dot" style="background:#f1ecd8"
+             data-color="#f1ecd8" data-name="Carrara White Metallic" data-model="911 Carrera T"
+             data-drive="Rear-Wheel Drive" data-trans="Manual"
+             data-accel="4.5 s" data-accel-label="Acceleration 0 – 100 km/h"
+             data-power="290 kW / 394 PS" data-power-label="Power (kW) / Power (PS)"
+             data-top="295 km/h"
+             data-img="https://images.porsche.com/f/285489813253582/5000x1485/41316d3310/model-992182-2026-side-shot_bf882e099bbc43188cf41be97f67c493.png/m/660x196/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"
+             data-front="https://a.storyblok.com/f/322327/1720x1210/4dd129a813/cz25w25ix0011-911-carrera-t-front.png/m/1720x1210/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="spec-panel reveal" id="spec-panel">
+    <div class="spec-content">
+      <h3 class="spec-model" id="spec-model">911 Carrera 4 GTS</h3>
+      <div class="spec-badges" id="spec-badges">
+        <span class="badge">Gasoline</span>
+        <span class="badge">All-Wheel Drive</span>
+        <span class="badge">Automatic</span>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-item">
+          <div class="spec-num" id="spec-accel">3.0 s</div>
+          <div class="spec-label" id="spec-accel-label">Acceleration 0 – 100 km/h with Sport Chrono Package</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num" id="spec-power">398 kW / 541 PS</div>
+          <div class="spec-label" id="spec-power-label">Power combined (kW) / Power combined (PS)</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num" id="spec-top">312 km/h</div>
+          <div class="spec-label">Top speed</div>
+        </div>
+      </div>
+    </div>
+    <div class="spec-visual">
+      <button class="car-nav car-nav-prev spec-nav" aria-label="Previous car">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <img id="spec-front" class="spec-front-img"
+           src="https://a.storyblok.com/f/322327/1720x1210/83eba26cac/911-carrera-4-gts-front.png/m/1720x1210/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN"
+           alt="Porsche 911 front view"
+           referrerpolicy="no-referrer" />
+      <button class="car-nav car-nav-next spec-nav" aria-label="Next car">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <section class="variants" id="variants">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Lineup</div>
+      <h2>One Silhouette.<br/>Many Characters.</h2>
+      <p>From the everyday Carrera to the track honed GT3 RS, every 911 shares the same DNA.</p>
+      <p class="section-question">Which 911 is the right one for you?</p>
+    </div>
+    <div class="variant-grid">
+      <div class="variant reveal">
+        <h3>911 Carrera</h3>
+        <div class="variant-badges">
+          <span class="badge">Gasoline</span>
+          <span class="badge">Rear-Wheel Drive</span>
+          <span class="badge">Automatic</span>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">4.1 s</div>
+          <div class="v-label">Acceleration 0 – 100 km/h with Sport Chrono Package</div>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">290 kW / 394 PS</div>
+          <div class="v-label">Power combined (kW) / Power combined (PS)</div>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">294 km/h</div>
+          <div class="v-label">Top speed</div>
+        </div>
+      </div>
+
+      <div class="variant reveal">
+        <h3>911 GT3</h3>
+        <div class="variant-badges">
+          <span class="badge">Gasoline</span>
+          <span class="badge">Rear-Wheel Drive</span>
+          <span class="badge">Manual / PDK</span>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">3.4 s</div>
+          <div class="v-label">Acceleration 0 – 100 km/h</div>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">375 kW / 510 PS</div>
+          <div class="v-label">Power combined (kW) / Power combined (PS)</div>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">318 km/h</div>
+          <div class="v-label">Top speed</div>
+        </div>
+      </div>
+
+      <div class="variant reveal">
+        <h3>911 Carrera 4 GTS</h3>
+        <div class="variant-badges">
+          <span class="badge">Gasoline</span>
+          <span class="badge">All-Wheel Drive</span>
+          <span class="badge">Automatic</span>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">3.0 s</div>
+          <div class="v-label">Acceleration 0 – 100 km/h with Sport Chrono Package</div>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">398 kW / 541 PS</div>
+          <div class="v-label">Power combined (kW) / Power combined (PS)</div>
+        </div>
+        <div class="variant-spec">
+          <div class="v-num">312 km/h</div>
+          <div class="v-label">Top speed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="heritage" id="heritage">
+    <div class="heritage-inner">
+      <blockquote class="reveal">
+        <span class="mark">“</span>The 911 is the only car you could drive on an African safari or at Le Mans, take to the theatre or through New York City traffic.<span class="mark">”</span>
+      </blockquote>
+      <div class="since reveal">Since 1963</div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <h2 style="color:#fff">FIND <span style="color:#fff">YOUR</span> <span style="color:#d5001c">911</span></h2>
+  </section>
+
+  <footer class="footer">
+    <div>© 2026 · Porsche 911 concept page</div>
+    <div class="disclaimer">
+      Design concept by Alyssa Nicole Cayabyab. Tribute page inspired by the Porsche 911.<br/>
+      Not affiliated with Porsche. Porsche is a trademark of its respective owner.
+    </div>
+  </footer>
+
+  <script src="porsche-design.js"></script>
+</body>
+</html>

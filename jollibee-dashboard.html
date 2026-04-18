@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jollibee Dashboard - UI/UX Concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+  <style>
+    :root { --red:#e31837; --yellow:#ffc72c; --dark:#1a1a2e; --bg:#f4f5f7; --card:#fff; --stroke:#e8e8ee; --muted:#7a7f8e; --green:#22c55e; --blue:#3b82f6; --purple:#8b5cf6; --orange:#f59e0b; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { max-width:100%; overflow-x:hidden; }
+    body { font-family:"Inter",sans-serif; background:var(--bg); color:var(--dark); -webkit-font-smoothing:antialiased; }
+    img, video, iframe { max-width:100%; height:auto; }
+    table { max-width:100%; }
+    /* Nav */
+    .nav { position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--stroke); display:flex; align-items:center; justify-content:space-between; padding:12px 24px; }
+    .nav-brand { display:flex; align-items:center; gap:8px; font-weight:800; font-size:16px; color:var(--red); text-decoration:none; transition:transform 200ms; }
+    .nav-brand:hover { transform:scale(1.03); }
+    .nav-brand img { height:34px; width:auto; }
+    .nav-links { display:flex; gap:16px; align-items:center; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:12px; font-weight:500; transition:color 200ms; }
+    .nav-links a:hover { color:var(--dark); }
+    .mobile-menu-btn { display:none; background:none; border:none; cursor:pointer; color:var(--dark); padding:4px; }
+    .mobile-menu-btn svg { width:22px; height:22px; }
+    /* Layout */
+    .dashboard { display:grid; grid-template-columns:200px 1fr; min-height:100vh; }
+    .sidebar { background:#fff; border-right:1px solid var(--stroke); padding:16px 0; position:sticky; top:52px; height:calc(100vh - 52px); overflow-y:auto; }
+    .sidebar-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:12px 20px 6px; font-weight:600; }
+    .sidebar-item { display:flex; align-items:center; gap:10px; padding:10px 20px; color:var(--muted); font-size:13px; font-weight:500; cursor:pointer; transition:all 250ms cubic-bezier(0.22,1,0.36,1); text-decoration:none; border-left:3px solid transparent; }
+    .sidebar-item:hover { color:var(--red); background:rgba(227,24,55,0.04); padding-left:24px; }
+    .sidebar-item.active { color:var(--red); background:rgba(227,24,55,0.06); border-left-color:var(--red); font-weight:600; }
+    .sidebar-item svg { width:16px; height:16px; flex-shrink:0; }
+    .main { padding:24px; overflow-x:hidden; }
+    /* Page sections */
+    .page { display:none; animation:fadeIn 0.4s ease; }
+    .page.active { display:block; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    /* Page title */
+    .page-title { font-size:20px; font-weight:800; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+    .page-title svg { width:22px; height:22px; color:var(--red); }
+    /* Metrics */
+    .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
+    .metric-card { background:var(--card); border-radius:12px; padding:20px; border:1px solid var(--stroke); cursor:pointer; transition:transform 300ms cubic-bezier(0.22,1,0.36,1),box-shadow 300ms ease,border-color 300ms ease; }
+    .metric-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(227,24,55,0.1); border-color:var(--red); }
+    .metric-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+    .metric-icon svg { width:18px; height:18px; }
+    .metric-icon.red { background:rgba(227,24,55,0.1); color:var(--red); }
+    .metric-icon.yellow { background:rgba(255,199,44,0.15); color:var(--orange); }
+    .metric-icon.green { background:rgba(34,197,94,0.1); color:var(--green); }
+    .metric-icon.blue { background:rgba(59,130,246,0.1); color:var(--blue); }
+    .metric-label { font-size:11px; color:var(--muted); font-weight:500; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px; }
+    .metric-value { font-size:26px; font-weight:800; color:var(--dark); }
+    .metric-change { font-size:11px; font-weight:600; margin-top:4px; }
+    .metric-change.up { color:var(--green); }
+    /* Card */
+    .card { background:var(--card); border-radius:12px; border:1px solid var(--stroke); padding:20px; margin-bottom:20px; transition:transform 300ms ease,box-shadow 300ms ease; }
+    .card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.05); }
+    .card-title { font-size:14px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; }
+    .card-title .badge { font-size:10px; padding:4px 10px; border-radius:99px; background:rgba(227,24,55,0.08); color:var(--red); font-weight:600; }
+    /* Grid */
+    .grid-2 { display:grid; grid-template-columns:1.3fr 1fr; gap:16px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
+    /* Bar chart */
+    .chart { display:flex; align-items:flex-end; gap:8px; height:180px; padding:20px 0 28px; }
+    .chart-bar { flex:1; position:relative; height:100%; min-width:0; }
+    .bar-fill { width:100%; border-radius:5px 5px 0 0; position:absolute; bottom:0; height:0; animation:barGrow 1s cubic-bezier(0.22,1,0.36,1) forwards; transition:filter 200ms,box-shadow 200ms; cursor:pointer; }
+    .bar-fill:hover { filter:brightness(1.15); box-shadow:0 -4px 12px rgba(227,24,55,0.2); }
+    .chart-bar .bar-label { text-align:center; font-size:9px; color:var(--muted); position:absolute; bottom:-20px; width:100%; }
+    .chart-bar .bar-value { text-align:center; font-size:9px; font-weight:700; position:absolute; top:-16px; width:100%; color:var(--dark); opacity:0; transition:opacity 200ms; }
+    .chart-bar:hover .bar-value { opacity:1; }
+    /* Donut chart */
+    .donut-wrap { display:flex; align-items:center; gap:24px; }
+    .donut { width:140px; height:140px; border-radius:50%; position:relative; flex-shrink:0; }
+    .donut-center { position:absolute; inset:30px; background:var(--card); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    .donut-center .val { font-size:20px; font-weight:800; }
+    .donut-center .lbl { font-size:9px; color:var(--muted); }
+    .donut-legend { display:flex; flex-direction:column; gap:8px; }
+    .legend-item { display:flex; align-items:center; gap:8px; font-size:12px; }
+    .legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+    /* Line chart */
+    .line-chart { width:100%; height:160px; }
+    /* Table */
+    table { width:100%; border-collapse:collapse; }
+    th { text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); font-weight:600; padding:8px 10px; border-bottom:1px solid var(--stroke); }
+    td { padding:10px; font-size:12px; border-bottom:1px solid var(--stroke); }
+    tr:last-child td { border-bottom:none; }
+    tbody tr { transition:background 200ms; cursor:pointer; }
+    tbody tr:hover { background:rgba(227,24,55,0.03); }
+    .status { padding:3px 8px; border-radius:99px; font-size:10px; font-weight:600; }
+    .status.completed { background:rgba(34,197,94,0.1); color:var(--green); }
+    .status.pending { background:rgba(255,199,44,0.15); color:#b8860b; }
+    .status.cancelled { background:rgba(227,24,55,0.1); color:var(--red); }
+    .status.preparing { background:rgba(59,130,246,0.1); color:var(--blue); }
+    /* Products */
+    .product-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--stroke); transition:background 200ms,padding-left 200ms; cursor:pointer; }
+    .product-item:last-child { border-bottom:none; }
+    .product-item:hover { background:rgba(227,24,55,0.03); padding-left:6px; }
+    .product-rank { width:24px; height:24px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; transition:transform 250ms,background 250ms; }
+    .product-item:hover .product-rank { transform:scale(1.15); background:var(--yellow); color:var(--dark); }
+    .product-img { width:36px; height:36px; border-radius:6px; object-fit:cover; flex-shrink:0; }
+    .product-info { flex:1; min-width:0; }
+    .product-name { font-size:12px; font-weight:600; }
+    .product-orders { font-size:10px; color:var(--muted); }
+    .product-bar { height:5px; background:var(--stroke); border-radius:99px; margin-top:3px; overflow:hidden; }
+    .product-bar-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--red),var(--yellow)); animation:barWidth 1.2s cubic-bezier(0.22,1,0.36,1) forwards; }
+    /* Satisfaction */
+    .sat-score { font-size:40px; font-weight:900; color:var(--red); text-align:center; }
+    .sat-stars { text-align:center; font-size:20px; color:var(--yellow); margin:4px 0 8px; }
+    .sat-label { text-align:center; font-size:11px; color:var(--muted); margin-bottom:12px; }
+    .sat-bar-row { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+    .sat-bar-label { font-size:10px; color:var(--muted); width:12px; text-align:right; }
+    .sat-bar { flex:1; height:6px; background:var(--stroke); border-radius:99px; overflow:hidden; }
+    .sat-bar-fill { height:100%; border-radius:99px; background:var(--yellow); animation:barWidth 1s ease forwards; }
+    .sat-bar-pct { font-size:10px; color:var(--muted); width:28px; }
+    /* Order form */
+    .order-form { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .form-group { display:flex; flex-direction:column; gap:4px; }
+    .form-group.full { grid-column:1/-1; }
+    .form-label { font-size:11px; font-weight:600; color:var(--muted); letter-spacing:0.5px; text-transform:uppercase; }
+    .form-input,.form-select { padding:10px 12px; border:1px solid var(--stroke); border-radius:8px; font-size:13px; font-family:inherit; transition:border-color 200ms,box-shadow 200ms; outline:none; background:#fff; }
+    .form-input:focus,.form-select:focus { border-color:var(--red); box-shadow:0 0 0 3px rgba(227,24,55,0.1); }
+    .form-btn { padding:12px 24px; background:var(--red); color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; transition:background 200ms,transform 200ms; font-family:inherit; }
+    .form-btn:hover { background:#c41430; transform:translateY(-1px); }
+    .form-btn:active { transform:translateY(0); }
+    /* Toast */
+    .toast { position:fixed; bottom:24px; right:24px; background:var(--green); color:#fff; padding:14px 24px; border-radius:10px; font-size:13px; font-weight:600; z-index:200; transform:translateY(80px); opacity:0; transition:all 400ms cubic-bezier(0.22,1,0.36,1); box-shadow:0 8px 24px rgba(34,197,94,0.3); }
+    .toast.show { transform:translateY(0); opacity:1; }
+    /* Customers */
+    .customer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .customer-card { background:var(--bg); border-radius:10px; padding:16px; text-align:center; transition:transform 200ms,box-shadow 200ms; cursor:pointer; }
+    .customer-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.06); }
+    .customer-avatar { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,var(--red),var(--yellow)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; margin:0 auto 8px; }
+    .customer-name { font-size:13px; font-weight:600; }
+    .customer-info { font-size:11px; color:var(--muted); }
+    /* Settings */
+    .setting-row { display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--stroke); }
+    .setting-row:last-child { border-bottom:none; }
+    .setting-left { }
+    .setting-name { font-size:13px; font-weight:600; }
+    .setting-desc { font-size:11px; color:var(--muted); margin-top:2px; }
+    .toggle { width:40px; height:22px; border-radius:11px; background:var(--stroke); cursor:pointer; position:relative; transition:background 200ms; }
+    .toggle.on { background:var(--green); }
+    .toggle::after { content:''; position:absolute; top:2px; left:2px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform 200ms; box-shadow:0 1px 3px rgba(0,0,0,0.15); }
+    .toggle.on::after { transform:translateX(18px); }
+    /* Footer */
+    .footer { padding:20px 24px; text-align:center; font-size:10px; color:var(--muted); line-height:1.8; border-top:1px solid var(--stroke); background:#fff; }
+    @keyframes barGrow { to { height:var(--bar-h); } }
+    @keyframes barWidth { from { width:0; } }
+    /* Responsive */
+    @media(max-width:900px) {
+      .dashboard { grid-template-columns:1fr; }
+      .sidebar { display:none; position:fixed; top:52px; left:0; bottom:0; width:240px; z-index:60; box-shadow:4px 0 20px rgba(0,0,0,0.1); }
+      .sidebar.open { display:block; }
+      .mobile-menu-btn { display:block; }
+      .metrics { grid-template-columns:repeat(2,1fr); }
+      .grid-2,.grid-3 { grid-template-columns:1fr; }
+      .order-form { grid-template-columns:1fr; }
+      .customer-grid { grid-template-columns:repeat(2,1fr); }
+      .main { overflow-x:hidden; max-width:100%; }
+    }
+    @media(max-width:768px) {
+      .dashboard { grid-template-columns:1fr; }
+      .sidebar { display:none; position:fixed; top:52px; left:0; bottom:0; width:240px; z-index:60; box-shadow:4px 0 20px rgba(0,0,0,0.1); }
+      .sidebar.open { display:block; }
+      .mobile-menu-btn { display:block; min-width:40px; min-height:40px; display:flex; align-items:center; justify-content:center; }
+      .sidebar-item { padding:12px 20px; min-height:44px; }
+      .metrics { grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:18px; }
+      .grid-2,.grid-3 { grid-template-columns:1fr; gap:12px; margin-bottom:16px; }
+      .order-form { grid-template-columns:1fr; }
+      .customer-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .page-title { font-size:18px; margin-bottom:16px; }
+      .card { padding:16px; margin-bottom:14px; }
+      .metric-card { padding:16px; }
+      .metric-value { font-size:22px; }
+      .nav-links a { font-size:11px; }
+      .main { padding:16px; }
+      .chart { height:160px; gap:4px; }
+      .donut { width:120px; height:120px; }
+      .donut-wrap { gap:16px; }
+      table { font-size:11px; }
+      th, td { padding:8px 6px; }
+      .form-btn { min-height:44px; }
+      .toggle { width:44px; height:24px; border-radius:12px; }
+      .toggle::after { width:20px; height:20px; }
+      .toggle.on::after { transform:translateX(20px); }
+      .metrics[style*="grid-template-columns"] { grid-template-columns:repeat(2,1fr) !important; }
+    }
+    @media(max-width:520px) {
+      .metrics { grid-template-columns:1fr; }
+      .main { padding:14px; }
+      .nav { padding:10px 14px; }
+      .nav-brand { font-size:14px; }
+      .nav-brand img { height:28px; }
+      .nav-links a { font-size:10px; }
+      .metric-value { font-size:20px; }
+      .customer-grid { grid-template-columns:1fr; }
+      .donut-wrap { flex-direction:column; gap:12px; }
+      .page-title { font-size:16px; }
+      .page-title svg { width:18px; height:18px; }
+      .card { padding:14px; border-radius:10px; }
+      .card-title { font-size:13px; margin-bottom:12px; }
+      .chart { height:140px; padding:16px 0 24px; gap:3px; }
+      .chart-bar .bar-label { font-size:8px; }
+      .sat-score { font-size:32px; }
+      .sat-stars { font-size:16px; }
+      div[style*="grid-template-columns:auto 1fr"] { grid-template-columns:1fr !important; gap:12px !important; }
+      .metrics[style*="grid-template-columns"] { grid-template-columns:1fr !important; }
+      .form-input, .form-select { font-size:13px; min-height:44px; }
+      .footer { padding:16px 14px; font-size:9px; }
+      .toast { left:14px; right:14px; bottom:14px; font-size:12px; padding:12px 18px; }
+    }
+    @media(max-width:380px) {
+      .main { padding:10px; }
+      .nav { padding:8px 10px; }
+      .nav-brand { font-size:13px; gap:6px; }
+      .nav-brand img { height:24px; }
+      .nav-links a { font-size:10px; }
+      .card { padding:12px; }
+      .metric-card { padding:14px; }
+      .metric-value { font-size:18px; }
+      .page-title { font-size:15px; }
+      .chart { height:120px; gap:2px; }
+      .chart-bar .bar-label { font-size:7px; bottom:-16px; }
+      .donut { width:100px; height:100px; }
+      .donut-center { inset:22px; }
+      .donut-center .val { font-size:14px; }
+      .customer-avatar { width:40px; height:40px; font-size:14px; }
+      th, td { padding:6px 4px; font-size:10px; }
+      .sidebar { width:85vw; max-width:260px; }
+    }
+    @media(max-height:500px) and (orientation:landscape) {
+      .nav { padding:6px 14px; }
+      .nav-brand img { height:24px; }
+      .sidebar { top:44px; height:calc(100vh - 44px); }
+      .main { padding:12px; }
+      .metrics { grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:12px; }
+      .metric-card { padding:10px; }
+      .metric-value { font-size:16px; }
+      .metric-icon { width:28px; height:28px; margin-bottom:6px; }
+      .page-title { font-size:16px; margin-bottom:10px; }
+      .card { padding:12px; margin-bottom:10px; }
+      .chart { height:110px; padding:12px 0 20px; }
+      .donut { width:100px; height:100px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      </button>
+      <a href="index.html" class="nav-brand"><img src="https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png" alt="Jollibee" /> Dashboard</a>
+    </div>
+    <div class="nav-links"><a href="index.html">← Portfolio</a></div>
+  </nav>
+  <div class="dashboard">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-label">Main</div>
+      <a class="sidebar-item active" data-page="dashboard" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a class="sidebar-item" data-page="orders" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>Orders</a>
+      <a class="sidebar-item" data-page="customers" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Customers</a>
+      <div class="sidebar-label" style="margin-top:12px">Reports</div>
+      <a class="sidebar-item" data-page="analytics" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a>
+      <div class="sidebar-label" style="margin-top:12px">System</div>
+      <a class="sidebar-item" data-page="settings" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</a>
+    </aside>
+    <main class="main">
+
+      <!-- DASHBOARD PAGE -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard Overview</div>
+        <div class="metrics">
+          <div class="metric-card"><div class="metric-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="metric-label">Total Sales</div><div class="metric-value" data-count="2400000">P 2.4M</div><div class="metric-change up">+12.5% from last month</div></div>
+          <div class="metric-card"><div class="metric-icon yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div><div class="metric-label">Total Orders</div><div class="metric-value">18,247</div><div class="metric-change up">+8.3% from last month</div></div>
+          <div class="metric-card"><div class="metric-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="metric-label">Active Customers</div><div class="metric-value">5,892</div><div class="metric-change up">+15.2% from last month</div></div>
+          <div class="metric-card"><div class="metric-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><div class="metric-label">Revenue Growth</div><div class="metric-value">23.8%</div><div class="metric-change up">+4.1% from last quarter</div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card"><div class="card-title">Monthly Sales <span class="badge">2026</span></div>
+            <div class="chart"><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:65%;background:var(--red)"></div><span class="bar-value">1.2M</span><span class="bar-label">Jan</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:58%;background:var(--red)"></div><span class="bar-value">1.1M</span><span class="bar-label">Feb</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:72%;background:var(--red)"></div><span class="bar-value">1.4M</span><span class="bar-label">Mar</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:68%;background:var(--red)"></div><span class="bar-value">1.3M</span><span class="bar-label">Apr</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:80%;background:var(--red)"></div><span class="bar-value">1.6M</span><span class="bar-label">May</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:75%;background:var(--red)"></div><span class="bar-value">1.5M</span><span class="bar-label">Jun</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:85%;background:var(--red)"></div><span class="bar-value">1.7M</span><span class="bar-label">Jul</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:78%;background:var(--red)"></div><span class="bar-value">1.5M</span><span class="bar-label">Aug</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:90%;background:var(--yellow)"></div><span class="bar-value">1.8M</span><span class="bar-label">Sep</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:88%;background:var(--red)"></div><span class="bar-value">1.7M</span><span class="bar-label">Oct</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:95%;background:var(--red)"></div><span class="bar-value">1.9M</span><span class="bar-label">Nov</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:100%;background:linear-gradient(180deg,var(--yellow),var(--red))"></div><span class="bar-value">2.4M</span><span class="bar-label">Dec</span></div></div>
+          </div>
+          <div class="card"><div class="card-title">Sales by Category</div>
+            <div class="donut-wrap">
+              <div class="donut" style="background:conic-gradient(var(--red) 0% 42%,var(--yellow) 42% 68%,var(--blue) 68% 85%,var(--green) 85% 100%)"><div class="donut-center"><span class="val">P 2.4M</span><span class="lbl">Total</span></div></div>
+              <div class="donut-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Chicken (42%)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Burgers (26%)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Breakfast (17%)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Desserts (15%)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card"><div class="card-title">Customer Satisfaction</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center">
+            <div style="text-align:center"><div class="sat-score">4.8</div><div class="sat-stars">★★★★★</div><div class="sat-label">12,847 reviews</div></div>
+            <div><div class="sat-bar-row"><span class="sat-bar-label">5</span><div class="sat-bar"><div class="sat-bar-fill" style="width:78%"></div></div><span class="sat-bar-pct">78%</span></div><div class="sat-bar-row"><span class="sat-bar-label">4</span><div class="sat-bar"><div class="sat-bar-fill" style="width:15%"></div></div><span class="sat-bar-pct">15%</span></div><div class="sat-bar-row"><span class="sat-bar-label">3</span><div class="sat-bar"><div class="sat-bar-fill" style="width:4%"></div></div><span class="sat-bar-pct">4%</span></div><div class="sat-bar-row"><span class="sat-bar-label">2</span><div class="sat-bar"><div class="sat-bar-fill" style="width:2%"></div></div><span class="sat-bar-pct">2%</span></div><div class="sat-bar-row"><span class="sat-bar-label">1</span><div class="sat-bar"><div class="sat-bar-fill" style="width:1%"></div></div><span class="sat-bar-pct">1%</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDERS PAGE -->
+      <div class="page" id="page-orders">
+        <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>Orders</div>
+        <div class="card"><div class="card-title">New Order <span class="badge">Quick Add</span></div>
+          <form class="order-form" onsubmit="submitOrder(event)">
+            <div class="form-group"><label class="form-label">Customer Name</label><input class="form-input" id="ord-name" placeholder="Enter name" required /></div>
+            <div class="form-group"><label class="form-label">Contact Number</label><input class="form-input" id="ord-phone" placeholder="09XX XXX XXXX" /></div>
+            <div class="form-group"><label class="form-label">Item</label><select class="form-select" id="ord-item"><option>Chickenjoy (Original)</option><option>Chickenjoy Spicy</option><option>Jolly Spaghetti</option><option>Burger Steak</option><option>Yumburger</option><option>Beef Tapa</option><option>Longganisa</option><option>Peach Mango Pie</option><option>Jolly Hotdog</option><option>Palabok</option><option>Pancakes</option><option>Corned Beef</option></select></div>
+            <div class="form-group"><label class="form-label">Quantity</label><input class="form-input" id="ord-qty" type="number" value="1" min="1" max="20" /></div>
+            <div class="form-group"><label class="form-label">Delivery Type</label><select class="form-select" id="ord-type"><option>Dine-in</option><option>Takeout</option><option>Delivery</option></select></div>
+            <div class="form-group"><label class="form-label">Notes</label><input class="form-input" id="ord-notes" placeholder="Special instructions" /></div>
+            <div class="form-group full"><button type="submit" class="form-btn">Place Order</button></div>
+          </form>
+        </div>
+        <div class="card"><div class="card-title">Recent Orders <span class="badge" id="order-count">10 orders</span></div>
+          <div style="overflow-x:auto"><table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead><tbody id="orders-tbody">
+            <tr><td>#JB-4821</td><td>Maria Santos</td><td>Chickenjoy Spicy x3, Rice</td><td>P 627</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td>#JB-4820</td><td>John Reyes</td><td>Yumburger x2, Jolly Spaghetti</td><td>P 315</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td>#JB-4819</td><td>Ana Cruz</td><td>Beef Tapa w/ Drink</td><td>P 165</td><td><span class="status preparing">Preparing</span></td></tr>
+            <tr><td>#JB-4818</td><td>Carlo Bautista</td><td>Burger Steak x2, Rice</td><td>P 258</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td>#JB-4817</td><td>Lisa Mendoza</td><td>Peach Mango Pie x4, Hot Choco</td><td>P 246</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td>#JB-4816</td><td>Miguel Torres</td><td>Chickenjoy Bucket, Spaghetti Pan</td><td>P 999</td><td><span class="status cancelled">Cancelled</span></td></tr>
+            <tr><td>#JB-4815</td><td>Sofia Garcia</td><td>Longganisa w/ Drink</td><td>P 149</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td>#JB-4814</td><td>Rafael Lim</td><td>Bacon Egg Cheese Sandwich x2</td><td>P 278</td><td><span class="status pending">Pending</span></td></tr>
+            <tr><td>#JB-4813</td><td>Alyssa Nicole Cayabyab</td><td>Chickenjoy x2, Palabok, Drinks</td><td>P 458</td><td><span class="status completed">Completed</span></td></tr>
+            <tr><td>#JB-4812</td><td>Colin Bustos</td><td>Chickenjoy x1, Drink, Sundae, Jolly Hotdog</td><td>P 325</td><td><span class="status completed">Completed</span></td></tr>
+          </tbody></table></div>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS PAGE -->
+      <div class="page" id="page-customers">
+        <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Customers</div>
+        <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+          <div class="metric-card"><div class="metric-label">Total Customers</div><div class="metric-value">5,892</div><div class="metric-change up">+15.2%</div></div>
+          <div class="metric-card"><div class="metric-label">Returning</div><div class="metric-value">3,241</div><div class="metric-change up">+8.7%</div></div>
+          <div class="metric-card"><div class="metric-label">New This Month</div><div class="metric-value">847</div><div class="metric-change up">+22.1%</div></div>
+        </div>
+        <div class="card"><div class="card-title">Top Customers</div>
+          <div class="customer-grid">
+            <div class="customer-card"><div class="customer-avatar">AC</div><div class="customer-name">Alyssa Nicole Cayabyab</div><div class="customer-info">32 orders, P 4,580</div></div>
+            <div class="customer-card"><div class="customer-avatar">CB</div><div class="customer-name">Colin Bustos</div><div class="customer-info">28 orders, P 3,920</div></div>
+            <div class="customer-card"><div class="customer-avatar">MS</div><div class="customer-name">Maria Santos</div><div class="customer-info">24 orders, P 3,456</div></div>
+            <div class="customer-card"><div class="customer-avatar">JR</div><div class="customer-name">John Reyes</div><div class="customer-info">21 orders, P 2,890</div></div>
+            <div class="customer-card"><div class="customer-avatar">LM</div><div class="customer-name">Lisa Mendoza</div><div class="customer-info">19 orders, P 2,540</div></div>
+            <div class="customer-card"><div class="customer-avatar">SG</div><div class="customer-name">Sofia Garcia</div><div class="customer-info">16 orders, P 2,120</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS PAGE -->
+      <div class="page" id="page-analytics">
+        <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</div>
+        <div class="grid-3">
+          <div class="card"><div class="card-title">Avg Order Value</div><div class="metric-value" style="font-size:28px">P 312</div><div class="metric-change up" style="margin-top:4px">+6.2% vs last month</div></div>
+          <div class="card"><div class="card-title">Peak Hour</div><div class="metric-value" style="font-size:28px">12:00 PM</div><div style="font-size:11px;color:var(--muted);margin-top:4px">Lunch rush, 847 orders</div></div>
+          <div class="card"><div class="card-title">Delivery Rate</div><div class="metric-value" style="font-size:28px">34%</div><div style="font-size:11px;color:var(--muted);margin-top:4px">Dine-in 48%, Takeout 18%</div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card"><div class="card-title">Top Products <span class="badge">By Orders</span></div>
+            <div class="product-item"><div class="product-rank">1</div><img class="product-img" src="https://cdn.okya.co/dba63c8e-2243-44b8-b105-e2137db69d75~1/nth/0/-/format/auto/" alt="Chickenjoy" /><div class="product-info"><div class="product-name">Chickenjoy (Original)</div><div class="product-orders">8,421 orders</div><div class="product-bar"><div class="product-bar-fill" style="width:100%"></div></div></div></div>
+            <div class="product-item"><div class="product-rank">2</div><img class="product-img" src="https://cdn.okya.co/64252c2f-5445-43e9-88ef-e639f2f04010~1/nth/0/-/format/auto/" alt="Spicy" /><div class="product-info"><div class="product-name">Chickenjoy Spicy</div><div class="product-orders">6,847 orders</div><div class="product-bar"><div class="product-bar-fill" style="width:81%"></div></div></div></div>
+            <div class="product-item"><div class="product-rank">3</div><img class="product-img" src="https://cdn.okya.co/4713fccf-0571-4c91-9ea0-2039b8ba979f~1/nth/0/-/format/auto/" alt="Burger Steak" /><div class="product-info"><div class="product-name">Jolly Spaghetti</div><div class="product-orders">5,132 orders</div><div class="product-bar"><div class="product-bar-fill" style="width:61%"></div></div></div></div>
+            <div class="product-item"><div class="product-rank">4</div><img class="product-img" src="https://cdn.okya.co/4713fccf-0571-4c91-9ea0-2039b8ba979f~1/nth/0/-/format/auto/" alt="Burger Steak" /><div class="product-info"><div class="product-name">Burger Steak</div><div class="product-orders">4,256 orders</div><div class="product-bar"><div class="product-bar-fill" style="width:51%"></div></div></div></div>
+            <div class="product-item"><div class="product-rank">5</div><img class="product-img" src="https://cdn.okya.co/45372ef2-9981-4b2a-aec3-8e1978dfff6a~1/nth/0/-/format/auto/" alt="Beef Tapa" /><div class="product-info"><div class="product-name">Beef Tapa</div><div class="product-orders">3,945 orders</div><div class="product-bar"><div class="product-bar-fill" style="width:47%"></div></div></div></div>
+            <div class="product-item"><div class="product-rank">6</div><img class="product-img" src="https://cdn.okya.co/e58c4272-86b6-487d-95e9-1a1d2d8888cd~1/nth/0/-/format/auto/" alt="Longganisa" /><div class="product-info"><div class="product-name">Longganisa</div><div class="product-orders">2,541 orders</div><div class="product-bar"><div class="product-bar-fill" style="width:30%"></div></div></div></div>
+          </div>
+          <div class="card"><div class="card-title">Order Channels</div>
+            <div class="donut-wrap">
+              <div class="donut" style="background:conic-gradient(var(--red) 0% 48%,var(--yellow) 48% 82%,var(--blue) 82% 100%)"><div class="donut-center"><span class="val">18,247</span><span class="lbl">Orders</span></div></div>
+              <div class="donut-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Dine-in (48%)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Delivery (34%)</div>
+                <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Takeout (18%)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card"><div class="card-title">Hourly Orders Today</div>
+          <div class="chart"><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:15%;background:var(--yellow)"></div><span class="bar-value">32</span><span class="bar-label">6am</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:30%;background:var(--yellow)"></div><span class="bar-value">67</span><span class="bar-label">7am</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:45%;background:var(--yellow)"></div><span class="bar-value">98</span><span class="bar-label">8am</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:35%;background:var(--red)"></div><span class="bar-value">76</span><span class="bar-label">9am</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:55%;background:var(--red)"></div><span class="bar-value">121</span><span class="bar-label">10am</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:85%;background:var(--red)"></div><span class="bar-value">187</span><span class="bar-label">11am</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:100%;background:linear-gradient(180deg,var(--yellow),var(--red))"></div><span class="bar-value">218</span><span class="bar-label">12pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:78%;background:var(--red)"></div><span class="bar-value">172</span><span class="bar-label">1pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:40%;background:var(--red)"></div><span class="bar-value">89</span><span class="bar-label">2pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:25%;background:var(--red)"></div><span class="bar-value">54</span><span class="bar-label">3pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:50%;background:var(--red)"></div><span class="bar-value">110</span><span class="bar-label">5pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:90%;background:var(--red)"></div><span class="bar-value">198</span><span class="bar-label">6pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:70%;background:var(--red)"></div><span class="bar-value">154</span><span class="bar-label">7pm</span></div><div class="chart-bar" style="height:100%;position:relative"><div class="bar-fill" style="--bar-h:35%;background:var(--red)"></div><span class="bar-value">76</span><span class="bar-label">8pm</span></div></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS PAGE -->
+      <div class="page" id="page-settings">
+        <div class="page-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4"/></svg>Settings</div>
+        <div class="card"><div class="card-title">Notifications</div>
+          <div class="setting-row"><div class="setting-left"><div class="setting-name">Order Alerts</div><div class="setting-desc">Get notified for every new order</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="setting-row"><div class="setting-left"><div class="setting-name">Low Stock Alerts</div><div class="setting-desc">Alert when inventory drops below threshold</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="setting-row"><div class="setting-left"><div class="setting-name">Daily Reports</div><div class="setting-desc">Receive end-of-day sales summary</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+          <div class="setting-row"><div class="setting-left"><div class="setting-name">Customer Reviews</div><div class="setting-desc">Notify when new reviews are posted</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        </div>
+        <div class="card"><div class="card-title">Display</div>
+          <div class="setting-row"><div class="setting-left"><div class="setting-name">Compact Mode</div><div class="setting-desc">Show more data in less space</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+          <div class="setting-row"><div class="setting-left"><div class="setting-name">Show Animations</div><div class="setting-desc">Enable chart and card animations</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <footer class="footer">Design concept by Alyssa Nicole Cayabyab. UI/UX showcase inspired by Jollibee.<br>Not affiliated with Jollibee Foods Corporation. All trademarks belong to their respective owners.</footer>
+  <script>
+    // Sidebar navigation
+    let orderNum = 4822;
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        const page = item.dataset.page;
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + page).classList.add('active');
+        document.querySelector('.sidebar').classList.remove('open');
+      });
+    });
+    // Order form
+    function submitOrder(e) {
+      e.preventDefault();
+      const name = document.getElementById('ord-name').value;
+      const item = document.getElementById('ord-item').value;
+      const qty = document.getElementById('ord-qty').value;
+      const type = document.getElementById('ord-type').value;
+      const prices = {'Chickenjoy (Original)':199,'Chickenjoy Spicy':209,'Jolly Spaghetti':145,'Burger Steak':119,'Yumburger':85,'Beef Tapa':165,'Longganisa':139,'Peach Mango Pie':49,'Jolly Hotdog':75,'Palabok':155,'Pancakes':89,'Corned Beef':155};
+      const total = (prices[item]||150) * parseInt(qty);
+      const tr = document.createElement('tr');
+      tr.style.animation = 'fadeIn 0.4s ease';
+      tr.innerHTML = `<td>#JB-${orderNum++}</td><td>${name}</td><td>${item} x${qty} (${type})</td><td>P ${total.toLocaleString()}</td><td><span class="status preparing">Preparing</span></td>`;
+      const tbody = document.getElementById('orders-tbody');
+      tbody.insertBefore(tr, tbody.firstChild);
+      const count = tbody.querySelectorAll('tr').length;
+      document.getElementById('order-count').textContent = count + ' orders';
+      e.target.reset();
+      showToast('Order placed for ' + name + '!');
+    }
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>

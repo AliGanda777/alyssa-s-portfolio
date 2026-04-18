@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paws & Pour | Adorable Dog Cafe Visit Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fff5f8;
+      --surface: #ffffff;
+      --ink: #3d1f2d;
+      --ink-soft: #8a5b71;
+      --line: #f7d9e4;
+      --accent: #e84a87;
+      --accent-soft: #ffb8d1;
+      --accent-warm: #ff8fb8;
+      --accent-muted: #ffe3ed;
+      --accent-deep: #c7306a;
+      --shadow: 0 2px 14px rgba(232, 74, 135, 0.10), 0 18px 50px rgba(232, 74, 135, 0.08);
+      --max: 760px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.75;
+      position: relative;
+      overflow-x: hidden;
+      font-feature-settings: "ss01", "cv11";
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    img, video, iframe { max-width: 100%; height: auto; }
+
+    /* ===== ANIMATED BACKGROUND ===== */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255, 184, 209, 0.55), transparent 55%),
+        radial-gradient(circle at 90% 15%, rgba(232, 74, 135, 0.22), transparent 55%),
+        radial-gradient(circle at 50% 95%, rgba(255, 143, 184, 0.30), transparent 60%),
+        radial-gradient(circle at 85% 80%, rgba(199, 48, 106, 0.18), transparent 55%);
+      animation: gradient-shift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes gradient-shift {
+      0%   { transform: scale(1) translate(0, 0); filter: hue-rotate(0deg); }
+      50%  { transform: scale(1.08) translate(2%, -2%); filter: hue-rotate(12deg); }
+      100% { transform: scale(1.04) translate(-2%, 2%); filter: hue-rotate(-8deg); }
+    }
+
+    .bg-noise {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      opacity: 0.5;
+      background-image: radial-gradient(rgba(232, 74, 135, 0.08) 1px, transparent 1px);
+      background-size: 26px 26px;
+    }
+
+    .bg-paws {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-paw {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0;
+      pointer-events: none;
+      animation: cursor-trail ease-out forwards;
+      transform: translate(-50%, -50%);
+      will-change: transform, opacity;
+    }
+
+    @keyframes cursor-trail {
+      0%   { transform: translate(-50%, -50%) scale(0.3) rotate(0deg); opacity: 0; }
+      15%  { opacity: 0.95; transform: translate(-50%, -50%) scale(1) rotate(30deg); }
+      100% { transform: translate(calc(-50% + var(--drift, 0px)), calc(-50% + 80px)) scale(0.7) rotate(220deg); opacity: 0; }
+    }
+
+    /* ===== TWINKLES ===== */
+    .bg-twinkle {
+      position: fixed;
+      z-index: -1;
+      font-size: 12px;
+      pointer-events: none;
+      color: rgba(232, 74, 135, 0.65);
+      animation: twinkle 3.2s ease-in-out infinite;
+      text-shadow: 0 0 6px rgba(255, 143, 184, 0.8);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+      50%      { opacity: 1; transform: scale(1.3) rotate(180deg); }
+    }
+
+    .container { width: min(100% - 32px, var(--max)); margin: 0 auto; }
+
+    /* ===== TOP CONTACT BAR ===== */
+    .site-contact-bar {
+      width: 100%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      z-index: 40;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .contact-bar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 9px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .contact-bar-inner a {
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 500;
+      transition: color 180ms ease;
+    }
+
+    .contact-bar-inner a:hover {
+      color: var(--accent-soft);
+    }
+
+    .contact-bar-inner svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .contact-bar-left,
+    .contact-bar-right {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .contact-bar-inner { justify-content: center; font-size: 0.72rem; gap: 12px; }
+      .contact-bar-left, .contact-bar-right { gap: 12px; }
+    }
+
+    /* ===== HEADER ===== */
+    .blog-header {
+      text-align: left;
+      padding: 40px 0 36px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* ===== BRAND LOGO ===== */
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 40px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      color: var(--accent);
+      animation: brand-steam 6s ease-in-out infinite;
+    }
+
+    @keyframes brand-steam {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-2px); }
+    }
+
+    .brand-mark .steam {
+      transform-origin: center;
+      animation: steam-rise 3s ease-in-out infinite;
+    }
+    .brand-mark .steam-2 { animation-delay: 0.6s; }
+    .brand-mark .steam-3 { animation-delay: 1.2s; }
+
+    @keyframes steam-rise {
+      0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.7; }
+      50%      { transform: translateY(-3px) scaleY(1.1); opacity: 1; }
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+
+    .brand-name .amp {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 2px;
+    }
+
+    .brand-tagline {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .blog-category {
+      display: inline-block;
+      background: transparent;
+      color: var(--accent);
+      padding: 0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: "Inter", sans-serif;
+    }
+
+    .blog-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(2.1rem, 5.2vw, 3.4rem);
+      margin-bottom: 20px;
+      color: var(--ink);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .blog-meta {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      margin-bottom: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .blog-meta a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--accent-soft);
+      transition: color 180ms ease, border-color 180ms ease;
+    }
+
+    .blog-meta a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ===== FEATURED PHOTO STRIP (top of page) ===== */
+    .featured-strip {
+      margin: 40px 0 16px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: transparent;
+      position: relative;
+    }
+
+    .featured-track {
+      display: flex;
+      gap: 12px;
+      padding: 0;
+      animation: slide-track 32s linear infinite;
+      width: max-content;
+    }
+
+    .featured-track:hover { animation-play-state: paused; }
+
+    .featured-track img {
+      width: 260px;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 4px;
+      flex-shrink: 0;
+      transition: transform 400ms ease, filter 400ms ease;
+      filter: saturate(0.95);
+    }
+
+    .featured-track img:hover { transform: scale(1.02); filter: saturate(1.1); }
+
+    @keyframes slide-track {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 640px) {
+      .featured-track img { width: 200px; height: 260px; }
+    }
+
+    /* ===== AURORA + KITTENS CARD ===== */
+    .friends-card {
+      margin: 64px 0;
+      padding: 36px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+    }
+
+    .friends-card h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .friends-card p {
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .friends-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .friend-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .friend-badge {
+      background: transparent;
+      color: var(--ink);
+      font-weight: 500;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== FEATURED HERO IMAGE ===== */
+    .hero-image-wrap {
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .hero-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    /* ===== BLOG CONTENT ===== */
+    .blog-content {
+      padding: 48px 0;
+    }
+
+    .intro-text {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--ink);
+      margin-bottom: 48px;
+      line-height: 1.55;
+      text-align: left;
+      font-weight: 400;
+      font-style: italic;
+      padding-left: 24px;
+      border-left: 2px solid var(--accent-soft);
+    }
+
+    .intro-text strong {
+      color: var(--ink);
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    /* ===== DOG FEATURE SECTION ===== */
+    .dog-feature {
+      margin: 72px 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .feature-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dog-emoji {
+      display: none;
+    }
+
+    .feature-number {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
+
+    .feature-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .feature-role {
+      color: var(--ink-soft);
+      font-weight: 500;
+      font-size: 0.9rem;
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+
+    .feature-image {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin: 24px 0;
+      filter: saturate(0.95);
+    }
+
+    .feature-description {
+      color: var(--ink);
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .feature-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0;
+    }
+
+    .highlight-badge {
+      background: var(--accent-muted);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 2px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .aurora .highlight-badge,
+    .naruto .highlight-badge { background: var(--accent-muted); color: var(--accent); }
+
+    .rating {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.04em;
+    }
+
+    .rating .stars {
+      color: var(--accent-warm);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-right: 8px;
+    }
+
+    .aurora .rating .stars,
+    .naruto .rating .stars { color: var(--accent-warm); }
+
+    /* ===== INTERACTION BOX ===== */
+    .interaction-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 40px 32px;
+      margin: 56px 0;
+      text-align: center;
+    }
+
+    .interaction-box h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .interaction-box p {
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .treat-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--accent);
+      padding: 11px 22px;
+      border-radius: 2px;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .btn-treat {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-treat:hover {
+      background: #6f4530;
+      border-color: #6f4530;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .treat-counter {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1rem;
+      color: var(--ink-soft);
+      margin-top: 24px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .treat-counter span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* ===== HOW TO VISIT SECTION ===== */
+    .how-to-visit {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin: 72px 0;
+      box-shadow: none;
+      border-top: 1px solid var(--line);
+      padding-top: 48px;
+    }
+
+    .how-to-visit h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .visit-item {
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .visit-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .visit-item strong {
+      color: var(--ink);
+      font-size: 0.82rem;
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .visit-item p {
+      color: var(--ink-soft);
+      line-height: 1.75;
+      font-size: 0.98rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .blog-footer {
+      border-top: 1px solid var(--line);
+      padding: 48px 0;
+      text-align: center;
+      color: var(--ink-soft);
+      margin-top: 72px;
+      font-size: 0.9rem;
+    }
+
+    .footer-link {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--accent-soft);
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ===== FLOATING ELEMENTS ===== */
+    .floating-hearts {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    .heart {
+      position: absolute;
+      animation: float-up 1200ms ease-out forwards;
+      font-size: 26px;
+    }
+
+    @keyframes float-up {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-140px) scale(1.2); opacity: 0; }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 2px;
+      font-weight: 500;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      z-index: 50;
+      box-shadow: var(--shadow);
+      animation: pop-in 500ms ease forwards;
+      pointer-events: none;
+      font-family: "Inter", sans-serif;
+    }
+
+    @keyframes pop-in {
+      0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+      50% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-80px) scale(1); }
+    }
+
+    /* ===== LIKE BUTTON ===== */
+    .like-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .like-btn {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 2px;
+      padding: 10px 18px;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 200ms ease;
+      min-height: 42px;
+    }
+
+    .aurora .like-btn,
+    .naruto .like-btn { border-color: var(--line); color: var(--ink); }
+
+    .like-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .like-btn:active { transform: scale(0.98); }
+    .like-btn.liked { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .aurora .like-btn.liked,
+    .naruto .like-btn.liked { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .like-btn .heart-icon { font-size: 1.1rem; transition: transform 220ms ease; }
+    .like-btn.liked .heart-icon { animation: heart-pop 500ms ease; }
+
+    @keyframes heart-pop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.6) rotate(-10deg); }
+      70%  { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    .like-count {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* ===== WIGGLE ANIMATION (on image tap) ===== */
+    .feature-image, .hero-image {
+      transition: transform 200ms ease;
+    }
+
+    .wiggle {
+      animation: wiggle 500ms ease;
+    }
+
+    @keyframes wiggle {
+      0%   { transform: rotate(0deg) scale(1); }
+      20%  { transform: rotate(-3deg) scale(1.02); }
+      40%  { transform: rotate(3deg) scale(1.03); }
+      60%  { transform: rotate(-2deg) scale(1.02); }
+      80%  { transform: rotate(2deg) scale(1.01); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-image { max-height: 60vh; object-fit: cover; }
+    }
+
+    @media (max-width: 768px) {
+      .blog-header { padding: 36px 0 24px; }
+      .blog-title { font-size: 1.7rem; line-height: 1.2; }
+      .blog-meta { font-size: 0.82rem; }
+      .brand-lockup { margin-bottom: 28px; padding-bottom: 20px; gap: 12px; }
+      .brand-mark { width: 44px; height: 44px; }
+      .brand-name { font-size: 1.25rem; }
+      .brand-tagline { font-size: 0.65rem; letter-spacing: 0.18em; }
+      .feature-number { display: block; margin-bottom: 4px; }
+      .feature-header { flex-direction: column; align-items: flex-start; gap: 0; }
+      .feature-title { font-size: 1.5rem; }
+      .dog-feature { margin: 48px 0; }
+      .how-to-visit { margin: 56px 0; padding-top: 36px; }
+      .how-to-visit h2 { font-size: 1.5rem; }
+      .friends-card { margin: 40px 0; padding: 24px; }
+      .friends-card h2 { font-size: 1.35rem; }
+      .interaction-box { padding: 28px 20px; margin: 40px 0; }
+      .interaction-box h3 { font-size: 1.3rem; }
+      .intro-text { font-size: 1.05rem; padding-left: 16px; margin-bottom: 36px; }
+      .treat-buttons { flex-direction: column; }
+      .btn { width: 100%; min-height: 44px; padding: 12px 18px; }
+      .featured-strip { margin: 28px 0 12px; }
+      .blog-content { padding: 32px 0; }
+      .blog-footer { padding: 36px 0; margin-top: 48px; }
+      .like-btn { min-height: 44px; padding: 10px 16px; }
+      .like-row { gap: 10px; }
+      .contact-bar-inner { padding: 8px 14px; }
+      .site-contact-bar a { min-height: 32px; padding: 4px 0; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 24px, var(--max)); }
+      .blog-title { font-size: 1.45rem; }
+      .feature-title { font-size: 1.3rem; }
+      .feature-description { font-size: 0.98rem; line-height: 1.7; }
+      .highlight-badge { font-size: 0.76rem; padding: 5px 10px; }
+      .intro-text { font-size: 1rem; padding-left: 14px; line-height: 1.5; }
+      .featured-track img { width: 180px; height: 240px; }
+      .friends-card { padding: 20px; border-radius: 4px; }
+      .interaction-box { padding: 24px 16px; }
+      .interaction-box h3 { font-size: 1.2rem; }
+      .interaction-box p { font-size: 0.9rem; }
+      .how-to-visit h2 { font-size: 1.35rem; margin-bottom: 24px; }
+      .visit-item p { font-size: 0.94rem; }
+      .blog-header { padding: 28px 0 20px; }
+      .brand-lockup { margin-bottom: 22px; padding-bottom: 16px; gap: 10px; }
+      .brand-mark { width: 38px; height: 38px; }
+      .brand-name { font-size: 1.1rem; }
+      .brand-tagline { font-size: 0.6rem; letter-spacing: 0.16em; }
+      .blog-meta { font-size: 0.78rem; line-height: 1.6; }
+      .footer-link, .blog-meta a { white-space: nowrap; }
+      .contact-bar-inner { flex-direction: column; gap: 8px; padding: 8px 12px; }
+      .contact-bar-left, .contact-bar-right { gap: 10px; justify-content: center; }
+      .contact-bar-inner { font-size: 0.68rem; }
+      .site-contact-bar a { font-size: 0.68rem; }
+      .floating-hearts { bottom: 12px; right: 12px; }
+      .toast { bottom: 20px; max-width: calc(100% - 32px); font-size: 0.82rem; padding: 10px 16px; text-align: center; }
+    }
+
+    @media (max-width: 380px) {
+      .container { width: min(100% - 20px, var(--max)); }
+      .blog-title { font-size: 1.3rem; }
+      .feature-title { font-size: 1.2rem; }
+      .feature-role { font-size: 0.82rem; }
+      .feature-description { font-size: 0.94rem; }
+      .highlight-badge { font-size: 0.72rem; padding: 4px 8px; }
+      .friend-badge { font-size: 0.76rem; padding: 5px 10px; }
+      .intro-text { font-size: 0.95rem; padding-left: 12px; }
+      .featured-track img { width: 150px; height: 200px; }
+      .feature-header { margin-bottom: 18px; padding-bottom: 14px; }
+      .dog-feature { margin: 36px 0; }
+      .how-to-visit { margin: 40px 0; padding-top: 28px; }
+      .how-to-visit h2 { font-size: 1.2rem; }
+      .visit-item strong { font-size: 0.76rem; letter-spacing: 0.1em; }
+      .visit-item p { font-size: 0.9rem; }
+      .interaction-box { padding: 20px 14px; }
+      .interaction-box h3 { font-size: 1.1rem; }
+      .btn { font-size: 0.82rem; padding: 12px 14px; letter-spacing: 0.02em; }
+      .like-btn { font-size: 0.8rem; padding: 10px 14px; }
+      .like-count { font-size: 0.82rem; }
+      .treat-counter { font-size: 0.92rem; }
+      .treat-counter span { font-size: 1.1rem; }
+      .blog-footer { font-size: 0.82rem; padding: 28px 0; }
+      .blog-footer p { line-height: 1.55; }
+      .brand-name { font-size: 1rem; }
+      .brand-tagline { font-size: 0.55rem; letter-spacing: 0.12em; }
+      .rating { font-size: 0.82rem; }
+      .rating .stars { font-size: 0.92rem; }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .blog-header { padding: 20px 0 16px; }
+      .blog-title { font-size: 1.4rem; }
+      .brand-lockup { margin-bottom: 18px; padding-bottom: 14px; }
+      .brand-mark { width: 38px; height: 38px; }
+      .dog-feature { margin: 32px 0; }
+      .how-to-visit { margin: 32px 0; padding-top: 24px; }
+      .friends-card { margin: 32px 0; padding: 22px; }
+      .interaction-box { padding: 22px 18px; margin: 32px 0; }
+      .blog-content { padding: 24px 0; }
+      .blog-footer { padding: 28px 0; margin-top: 36px; }
+      .featured-track img { height: 180px; width: 160px; }
+      .intro-text { margin-bottom: 24px; }
+      .treat-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .btn { width: auto; }
+      .floating-hearts { bottom: 10px; right: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .wiggle, .like-btn.liked .heart-icon, .bg-gradient, .bg-paw, .featured-track { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="bg-paws" id="bg-paws" aria-hidden="true"></div>
+  <div class="bg-twinkles" id="bg-twinkles" aria-hidden="true"></div>
+
+  <div class="site-contact-bar" role="region" aria-label="Contact information">
+    <div class="contact-bar-inner">
+      <div class="contact-bar-left">
+        <a href="index.html">Portfolio</a>
+      </div>
+      <div class="contact-bar-right">
+        <a href="https://www.linkedin.com/in/alyssa-cayabyab-5094003a9/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.28 2.28 0 1 1 0 4.56 2.28 2.28 0 0 1 0-4.56Zm.02 5.95H2V21h3V9.45Zm7 0h-3v11.55h3V14.5c0-2.72 3.5-2.94 3.5 0V21h3V13.2c0-5.34-5.73-5.14-6.5-2.52V9.45Z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/AliGanda777" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.86 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.11-1.44-1.11-1.44-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.9 1.55 2.36 1.1 2.94.84.09-.65.35-1.1.64-1.35-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.04-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85.004 1.71.11 2.51.32 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.65.7 1.04 1.59 1.04 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .26.18.58.69.48A10.007 10.007 0 0 0 22 12c0-5.52-4.48-10-10-10Z"/></svg>
+          GitHub
+        </a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alyssacayabyab777@gmail.com" target="_blank" rel="noreferrer noopener" aria-label="Email via Gmail">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6.4C3 5.08 4.08 4 5.4 4h13.2C19.92 4 21 5.08 21 6.4v11.2c0 1.32-1.08 2.4-2.4 2.4H5.4A2.4 2.4 0 0 1 3 17.6V6.4Zm1.8.3 7.2 5.1 7.2-5.1V6.4l-7.2 5.1L4.8 6.4v.3Z"/></svg>
+          alyssacayabyab777@gmail.com
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <article class="blog-post">
+    <header class="blog-header">
+      <div class="container">
+        <div class="brand-lockup" aria-label="Paws and Pour">
+          <svg class="brand-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- steam curls -->
+            <path class="steam" d="M22 12 C22 8, 26 8, 26 12 C26 15, 22 15, 22 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+            <path class="steam steam-2" d="M30 9 C30 5, 34 5, 34 9 C34 13, 30 13, 30 17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+            <path class="steam steam-3" d="M38 12 C38 8, 42 8, 42 12 C42 15, 38 15, 38 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+            <!-- cup body -->
+            <path d="M14 22 H46 L44 52 C43.6 55.3 41 57 38 57 H22 C19 57 16.4 55.3 16 52 Z" fill="currentColor" opacity="0.12"/>
+            <path d="M14 22 H46 L44 52 C43.6 55.3 41 57 38 57 H22 C19 57 16.4 55.3 16 52 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+            <!-- saucer -->
+            <ellipse cx="30" cy="58" rx="20" ry="2.4" fill="currentColor" opacity="0.25"/>
+            <!-- handle -->
+            <path d="M46 28 C54 28, 54 42, 45 42" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+            <!-- paw print inside cup -->
+            <circle cx="30" cy="40" r="4" fill="currentColor"/>
+            <circle cx="23" cy="34" r="2.2" fill="currentColor"/>
+            <circle cx="28" cy="31" r="2.2" fill="currentColor"/>
+            <circle cx="33" cy="31" r="2.2" fill="currentColor"/>
+            <circle cx="38" cy="34" r="2.2" fill="currentColor"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">Paws<span class="amp">&amp;</span>Pour</span>
+            <span class="brand-tagline">Coffee  ·  Company  ·  Care</span>
+          </div>
+        </div>
+        <span class="blog-category">Cafe Visit Guide</span>
+        <h1 class="blog-title">A quiet afternoon at Paws <span style="color:var(--accent);font-style:italic;">&amp;</span> Pour, where Oakleys, Aurora, and Naruto keep the coffee company.</h1>
+        <div class="blog-meta">
+          April 18, 2026  ·  5 min read  ·  <a href="index.html">Back to Portfolio</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="blog-content">
+      <div class="container">
+        <!-- FEATURED PHOTO STRIP (auto-scrolling) -->
+        <div class="featured-strip reveal" aria-label="Featured photos of our dogs">
+          <div class="featured-track">
+            <img src="dogs/panget-7.jpg" alt="Cafe moment 7" loading="lazy" />
+            <img src="dogs/panget-8.jpg" alt="Cafe moment 8" loading="lazy" />
+            <img src="dogs/panget-9.jpg" alt="Cafe moment 9" loading="lazy" />
+            <img src="dogs/panget-10.jpg" alt="Cafe moment 10" loading="lazy" />
+            <img src="dogs/panget-11.jpg" alt="Cafe moment 11" loading="lazy" />
+            <!-- duplicates for seamless loop -->
+            <img src="dogs/panget-7.jpg" alt="" loading="lazy" aria-hidden="true" />
+            <img src="dogs/panget-8.jpg" alt="" loading="lazy" aria-hidden="true" />
+            <img src="dogs/panget-9.jpg" alt="" loading="lazy" aria-hidden="true" />
+            <img src="dogs/panget-10.jpg" alt="" loading="lazy" aria-hidden="true" />
+            <img src="dogs/panget-11.jpg" alt="" loading="lazy" aria-hidden="true" />
+          </div>
+        </div>
+
+        <p class="intro-text">
+          Paws &amp; Pour is a small neighborhood cafe built around three very different dogs. It's the kind of place where the espresso machine hisses in the background, a tail thumps under the next table, and a slow afternoon feels earned. Here are the three residents who keep it running.
+        </p>
+
+        <!-- OAKLEYS FEATURE -->
+        <section class="dog-feature reveal" data-dog="oakleys">
+          <div class="feature-header">
+            <span class="feature-number">No. 01</span>
+            <div>
+              <h2 class="feature-title">Oakleys</h2>
+              <div class="feature-role">Greeter &amp; Ambassador</div>
+            </div>
+          </div>
+          
+          <img class="feature-image" src="dogs/oakleys.jpg" alt="Oakleys the greeter dog" />
+          
+          <p class="feature-description">
+            Oakleys is the first face you meet at the door. He has a warm brown coat, a soft bark, and the kind of steady temperament that puts first-time visitors at ease. Whether you are a regular or a walk-in, expect an unhurried hello and a tail wag you can set your watch to.
+          </p>
+
+          <div class="feature-highlights">
+            <span class="highlight-badge">Warm-hearted</span>
+            <span class="highlight-badge">Social</span>
+            <span class="highlight-badge">People-oriented</span>
+          </div>
+
+          <p class="feature-description">
+            He has a quiet talent for reading the room. A cuddle when you want one, space when you don't, and good company either way. If you are here for photos, he is patient and photogenic, which helps.
+          </p>
+
+          <div class="rating">
+            <span class="stars">★★★★★</span>Cuddle factor
+          </div>
+
+          <div class="like-row">
+            <button class="like-btn" data-like="oakleys">
+              <span class="heart-icon">♡</span>
+              <span class="like-label">Send Oakleys a heart</span>
+            </button>
+            <span class="like-count" data-count="oakleys">0 hearts</span>
+          </div>
+        </section>
+
+        <!-- AURORA FEATURE -->
+        <section class="dog-feature aurora reveal" data-dog="aurora">
+          <div class="feature-header">
+            <span class="feature-number">No. 02</span>
+            <div>
+              <h2 class="feature-title">Aurora</h2>
+              <div class="feature-role">The Adventurous Playmate</div>
+            </div>
+          </div>
+
+          <img class="feature-image" src="dogs/aurora.jpg" alt="Aurora the energetic dog" />
+
+          <p class="feature-description">
+            Aurora is the cafe's burst of motion. Lean, bright-eyed, and happiest when a toy is involved, she brings a cheerful pace to the room without tipping into chaos. She is the older sister to Naruto by one year, and the reason the staff keeps a second rope toy behind the counter.
+          </p>
+
+          <div class="feature-highlights">
+            <span class="highlight-badge">Energetic</span>
+            <span class="highlight-badge">Joyful</span>
+            <span class="highlight-badge">Adventurous</span>
+          </div>
+
+          <p class="feature-description">
+            She is ideal for younger guests and anyone who prefers active company. Expect short bursts of play, a nudge toward the nearest toy, and a quick trot back to her mat when it's time to rest. She knows when to pause.
+          </p>
+
+          <div class="rating">
+            <span class="stars">★★★★★</span>Playfulness
+          </div>
+
+          <div class="like-row">
+            <button class="like-btn" data-like="aurora">
+              <span class="heart-icon">♡</span>
+              <span class="like-label">Send Aurora a heart</span>
+            </button>
+            <span class="like-count" data-count="aurora">0 hearts</span>
+          </div>
+        </section>
+
+        <!-- NARUTO FEATURE -->
+        <section class="dog-feature naruto reveal" data-dog="naruto">
+          <div class="feature-header">
+            <span class="feature-number">No. 03</span>
+            <div>
+              <h2 class="feature-title">Naruto</h2>
+              <div class="feature-role">The Quiet One</div>
+            </div>
+          </div>
+
+          <img class="feature-image" src="dogs/naruto.jpg" alt="Naruto the sophisticated dog" />
+
+          <p class="feature-description">
+            Where Oakleys greets, Naruto observes. He is the quieter half of the house, carrying himself with an ease that suits slower afternoons. The younger brother to Aurora by a year, he is most often found on the bench near the window, letting the cafe come to him.
+          </p>
+
+          <div class="feature-highlights">
+            <span class="highlight-badge">Calm</span>
+            <span class="highlight-badge">Elegant</span>
+            <span class="highlight-badge">Thoughtful</span>
+          </div>
+
+          <p class="feature-description">
+            His best trait is attentiveness. He tends to notice when a guest needs company and will quietly lean in without making a production of it. If you come in looking for a calm hour, Naruto is the one.
+          </p>
+
+          <div class="rating">
+            <span class="stars">★★★★★</span>Peacefulness
+          </div>
+
+          <div class="like-row">
+            <button class="like-btn" data-like="naruto">
+              <span class="heart-icon">♡</span>
+              <span class="like-label">Send Naruto a heart</span>
+            </button>
+            <span class="like-count" data-count="naruto">0 hearts</span>
+          </div>
+        </section>
+
+        <!-- INTERACTION SECTION -->
+        <div class="interaction-box">
+          <h3>Leave a little love</h3>
+          <p>A small gesture for the residents. They'll return it in kind.</p>
+
+          <div class="treat-buttons">
+            <button class="btn btn-treat" id="treat-all">Offer Treats</button>
+            <button class="btn btn-secondary" id="party-mode">Playtime</button>
+            <button class="btn btn-secondary" id="send-cuddles">Send Cuddles</button>
+          </div>
+
+          <div class="treat-counter">
+            Treats given  <span id="treat-count">0</span>
+          </div>
+        </div>
+
+        <!-- HOW TO VISIT -->
+        <section class="how-to-visit reveal">
+          <h2>How to Visit</h2>
+          
+          <div class="visit-item">
+            <strong>Location &amp; Hours</strong>
+            <p>Open daily from 10:00 to 18:00. Walk-ins welcome; reservations recommended on weekends.</p>
+          </div>
+
+          <div class="visit-item">
+            <strong>Best Time to Visit</strong>
+            <p>Weekday afternoons between 14:00 and 16:00 tend to be quietest. Weekends are livelier and better suited to groups.</p>
+          </div>
+
+          <div class="visit-item">
+            <strong>What to Expect</strong>
+            <p>An unhurried welcome from Oakleys, Aurora, and Naruto. Comfortable seating, a short coffee and tea menu, and room to move between tables at your own pace.</p>
+          </div>
+
+          <div class="visit-item">
+            <strong>Photography</strong>
+            <p>Natural light near the window is best in the late afternoon. Flash is discouraged out of respect for the dogs.</p>
+          </div>
+
+          <div class="visit-item">
+            <strong>Guest Notes</strong>
+            <p>Treats are provided; please ask before offering anything of your own. Dress comfortably. A small amount of fur is part of the experience.</p>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="blog-footer">
+      <div class="container">
+        <svg class="brand-mark" style="width:36px;height:36px;margin:0 auto 14px;display:block;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="steam" d="M22 12 C22 8, 26 8, 26 12 C26 15, 22 15, 22 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+          <path class="steam steam-2" d="M30 9 C30 5, 34 5, 34 9 C34 13, 30 13, 30 17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+          <path class="steam steam-3" d="M38 12 C38 8, 42 8, 42 12 C42 15, 38 15, 38 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>
+          <path d="M14 22 H46 L44 52 C43.6 55.3 41 57 38 57 H22 C19 57 16.4 55.3 16 52 Z" fill="currentColor" opacity="0.12"/>
+          <path d="M14 22 H46 L44 52 C43.6 55.3 41 57 38 57 H22 C19 57 16.4 55.3 16 52 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+          <ellipse cx="30" cy="58" rx="20" ry="2.4" fill="currentColor" opacity="0.25"/>
+          <path d="M46 28 C54 28, 54 42, 45 42" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="30" cy="40" r="4" fill="currentColor"/>
+          <circle cx="23" cy="34" r="2.2" fill="currentColor"/>
+          <circle cx="28" cy="31" r="2.2" fill="currentColor"/>
+          <circle cx="33" cy="31" r="2.2" fill="currentColor"/>
+          <circle cx="38" cy="34" r="2.2" fill="currentColor"/>
+        </svg>
+        <p>Paws <span style="color:var(--accent);font-style:italic;">&amp;</span> Pour  ·  Coffee, company, and the occasional zoomie.</p>
+        <p style="margin-top: 8px; font-size: 0.85rem;">
+          A custom web design project  ·  <a class="footer-link" href="index.html">Back to Portfolio</a>
+        </p>
+      </div>
+    </footer>
+  </article>
+
+  <div class="floating-hearts" id="hearts"></div>
+
+  <script>
+    let treatCount = 0;
+
+    const treatAllBtn = document.getElementById("treat-all");
+    const partyBtn = document.getElementById("party-mode");
+    const cuddlesBtn = document.getElementById("send-cuddles");
+    const treatCountEl = document.getElementById("treat-count");
+    const hearts = document.getElementById("hearts");
+
+    function showHeart(emoji) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = emoji;
+      heart.style.right = Math.random() * 80 + "px";
+      hearts.appendChild(heart);
+      setTimeout(() => heart.remove(), 1200);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 500);
+    }
+
+    treatAllBtn.addEventListener("click", () => {
+      treatCount += 3;
+      treatCountEl.textContent = treatCount;
+      
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => showHeart(["🦴", "💛", "🐾"][i]), i * 100);
+      }
+      
+      if (treatCount === 3) showToast("🎉 Oakleys, Aurora & Naruto say thank you!");
+      if (treatCount === 15) showToast("🌟 The pups are doing happy dances!");
+      if (treatCount === 30) showToast("👑 You're the treat legend!");
+    });
+
+    partyBtn.addEventListener("click", () => {
+      treatCount += 5;
+      treatCountEl.textContent = treatCount;
+      
+      const emojis = ["🎉", "🐾", "💫", "🎊", "✨", "🌟"];
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => showHeart(emojis[Math.floor(Math.random() * emojis.length)]), i * 80);
+      }
+      
+      showToast("🎊 Party mode activated! The pups are zooming!");
+    });
+
+    cuddlesBtn.addEventListener("click", () => {
+      treatCount += 2;
+      treatCountEl.textContent = treatCount;
+
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => showHeart("💕"), i * 120);
+      }
+
+      showToast("💕 All three pups are sending cuddles back!");
+    });
+
+    /* ===== WIGGLE ON IMAGE TAP ===== */
+    document.querySelectorAll(".feature-image, .hero-image").forEach((img) => {
+      img.addEventListener("click", () => {
+        img.classList.remove("wiggle");
+        void img.offsetWidth;
+        img.classList.add("wiggle");
+        showHeart(["💛", "🐾", "💕"][Math.floor(Math.random() * 3)]);
+      });
+    });
+
+    /* ===== LIKE BUTTONS ===== */
+    const likeCounts = { oakleys: 0, aurora: 0, naruto: 0 };
+    document.querySelectorAll(".like-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const dog = btn.dataset.like;
+        likeCounts[dog] += 1;
+        btn.classList.add("liked");
+        const iconEl = btn.querySelector(".heart-icon");
+        iconEl.textContent = "❤️";
+        iconEl.classList.remove("heart-pop-trigger");
+        void iconEl.offsetWidth;
+        const labelEl = btn.querySelector(".like-label");
+        const dogName = dog.charAt(0).toUpperCase() + dog.slice(1);
+        labelEl.textContent = `${dogName} loves you back!`;
+        const countEl = document.querySelector(`[data-count="${dog}"]`);
+        countEl.textContent = `${likeCounts[dog]} heart${likeCounts[dog] === 1 ? "" : "s"}`;
+        showHeart("💖");
+        if (likeCounts[dog] === 5) showToast(`✨ ${dogName} is glowing with love!`);
+      });
+    });
+
+    /* ===== SCROLL REVEAL ===== */
+    const revealEls = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+    revealEls.forEach((el) => revealObserver.observe(el));
+
+    /* ===== MOUSE-TRAILING EMOJIS ===== */
+    const bgPawContainer = document.getElementById("bg-paws");
+    const pawEmojis = ["🐾", "🐾", "🦴", "☕", "🐶", "🍪", "🥐", "🌸", "🎀", "🧁", "💗"];
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let lastSpawn = 0;
+    const SPAWN_INTERVAL_MS = 45;
+    const MAX_CONCURRENT = 120;
+
+    function spawnAtCursor() {
+      if (bgPawContainer.childElementCount >= MAX_CONCURRENT) return;
+
+      const drop = document.createElement("div");
+      drop.className = "bg-paw";
+      drop.textContent = pawEmojis[Math.floor(Math.random() * pawEmojis.length)];
+
+      const jitter = 14;
+      drop.style.left = (mouseX + (Math.random() - 0.5) * jitter) + "px";
+      drop.style.top = (mouseY + (Math.random() - 0.5) * jitter) + "px";
+
+      const drift = (Math.random() - 0.5) * 160;
+      drop.style.setProperty("--drift", drift + "px");
+
+      drop.style.fontSize = (16 + Math.random() * 14) + "px";
+      drop.style.animationDuration = (2.2 + Math.random() * 2.2) + "s";
+      bgPawContainer.appendChild(drop);
+      setTimeout(() => drop.remove(), 5000);
+    }
+
+    function onMove(x, y) {
+      mouseX = x;
+      mouseY = y;
+      const now = performance.now();
+      if (now - lastSpawn >= SPAWN_INTERVAL_MS) {
+        lastSpawn = now;
+        spawnAtCursor();
+      }
+    }
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.addEventListener("pointermove", (e) => onMove(e.clientX, e.clientY), { passive: true });
+      document.addEventListener("touchmove", (e) => {
+        if (e.touches && e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+    }
+
+    /* ===== AMBIENT TWINKLES (sparse, decorative) ===== */
+    const twinkleContainer = document.getElementById("bg-twinkles");
+    const twinkleChars = ["✦", "✧", "✩", "❀", "✿"];
+
+    function spawnTwinkle() {
+      const t = document.createElement("span");
+      t.className = "bg-twinkle";
+      t.textContent = twinkleChars[Math.floor(Math.random() * twinkleChars.length)];
+      t.style.top = Math.random() * 100 + "vh";
+      t.style.left = Math.random() * 100 + "vw";
+      t.style.fontSize = (10 + Math.random() * 12) + "px";
+      t.style.animationDuration = (2.4 + Math.random() * 2.2) + "s";
+      t.style.animationDelay = (Math.random() * 1.5) + "s";
+      twinkleContainer.appendChild(t);
+      setTimeout(() => t.remove(), 6000);
+    }
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      for (let i = 0; i < 8; i++) setTimeout(spawnTwinkle, i * 300);
+      setInterval(spawnTwinkle, 650);
+    }
+  </script>
+</body>
+</html>
