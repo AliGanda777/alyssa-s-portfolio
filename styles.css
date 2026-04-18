@@ -749,7 +749,7 @@ body.dark-mode .project-card {
 }
 
 .project-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
 .project-category {
@@ -880,6 +880,18 @@ body.dark-mode .contact-box {
 .contact-textarea::placeholder {
   color: var(--muted);
   opacity: 0.7;
+}
+
+.contact-textarea.input-error {
+  border-bottom-color: var(--primary);
+  animation: textarea-shake 0.4s ease;
+}
+
+@keyframes textarea-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  60%       { transform: translateX(6px); }
+  80%       { transform: translateX(-3px); }
 }
 
 body.dark-mode .contact-textarea {

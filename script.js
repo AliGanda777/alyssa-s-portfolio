@@ -292,13 +292,23 @@ window.addEventListener('DOMContentLoaded', () => {
     updateRobotCamera();
   }
 
-  // Send Message button → opens Gmail compose with typed message
-  const sendBtn = document.getElementById('send-btn');
-  if (sendBtn) {
-    sendBtn.addEventListener('click', () => {
-      const msg = (document.getElementById('contact-message').value || '').trim();
-      const gmailUrl = 'https://mail.google.com/mail/u/1/#inbox?compose=new'
-        + (msg ? '&body=' + encodeURIComponent(msg) : '');
+  // Contact form → opens Gmail compose with recipient and typed message
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const textarea = document.getElementById('contact-message');
+      const msg = (textarea.value || '').trim();
+      if (!msg) {
+        textarea.focus();
+        textarea.classList.add('input-error');
+        setTimeout(() => textarea.classList.remove('input-error'), 600);
+        return;
+      }
+      const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1'
+        + '&to=' + encodeURIComponent('alyssacayabyab777@gmail.com')
+        + '&su=' + encodeURIComponent('Portfolio Contact')
+        + '&body=' + encodeURIComponent(msg);
       window.open(gmailUrl, '_blank');
     });
   }
