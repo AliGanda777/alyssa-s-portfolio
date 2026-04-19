@@ -338,7 +338,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
       const subject = encodeURIComponent(`Portfolio message from ${name}`);
       const body = encodeURIComponent(`${message}\n\n- ${name}\n${email}`);
-      window.location.href = `mailto:alyssacayabyab@gmail.com?subject=${subject}&body=${body}`;
+      const mailtoUrl = `mailto:alyssacayabyab@gmail.com?subject=${subject}&body=${body}`;
+
+      const link = document.createElement('a');
+      link.href = mailtoUrl;
+      link.rel = 'noopener';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     });
   }
 });
