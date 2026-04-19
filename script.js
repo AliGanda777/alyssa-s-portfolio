@@ -332,10 +332,10 @@ window.addEventListener('DOMContentLoaded', () => {
       const name = String(formData.get('name') || '').trim();
       const email = String(formData.get('email') || '').trim();
       const message = String(formData.get('message') || '').trim();
-      const accessKey = String(formData.get('access_key') || 'bb7e7c91-48e0-49ad-bfeb-6e8f00e76d32');
+      const accessKey = String(formData.get('access_key') || '').trim();
 
-      if (!name || !email || !message) {
-        alert('Please complete your name, email, and message before sending.');
+      if (!name || !email || !message || !accessKey) {
+        alert('Please complete all required fields before sending.');
         return;
       }
 
