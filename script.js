@@ -329,8 +329,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // Get form data
       const formData = new FormData(contactForm);
-      const message = formData.get('message') || '';
-      const email = formData.get('email') || 'visitor@portfolio.local';
+      const name = String(formData.get('name') || '').trim();
+      const email = String(formData.get('email') || '').trim();
+      const message = String(formData.get('message') || '').trim();
+      const accessKey = String(formData.get('access_key') || 'bb7e7c91-48e0-49ad-bfeb-6e8f00e76d32');
+
+      if (!name || !email || !message) {
+        alert('Please complete your name, email, and message before sending.');
+        return;
+      }
 
       // Show loading state
       const originalText = sendBtn.textContent;
@@ -343,12 +350,13 @@ window.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            access_key: 'bb7e7c91-48e0-49ad-bfeb-6e8f00e76d32',
+            access_key: accessKey,
             email: email,
-            message: message,
+            from_name: name,
+            replyto: email,
+            subject: `New Message from Portfolio - ${name}`,
+            message: `${message}\n\nSender: ${name}\nEmail: ${email}`,
             to_email: 'alyssacayabyab@gmail.com',
-            from_name: 'Portfolio Contact',
-            subject: 'New Message from Your Portfolio',
           })
         });
 
@@ -357,9 +365,8 @@ window.addEventListener('DOMContentLoaded', () => {
         if (data.success) {
           alert('Message sent successfully! I\'ll get back to you soon.');
           contactForm.reset();
-          document.getElementById('contact-message').value = '';
         } else {
-          alert('Failed to send. Please try again or contact directly.');
+          alert(data.message || 'Failed to send. Please try again or contact directly.');
         }
       } catch (error) {
         console.error('Error:', error);
