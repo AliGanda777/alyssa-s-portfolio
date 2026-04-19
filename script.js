@@ -334,8 +334,13 @@ window.addEventListener('DOMContentLoaded', () => {
       const message = String(formData.get('message') || '').trim();
       const accessKey = String(formData.get('access_key') || '').trim();
 
-      if (!name || !email || !message || !accessKey) {
-        alert('Please complete all required fields before sending.');
+      if (!name || !email || !message) {
+        alert('Please complete your name, email, and message before sending.');
+        return;
+      }
+
+      if (!accessKey) {
+        alert('Message service is temporarily unavailable. Please try again later.');
         return;
       }
 
