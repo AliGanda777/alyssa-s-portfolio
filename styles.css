@@ -1625,3 +1625,13 @@ img, video, iframe { max-width: 100%; }
 
 /* Step 1: prevent horizontal scroll on all devices */
 html, body { overflow-x: hidden; }
+
+/* Step 2: touch-friendly tap targets on phones (44px minimum) */
+@media (hover: none) and (pointer: coarse) {
+  .nav-links a,
+  .hero-social-link,
+  .contact-icon-link,
+  .button {
+    min-height: 44px;
+  }
+}
