@@ -233,7 +233,6 @@ window.addEventListener('DOMContentLoaded', () => {
     currentTheme = localStorage.getItem('theme') || 'light';
   } catch (error) {
     console.warn('Theme preference could not be read from localStorage:', error);
-    currentTheme = 'light';
   }
   document.body.classList.toggle('dark-mode', currentTheme === 'dark');
   updateThemeIcon(currentTheme);
