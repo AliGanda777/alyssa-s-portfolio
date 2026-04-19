@@ -506,6 +506,9 @@
 
     /* ─── Mid-phone (≤ 560px) nav safety ───────────── */
     @media (max-width: 560px) {
+      /* On phones, keep only the logo and the Portfolio back-link to declutter the hero */
+      .video-nav-links:last-of-type { display: none; }
+      .video-nav-links:first-of-type a:not(:first-child) { display: none; }
       .video-nav {
         flex-wrap: wrap;
         justify-content: center;
