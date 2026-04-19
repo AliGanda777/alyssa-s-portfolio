@@ -320,66 +320,25 @@ window.addEventListener('DOMContentLoaded', () => {
     updateRobotCamera();
   }
 
-  // Contact form submission
+  // Contact form: open visitor's email app pre-filled (mailto)
   const contactForm = document.getElementById('contact-form');
-  const sendBtn = document.getElementById('send-btn');
-  if (contactForm && sendBtn) {
-    contactForm.addEventListener('submit', async (e) => {
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Get form data
       const formData = new FormData(contactForm);
       const name = String(formData.get('name') || '').trim();
       const email = String(formData.get('email') || '').trim();
       const message = String(formData.get('message') || '').trim();
-      const accessKey = String(formData.get('access_key') || '').trim();
 
       if (!name || !email || !message) {
         alert('Please complete your name, email, and message before sending.');
         return;
       }
 
-      if (!accessKey) {
-        alert('Message service is temporarily unavailable. Please try again later.');
-        return;
-      }
-
-      // Show loading state
-      const originalText = sendBtn.textContent;
-      sendBtn.textContent = 'Sending...';
-      sendBtn.disabled = true;
-
-      try {
-        // Send via Web3Forms
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            access_key: accessKey,
-            email: email,
-            from_name: name,
-            replyto: email,
-            subject: `New Message from Portfolio - ${name}`,
-            message: `${message}\n\nSender: ${name}\nEmail: ${email}`,
-            to_email: 'alyssacayabyab@gmail.com',
-          })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          alert('Message sent successfully! I\'ll get back to you soon.');
-          contactForm.reset();
-        } else {
-          alert(data.message || 'Failed to send. Please try again or contact directly.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error sending message. Please try again.');
-      } finally {
-        sendBtn.textContent = originalText;
-        sendBtn.disabled = false;
-      }
+      const subject = encodeURIComponent(`Portfolio message from ${name}`);
+      const body = encodeURIComponent(`${message}\n\n- ${name}\n${email}`);
+      window.location.href = `mailto:alyssacayabyab@gmail.com?subject=${subject}&body=${body}`;
     });
   }
 });
