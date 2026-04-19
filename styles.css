@@ -1655,3 +1655,32 @@ html, body { overflow-x: hidden; }
   }
   .footer { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
 }
+
+/* Step 5: clean mobile navbar so links never hide behind the logo */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 10px;
+  }
+  .logo {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+  .nav-links {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: 14px;
+    font-size: 0.92rem;
+  }
+  .theme-toggle { margin-left: auto; }
+}
+
+/* Step 6: more breathing room on phones (less crowded feel) */
+@media (max-width: 600px) {
+  .section { padding-top: 48px; padding-bottom: 48px; }
+  .project-category { margin-bottom: 36px; }
+  .about-p { margin-bottom: 20px; }
+  .hero-content { gap: 28px; }
+}
