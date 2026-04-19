@@ -1,17 +1,29 @@
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
+const supportsIntersectionObserver = typeof window !== 'undefined' && 'IntersectionObserver' in window;
+const observer = supportsIntersectionObserver
+  ? new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    )
+  : null;
+
+const revealElement = (el) => {
+  if (!el) return;
+  if (observer) {
+    observer.observe(el);
+  } else {
+    el.classList.add('visible');
+  }
+};
 
 // Observe all reveal types
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach((el) => {
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Stagger project cards with alternating slide directions
@@ -19,7 +31,7 @@ document.querySelectorAll('.project-category').forEach((category) => {
   category.querySelectorAll('.project-card').forEach((el, i) => {
     el.classList.add(i % 2 === 0 ? 'reveal' : 'reveal-scale');
     el.style.setProperty('--reveal-delay', `${i * 120}ms`);
-    observer.observe(el);
+    revealElement(el);
   });
 });
 
@@ -27,38 +39,38 @@ document.querySelectorAll('.project-category').forEach((category) => {
 document.querySelectorAll('.leadership-card').forEach((el, i) => {
   el.classList.add(i % 2 === 0 ? 'reveal-left' : 'reveal-right');
   el.style.setProperty('--reveal-delay', `${(i % 2) * 150}ms`);
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Tool cards stagger with scale effect
 document.querySelectorAll('.tool-card').forEach((el, i) => {
   el.classList.add('reveal-scale');
   el.style.setProperty('--reveal-delay', `${(i % 5) * 60}ms`);
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Category titles slide from left
 document.querySelectorAll('.category-title').forEach((el) => {
   el.classList.add('reveal-left');
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Section headings
 document.querySelectorAll('.section-heading').forEach((el) => {
   el.classList.add('reveal');
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Contact section
 document.querySelectorAll('.contact-inner, .contact-box').forEach((el) => {
   el.classList.add('reveal');
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Quote
 document.querySelectorAll('.quote-box').forEach((el) => {
   el.classList.add('reveal-scale');
-  observer.observe(el);
+  revealElement(el);
 });
 
 // Glitter background tracking
@@ -184,18 +196,22 @@ window.addEventListener('resize', () => {
     ).join(' ');
   });
 
-  const wordObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const words = entry.target.querySelectorAll('.word');
-      words.forEach((w, i) => {
-        setTimeout(() => w.classList.add('visible'), i * 35);
+  if (supportsIntersectionObserver) {
+    const wordObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const words = entry.target.querySelectorAll('.word');
+        words.forEach((w, i) => {
+          setTimeout(() => w.classList.add('visible'), i * 35);
+        });
+        wordObserver.unobserve(entry.target);
       });
-      wordObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.25 });
+    }, { threshold: 0.25 });
 
-  document.querySelectorAll('.about-p').forEach(p => wordObserver.observe(p));
+    document.querySelectorAll('.about-p').forEach(p => wordObserver.observe(p));
+  } else {
+    document.querySelectorAll('.about-p .word').forEach(word => word.classList.add('visible'));
+  }
 }());
 
 // ─── Sticky header shadow on scroll ──────────────────────────────────────────
@@ -212,19 +228,31 @@ window.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.querySelector('.theme-toggle');
 
   // Check for saved theme preference or default to light mode
-  const currentTheme = localStorage.getItem('theme') || 'light';
+  let currentTheme = 'light';
+  try {
+    currentTheme = localStorage.getItem('theme') || 'light';
+  } catch (error) {
+    console.warn('Theme preference could not be read from localStorage:', error);
+  }
   document.body.classList.toggle('dark-mode', currentTheme === 'dark');
   updateThemeIcon(currentTheme);
 
-  themeToggle.addEventListener('click', () => {
-    const isDark = document.body.classList.toggle('dark-mode');
-    const newTheme = isDark ? 'dark' : 'light';
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  });
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark-mode');
+      const newTheme = isDark ? 'dark' : 'light';
+      try {
+        localStorage.setItem('theme', newTheme);
+      } catch (error) {
+        console.warn('Theme preference could not be saved to localStorage:', error);
+      }
+      updateThemeIcon(newTheme);
+    });
+  }
 
   function updateThemeIcon(theme) {
     const iconContainer = document.querySelector('.theme-icon');
+    if (!iconContainer) return;
     if (theme === 'dark') {
       iconContainer.innerHTML = `
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/>
@@ -301,8 +329,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // Get form data
       const formData = new FormData(contactForm);
-      const message = formData.get('message') || '';
-      const email = formData.get('email') || 'visitor@portfolio.local';
+      const name = String(formData.get('name') || '').trim();
+      const email = String(formData.get('email') || '').trim();
+      const message = String(formData.get('message') || '').trim();
+      const accessKey = String(formData.get('access_key') || '').trim();
+
+      if (!name || !email || !message) {
+        alert('Please complete your name, email, and message before sending.');
+        return;
+      }
+
+      if (!accessKey) {
+        alert('Message service is temporarily unavailable. Please try again later.');
+        return;
+      }
 
       // Show loading state
       const originalText = sendBtn.textContent;
@@ -315,23 +355,23 @@ window.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            access_key: 'bb7e7c91-48e0-49ad-bfeb-6e8f00e76d32',
+            access_key: accessKey,
             email: email,
-            message: message,
+            from_name: name,
+            replyto: email,
+            subject: `New Message from Portfolio - ${name}`,
+            message: `${message}\n\nSender: ${name}\nEmail: ${email}`,
             to_email: 'alyssacayabyab@gmail.com',
-            from_name: 'Portfolio Contact',
-            subject: 'New Message from Your Portfolio',
           })
         });
 
         const data = await response.json();
 
         if (data.success) {
-          alert('Message sent successfully! I'll get back to you soon.');
+          alert('Message sent successfully! I\'ll get back to you soon.');
           contactForm.reset();
-          document.getElementById('contact-message').value = '';
         } else {
-          alert('Failed to send. Please try again or contact directly.');
+          alert(data.message || 'Failed to send. Please try again or contact directly.');
         }
       } catch (error) {
         console.error('Error:', error);
