@@ -1622,3 +1622,6 @@ img, video, iframe { max-width: 100%; }
   .quote-section { min-height: auto; padding: 32px 20px; }
   .hero-content { padding: 24px 0; }
 }
+
+/* Step 1: prevent horizontal scroll on all devices */
+html, body { overflow-x: hidden; }
