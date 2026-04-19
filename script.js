@@ -327,7 +327,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
 
         if (data.success) {
-          alert('Message sent successfully! I'll get back to you soon.');
+          alert("Message sent successfully! I'll get back to you soon.");
           contactForm.reset();
           document.getElementById('contact-message').value = '';
         } else {
