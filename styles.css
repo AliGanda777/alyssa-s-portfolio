@@ -1056,11 +1056,16 @@ body.dark-mode .leadership-card {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(32px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(32px);
 }
 
 .reveal.visible {
@@ -1070,12 +1075,18 @@ body.dark-mode .leadership-card {
 
 /* ── Slide from left ──────────────────────────────────── */
 .reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
+  opacity: 1;
+  transform: translateX(0);
   transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
+
+html.js .reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
 .reveal-left.visible {
   opacity: 1;
   transform: translateX(0);
@@ -1083,12 +1094,18 @@ body.dark-mode .leadership-card {
 
 /* ── Slide from right ─────────────────────────────────── */
 .reveal-right {
-  opacity: 0;
-  transform: translateX(40px);
+  opacity: 1;
+  transform: translateX(0);
   transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
+
+html.js .reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
 .reveal-right.visible {
   opacity: 1;
   transform: translateX(0);
@@ -1096,12 +1113,18 @@ body.dark-mode .leadership-card {
 
 /* ── Scale up ─────────────────────────────────────────── */
 .reveal-scale {
-  opacity: 0;
-  transform: scale(0.92);
+  opacity: 1;
+  transform: scale(1);
   transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
+
+html.js .reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
 .reveal-scale.visible {
   opacity: 1;
   transform: scale(1);

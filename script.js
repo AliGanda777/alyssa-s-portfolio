@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 const supportsIntersectionObserver = typeof window !== 'undefined' && 'IntersectionObserver' in window;
 const observer = supportsIntersectionObserver
   ? new IntersectionObserver(
