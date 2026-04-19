@@ -292,14 +292,54 @@ window.addEventListener('DOMContentLoaded', () => {
     updateRobotCamera();
   }
 
-  // Send Message button → opens Gmail compose with typed message
+  // Contact form submission
+  const contactForm = document.getElementById('contact-form');
   const sendBtn = document.getElementById('send-btn');
-  if (sendBtn) {
-    sendBtn.addEventListener('click', () => {
-      const msg = (document.getElementById('contact-message').value || '').trim();
-      const gmailUrl = 'https://mail.google.com/mail/u/1/#inbox?compose=new'
-        + (msg ? '&body=' + encodeURIComponent(msg) : '');
-      window.open(gmailUrl, '_blank');
+  if (contactForm && sendBtn) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Get form data
+      const formData = new FormData(contactForm);
+      const message = formData.get('message') || '';
+      const email = formData.get('email') || 'visitor@portfolio.local';
+
+      // Show loading state
+      const originalText = sendBtn.textContent;
+      sendBtn.textContent = 'Sending...';
+      sendBtn.disabled = true;
+
+      try {
+        // Send via Web3Forms
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: 'bb7e7c91-48e0-49ad-bfeb-6e8f00e76d32',
+            email: email,
+            message: message,
+            to_email: 'alyssacayabyab@gmail.com',
+            from_name: 'Portfolio Contact',
+            subject: 'New Message from Your Portfolio',
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Message sent successfully! I'll get back to you soon.');
+          contactForm.reset();
+          document.getElementById('contact-message').value = '';
+        } else {
+          alert('Failed to send. Please try again or contact directly.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error sending message. Please try again.');
+      } finally {
+        sendBtn.textContent = originalText;
+        sendBtn.disabled = false;
+      }
     });
   }
 });
