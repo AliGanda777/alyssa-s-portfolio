@@ -504,6 +504,20 @@
     /* ─── Global image constraint ─────────────────── */
     img { max-width: 100%; height: auto; }
 
+    /* ─── Mid-phone (≤ 560px) nav safety ───────────── */
+    @media (max-width: 560px) {
+      .video-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 14px;
+        padding: 12px 14px;
+      }
+      .video-nav-links { gap: 10px; flex-wrap: wrap; justify-content: center; }
+      .video-nav-links a { font-size: 10px; letter-spacing: 1px; padding: 6px 2px; min-height: 36px; display: inline-flex; align-items: center; }
+      .video-nav-logo { font-size: 11px; letter-spacing: 2px; order: -1; width: 100%; text-align: center; }
+      .page-head { gap: 10px; }
+    }
+
     /* ─── Tablet breakpoint ────────────────────────── */
     @media (max-width: 768px) {
       body { padding: 0 0 60px; }
