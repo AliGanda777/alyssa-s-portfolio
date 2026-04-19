@@ -231,7 +231,8 @@ window.addEventListener('DOMContentLoaded', () => {
   let currentTheme = 'light';
   try {
     currentTheme = localStorage.getItem('theme') || 'light';
-  } catch (_error) {
+  } catch (error) {
+    console.warn('Theme preference could not be read from localStorage:', error);
     currentTheme = 'light';
   }
   document.body.classList.toggle('dark-mode', currentTheme === 'dark');
@@ -243,8 +244,8 @@ window.addEventListener('DOMContentLoaded', () => {
       const newTheme = isDark ? 'dark' : 'light';
       try {
         localStorage.setItem('theme', newTheme);
-      } catch (_error) {
-        // Ignore storage failures (private mode / blocked storage)
+      } catch (error) {
+        console.warn('Theme preference could not be saved to localStorage:', error);
       }
       updateThemeIcon(newTheme);
     });
