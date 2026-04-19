@@ -1635,3 +1635,23 @@ html, body { overflow-x: hidden; }
     min-height: 44px;
   }
 }
+
+/* Step 3: stack contact Send button on tiny phones so it never clips */
+@media (max-width: 420px) {
+  .contact-box-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .contact-icon-row { justify-content: center; }
+  .send-btn { width: 100%; }
+}
+
+/* Step 4: respect iPhone notch and Android status bar safe areas */
+@supports (padding: max(0px)) {
+  .site-header {
+    padding-left: max(24px, env(safe-area-inset-left));
+    padding-right: max(24px, env(safe-area-inset-right));
+  }
+  .footer { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
+}
