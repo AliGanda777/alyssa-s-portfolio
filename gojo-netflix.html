@@ -306,39 +306,41 @@
       .billboard-content { padding: 0 0 60px 5%; max-width: 100%; }
       .billboard-title { font-size: clamp(2.5rem, 12vw, 4.5rem); letter-spacing: 2px; }
       .billboard-desc { font-size: 11px; letter-spacing: 0.5px; }
-      .gallery-section { padding: 200px 0 0; gap: 10px; }
+      .gallery-section { padding: 24px 0 0; gap: 14px; height: auto; min-height: 0; }
       .gallery-row { gap: 10px; }
       .gallery-box { width: 200px; height: 125px; }
-      .gallery-info-box { top: 16px; left: 16px; right: 16px; max-width: calc(100% - 32px); padding: 14px; }
+      .gallery-info-box {
+        position: static;
+        max-width: 100%;
+        margin: 0 16px 20px;
+        padding: 18px;
+      }
       .gallery-info-box h3 { font-size: 28px; letter-spacing: 3px; margin-bottom: 8px; }
-      .gallery-info-box p { font-size: 10px; line-height: 1.6; }
+      .gallery-info-box p { font-size: 11px; line-height: 1.7; margin-bottom: 10px; }
+      .gallery-info-box p:last-child { margin-bottom: 0; }
       .nf-footer { padding: 30px 4%; text-align: center; }
     }
 
     @media (max-width: 520px) {
       .top-bar { padding: 10px 4%; }
-      .top-nav-links { gap: 10px; }
-      .top-nav-links a { font-size: 10px; }
       .billboard { min-height: 450px; height: auto; padding-top: 120px; }
       .billboard-title { font-size: clamp(2.2rem, 13vw, 3.6rem); letter-spacing: 1.5px; }
       .billboard-content { padding: 0 0 40px 5%; }
-      .gallery-section { padding: 160px 0 0; min-height: 380px; }
+      .gallery-section { padding: 20px 0 0; min-height: 0; }
       .gallery-box { width: 170px; height: 106px; }
-      .gallery-info-box { padding: 12px; top: 12px; left: 12px; right: 12px; }
+      .gallery-info-box { padding: 16px; margin: 0 12px 18px; }
       .gallery-info-box h3 { font-size: 24px; letter-spacing: 2px; }
-      .gallery-info-box p { font-size: 9px; }
+      .gallery-info-box p { font-size: 11px; line-height: 1.7; }
     }
 
     @media (max-width: 380px) {
-      .top-nav-links { gap: 8px; }
-      .top-nav-links a { font-size: 9px; letter-spacing: 0.5px; }
       .top-socials a { width: 36px; height: 36px; }
       .billboard { min-height: 400px; }
       .billboard-title { font-size: clamp(1.9rem, 13vw, 3rem); letter-spacing: 1px; }
       .billboard-desc { font-size: 10px; }
       .gallery-box { width: 140px; height: 88px; }
       .gallery-info-box h3 { font-size: 20px; letter-spacing: 1.5px; }
-      .gallery-info-box p { font-size: 9px; line-height: 1.5; }
+      .gallery-info-box p { font-size: 10px; line-height: 1.65; }
       .nf-footer-copy { font-size: 10px; }
     }
 
