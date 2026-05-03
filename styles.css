@@ -665,6 +665,7 @@ body.dark-mode .hero-photo:hover {
   overflow: hidden;
   background: #000;
   pointer-events: none;
+  --iframe-scale: 0.25;
 }
 
 .web-design-frame {
@@ -709,7 +710,7 @@ body.dark-mode .hero-photo:hover {
 }
 
 .web-design-card:hover .web-design-frame {
-  transform: translateX(-50%) scale(0.40);
+  transform: translateX(-50%) scale(0.30);
   filter: saturate(1);
 }
 .web-design-card:hover .web-design-peek {
@@ -1509,7 +1510,7 @@ img { max-width: 100%; height: auto; }
   .project-grid { grid-template-columns: 1fr; }
   .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .leadership-grid { grid-template-columns: 1fr; }
-  .web-design-preview { --iframe-scale: 0.30; }
+  .web-design-preview { --iframe-scale: 0.22; }
 }
 
 /* ── Small phone (≤ 380px) ────────────────────────────────── */
@@ -1541,7 +1542,7 @@ img, video, iframe { max-width: 100%; }
   .ai-eye-wrap { width: 54px; height: 54px; }
   .ai-pupil { width: 26px; height: 26px; }
   .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .web-design-preview { --iframe-scale: 0.34; }
+  .web-design-preview { --iframe-scale: 0.24; }
 }
 
 /* ── Phone (≤ 600px) ─────────────────────────────────────── */
@@ -1574,7 +1575,7 @@ img, video, iframe { max-width: 100%; }
 
 /* ── Small phone (≤ 480px) ───────────────────────────────── */
 @media (max-width: 480px) {
-  .web-design-preview { --iframe-scale: 0.28; aspect-ratio: 16 / 12; }
+  .web-design-preview { --iframe-scale: 0.20; aspect-ratio: 16 / 12; }
   .web-design-caption h3 { font-size: 1.1rem; }
   .web-design-caption { padding: 14px 16px 18px; }
   .nav-links { gap: 10px; font-size: 0.82rem; }
@@ -1610,7 +1611,7 @@ img, video, iframe { max-width: 100%; }
   .site-header { padding: 10px 12px; }
   .nav-links { gap: 8px; font-size: 0.75rem; }
   .logo { font-size: 0.85rem; }
-  .web-design-preview { --iframe-scale: 0.25; aspect-ratio: 16 / 13; }
+  .web-design-preview { --iframe-scale: 0.18; aspect-ratio: 16 / 13; }
   .section { padding: 40px 14px; }
   .project-card { padding: 16px; }
   .quote-3d { max-width: 180px; height: 180px; }
