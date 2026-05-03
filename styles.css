@@ -669,14 +669,14 @@ body.dark-mode .hero-photo:hover {
 
 .web-design-frame {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
   width: 1440px;
   height: 900px;
   max-width: none;
   border: none;
-  transform: scale(var(--iframe-scale, 0.35));
-  transform-origin: 0 0;
+  transform: translate(-50%, -50%) scale(var(--iframe-scale, 0.35));
+  transform-origin: center center;
   pointer-events: none;
   transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease;
   filter: saturate(0.9);
@@ -709,7 +709,7 @@ body.dark-mode .hero-photo:hover {
 }
 
 .web-design-card:hover .web-design-frame {
-  transform: scale(0.40);
+  transform: translate(-50%, -50%) scale(0.40);
   filter: saturate(1);
 }
 .web-design-card:hover .web-design-peek {
